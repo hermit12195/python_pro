@@ -1,6 +1,6 @@
 def calculate_circle_area(radius):
-    square = 3.14 * (radius ** 2)
-    print(f'The square is: {square}')
+    area = 3.14 * (radius ** 2)
+    print(f'The square is: {area}')
 
 
 calculate_circle_area(float(input("Enter a radius: ")))
