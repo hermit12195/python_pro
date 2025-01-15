@@ -1,0 +1,26 @@
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+    def perimeter(self):
+        return self.width * 2 + self.height * 2
+
+    def is_square(self):
+        return self.width == self.height
+
+    def resize(self, new_width, new_height):
+        self.width = new_width
+        self.height = new_height
+
+
+circle = Rectangle(3, 2)
+print(f'The width of the rectangle is {circle.width} and the height is {circle.height}.')
+print(f'The area of the rectangle is {circle.area()}.')
+print(f'The perimeter of the rectangle is {circle.perimeter()}.')
+print(f'The rectangle is square: {circle.is_square()}.')
+circle.resize(2, 2)
+print(f'The new width of the rectangle is {circle.width} and the new height is {circle.height}.')
