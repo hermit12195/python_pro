@@ -1,6 +1,12 @@
-def calculate_circle_area(radius):
-    area = 3.14 * (radius ** 2)
-    print(f'The square is: {area}')
+def calculate_circle_area(radius: float) -> str:
+    """
+    Function that returns the area of the circle taking the radius as an argument.
+    :param radius: float
+        The radius of the circle. Must be a non-negative number.
+    :return: float
+        The area of the circle calculated as π * radius^2.
+    """
+    return f'The area is: {round((3.14 * (radius ** 2)), 2)}'
 
 
-calculate_circle_area(float(input("Enter a radius: ")))
+print(calculate_circle_area(float(input("Enter a radius: "))))
