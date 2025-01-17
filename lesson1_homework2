@@ -24,6 +24,7 @@ class Rectangle:
     resize(new_width: int, new_height: int):
         Sets the new width and height for the rectangle.
     """
+
     def __init__(self, width: int, height: int):
         """
         Initializes the new Rectangle object with a given width and height.
