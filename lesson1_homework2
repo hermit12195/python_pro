@@ -1,18 +1,67 @@
 class Rectangle:
-    def __init__(self, width, height):
+    """
+    Class that takes  the rectangle as an object and allows to manipulate with it.
+
+    Attributes:
+    __________
+    width: int
+        The width of the rectangle.
+
+    height: int
+        The height of the rectangle.
+
+    Methods:
+    _______
+    area() -> int:
+        Calculates and returns the area of the rectangle.
+
+    perimeter() -> int:
+        Calculates and returns the area of the rectangle.
+
+    is_square() -> bool:
+        Returns True if the rectangle is a square and False if it`s not.
+
+    resize(new_width: int, new_height: int):
+        Sets the new width and height for the rectangle.
+    """
+    def __init__(self, width: int, height: int):
+        """
+        Initializes the new Rectangle object with a given width and height.
+        :param width: int
+            The width of the rectangle.
+        :param height: int
+            The width of the rectangle.
+        """
         self.width = width
         self.height = height
 
-    def area(self):
+    def area(self) -> int:
+        """
+        Returns the area of the rectangle.
+        :return: int
+        """
         return self.width * self.height
 
-    def perimeter(self):
+    def perimeter(self) -> int:
+        """
+        Returns the perimeter of the rectangle.
+        :return: int
+        """
         return self.width * 2 + self.height * 2
 
-    def is_square(self):
+    def is_square(self) -> bool:
+        """
+        Identifies if the rectangle is a square.
+        :return: bool
+        """
         return self.width == self.height
 
-    def resize(self, new_width, new_height):
+    def resize(self, new_width: int, new_height: int):
+        """
+        Sets the new width and height for the rectangle.
+        :param new_width: int
+        :param new_height: int 
+        """
         self.width = new_width
         self.height = new_height
 
