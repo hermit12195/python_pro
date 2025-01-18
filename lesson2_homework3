@@ -1,0 +1,20 @@
+def analyze_module(module):
+    """
+    Function takes a module as an argument and returns the module`s functions and classes.
+    :param module: module name
+    :return: module`s functions and classes
+    """
+    print("Функції:")
+    for name, data in inspect.getmembers(module):
+        if not name.startswith("__"):
+            try:
+                signature = inspect.signature(getattr(module, name))
+                print(f"{name}: {str(signature).replace(", /", "")}")
+            except:
+                print(name)
+    print("\nКласи:")
+    for name, data in inspect.getmembers(module, inspect.isclass):
+        if not name.startswith("__"):
+            print(name)
+        else:
+            print("- <немає класів у модулі>")
