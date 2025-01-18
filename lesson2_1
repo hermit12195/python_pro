@@ -1,0 +1,12 @@
+def analyze_obj(obj):
+    """
+    The function takes an object and prints out the type of the object, the object`s attributes and methods and their
+    types.
+    :param obj: any object
+    :return: object`s type, object`s attributes and methods and their types.
+    """
+    print(f"Тип об'єкта: {type(obj)}")
+    print("Атрибути і методи:")
+    for i in dir(obj):
+        if not i.startswith("__"):
+            print(f"- {i}: {type(getattr(obj, i))}")
