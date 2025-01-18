@@ -1,4 +1,4 @@
-def call_function(obj, method_name, *args):
+def call_function(obj, method_name: str, *args):
     """
     The function takes an object, it`s method and argument(s) for the method. As a result, it returns the output of the 
     method executed. 
