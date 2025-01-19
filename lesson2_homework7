@@ -1,0 +1,23 @@
+def outer(input_class):
+    """
+    The decorator logs all methods used by the taken class.
+    :param input_class: class
+    :return: logs
+    """
+    for name, value, in input_class.__dict__.items():
+        if callable(value):
+            print(f"{name}: {value}")
+            method=value
+            method_name = name
+            def wrapper(self,*args):
+                """
+                The function provides the logs for the methods used.
+                :param self: method
+                :param args: non-keyword arguments
+                :return: logs
+                """
+                method(self,*args)
+                print(f"Logging: {method_name} called with {args}")
+            setattr(input_class, name, wrapper)
+
+    return input_class
