@@ -1,0 +1,9 @@
+def create_class(class_name, methods):
+    """
+    The function takes create the class with class name and methods specified.
+    :param class_name: str
+    :param methods: dict
+    :return: class
+    """
+    class_obj=type(class_name, (object,), methods)
+    return class_obj
