@@ -1,0 +1,41 @@
+class Proxy():
+    """
+    The class takes an object as input and forwards calls to the methods of the object, additionally logging the calls.
+
+    Methods:
+    _______
+    __init__(obj)
+        Takes and initializes an object.
+
+    __getattr__(name)
+        Looks for the method in the object`s attributes, if it`s not found in the class` attributes.
+
+    wrapper(*args)
+        Forwards the calls to the methods of the object, additionally logging the calls.
+    """
+    def __init__(self, obj):
+        """
+        Takes and initializes an object.
+        :param obj: object
+        """
+        self.obj = obj
+
+    def __getattr__(self, name):
+        """
+        Looks for the method in the object`s attributes, if it`s not found in the class` attributes.
+        :param name: method
+        :return: object`s method
+        """
+        attribute = getattr(self.obj, name)
+
+        if callable(attribute):
+            def wrapper(*args):
+                """
+                Forwards the calls to the methods of the object, additionally logging the calls.
+                :param args: *args
+                :return: method`s output
+                """
+                print("Сalling method:")
+                print(f"{name} with agrs: {args}")
+                return attribute(*args)
+            return wrapper
