@@ -1,0 +1,22 @@
+class DynamicProperties:
+    """
+    The class dynamically adds the properties via methods.
+    
+    Methods:
+    _______
+    add_property(name, value)
+        The function sets the mew property.
+    """
+    def add_property(self, name, value):
+        self.properties = {}
+        self.properties[name] = value
+
+        def get_attr(self):
+            return self.properties[name]
+
+        # Define setter
+        def set_attr(self, value):
+            self.properties[name] = value
+
+        # Attach the property dynamically
+        setattr(self.__class__, name, property(get_attr, set_attr))
