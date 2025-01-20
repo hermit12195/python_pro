@@ -1,0 +1,14 @@
+def analyze_inheritance(cls):
+    """
+    The function takes a class as an argument and outputs the methods inherited from the parent class.
+    :param cls: class
+    :return: inherited methods
+    """
+    list_w_methods=[]
+    for i in inspect.getmembers(cls, inspect.isfunction):
+        method=i[1].__qualname__
+        list_w_methods.append([method.split(".")[0],method.split(".")[1]])
+    print(f"Клас {cls.__name__} наслідує:")
+    for el in list_w_methods:
+        if el[0] != cls.__name__:
+            print(f"- {el[1]} з {el[0]}")
