@@ -1,0 +1,14 @@
+class SingletonMeta(type):
+    """
+    The metaclass guarantees that the class taken can create only one instance.
+    Methods:
+    _______
+    __call__(*args, **kwargs)
+        Checks if the instance created already exists in the dictionary and if not, creates a new instance. 
+    """
+    objects = {}
+    
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls.objects:
+            cls.objects[cls] = super(SingletonMeta, cls).__call__(*args, **kwargs)
+        return cls.objects[cls]
