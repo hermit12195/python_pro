@@ -1,0 +1,74 @@
+from math import gcd
+
+
+class Fraction:
+    """
+    The Class provides the ability to add, subtract, multiply and divide the objects of the class.
+    Methods:
+    _______
+
+    __add__(other)
+        Perform adding with objects.
+    __sub__(other)
+        Perform subtracting with objects.
+    __mul__(other)
+        Perform multiplying with objects.
+    __truediv__(other)
+        Perform dividing with objects.
+    __repr__()
+        Represent the objects in a form of "numerator/denominator".
+    """
+    def __init__(self, value):
+        self.value = value
+
+    def __add__(self, other):
+        """
+        Perform adding with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value + other.value
+
+    def __sub__(self, other):
+        """
+        Perform subtracting with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value - other.value
+
+    def __mul__(self, other):
+        """
+        Perform multiplying with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value * other.value
+
+    def __truediv__(self, other):
+        """
+        Perform dividing with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value / other.value
+
+    def __repr__(self):
+        """
+        Represent the objects in a form of "numerator/denominator".
+        :return: int/int
+        """
+        if isinstance(self.value, int):
+            numerator = self.value
+            denominator = 1
+            common_divisor = gcd(numerator, denominator)
+            numerator //= common_divisor
+            denominator //= common_divisor
+        elif isinstance(self.value, float):
+            num_of_digits = len(str(self.value).split(".")[1])
+            numerator = int(self.value * (10 ** num_of_digits))
+            denominator = 10 ** num_of_digits
+            common_divisor = gcd(numerator, denominator)
+            numerator //= common_divisor
+            denominator //= common_divisor
+        return f"The object has value {numerator}/{denominator}"
