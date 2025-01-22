@@ -1,0 +1,74 @@
+class Vector:
+    """
+     The Class provides the ability to add, subtract, multiply, compare the objects of the class and find  the vector
+     length.
+     Methods:
+     _______
+
+     __add__(other)
+         Perform adding with objects.
+     __sub__(other)
+         Perform subtracting with objects.
+     __mul__(other)
+         Perform multiplying with objects.
+     __lt__(other)
+         Compare if an object is smaller than another one.
+     __eq__()
+         Compare if objects are equal.
+     vector_length(other)
+        Find the vector length.
+     """
+
+    def __init__(self, value):
+        if isinstance(value, int) or isinstance(value, float):
+            self.value = value
+        else:
+            raise ValueError("The class takes only objects of types int and float.")
+
+    def __add__(self, other):
+        """
+        Perform adding with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value + other.value
+
+    def __sub__(self, other):
+        """
+        Perform subtracting with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value - other.value
+
+    def __mul__(self, other):
+        """
+        Perform multiplying with objects.
+        :param other: another object
+        :return: int or float
+        """
+        return self.value * other.value
+
+    def __lt__(self, other):
+        """
+        Compare if an object is smaller than another one.
+        :param other: another object
+        :return: bool
+        """
+        return self.value < other.value
+
+    def __eq__(self, other):
+        """
+        Compare if objects are equal.
+        :param other: another object
+        :return: bool
+        """
+        return self.value == other.value
+
+    def vector_length(self, other):
+        """
+        Find the vector length.
+        :param other: int or float
+        :return: int or float
+        """
+        return (self.value ** 2 + other ** 2) ** 0.5
