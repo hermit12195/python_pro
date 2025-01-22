@@ -1,0 +1,49 @@
+class BinaryNumber:
+    def __init__(self, value):
+        if not isinstance(value, int):
+            raise ValueError(f"The class accepts only integers.")
+        self.value = value
+
+    def __and__(self, other):
+        return self.value & other.value
+
+    def __or__(self, other):
+        return self.value | other.value
+
+    def __xor__(self, other):
+        return self.value ^ other.value
+
+    def __invert__(self):
+        return -(self.value+1)
+
+
+for function in dir(BinaryNumber):
+    test_obj1 = 1
+    test_obj2 = 2
+    if function == "__and__":
+        obj1 = BinaryNumber(test_obj1)
+        obj2 = BinaryNumber(test_obj2)
+        if (obj1 & obj2) == (test_obj1 & test_obj2):
+            print("__and__ function is verified successfully!")
+        else:
+            print("__and__ function is not verified!")
+    elif function == "__or__":
+        obj1 = BinaryNumber(test_obj1)
+        obj2 = BinaryNumber(test_obj2)
+        if (obj1 | obj2) == (test_obj1 | test_obj2):
+            print("__or__ function is verified successfully!")
+        else:
+            print("__or__ function is not verified!")
+    elif function == "__xor__":
+        obj1 = BinaryNumber(test_obj1)
+        obj2 = BinaryNumber(test_obj2)
+        if (obj1 ^ obj2) == (test_obj1 ^ test_obj2):
+            print("__xor__ function is verified successfully!")
+        else:
+            print("__xor__ function is not verified!")
+    elif function == "__invert__":
+        obj1 = BinaryNumber(test_obj1)
+        if ~obj1 == ~test_obj1:
+            print("__invert__ function is verified successfully!")
+        else:
+            print("__invert__ function is not verified!")
