@@ -68,7 +68,7 @@ class Fraction:
             common_divisor = gcd(numerator, denominator)
             numerator //= common_divisor
             denominator //= common_divisor
-        elif isinstance(self.value, float):
+        else:
             num_of_digits = len(str(self.value).split(".")[1])
             numerator = int(self.value * (10 ** num_of_digits))
             denominator = 10 ** num_of_digits
