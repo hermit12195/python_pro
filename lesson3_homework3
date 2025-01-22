@@ -1,0 +1,63 @@
+class Person:
+    """
+    The Class creates a new object with parameters 'name' and 'age' and allows to compare the 'age' parameter within
+    different objects.
+    Methods:
+    _______
+
+    __lt__(other):
+        Compares if the 'age' parameter of one object is smaller than another`s one.
+    __eq__(other):
+        Compares if the 'age' parameter of objects are equal.
+    __gt__(other):
+        Compares if the 'age' parameter of one object is greater than another`s one.
+    """
+    object_dict = {}
+
+    def __init__(self, name: str, age: int):
+        if isinstance(name, str) and isinstance(age, int):
+            if name in Person.object_dict.keys():
+                raise ValueError(f"The name '{name}' is already used, please provide another one.")
+            elif age < 1:
+                raise ValueError(f"Parameter <age> should be larger than '0'.")
+            else:
+                Person.object_dict[name] = age
+                self.name = name
+                self.age = age
+        else:
+            raise ValueError(
+                f"Parameter <name> should be of string type and parameter <age> should be of integer type.")
+
+    def __lt__(self, other: int):
+        """
+        Compares if the 'age' parameter of one object is smaller than another`s one.
+        :param other: int
+        :return: bool
+        """
+        return self.age < other.age
+
+    def __eq__(self, other: int):
+        """
+        Compares if the 'age' parameter of objects are equal.
+        :param other: int
+        :return: bool
+        """
+        return self.age == other.age
+
+    def __gt__(self, other: int):
+        """
+        Compares if the 'age' parameter of one object is greater than another`s one.
+        :param other: int
+        :return: bool
+        """
+        return self.age > other.age
+
+    def __str__(self):
+        return f"name: {self.name}, age: {self.age}"
+
+
+p1 = Person("Person1", 20)
+p2 = Person("Person2", 30)
+
+for el in sorted(Person.object_dict.items(), key=lambda item: item[1]):
+    print(*el)
