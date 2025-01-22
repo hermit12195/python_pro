@@ -19,7 +19,11 @@ class Fraction:
         Represent the objects in a form of "numerator/denominator".
     """
     def __init__(self, value):
-        self.value = value
+        if isinstance(value, int) or isinstance(value, float):
+            self.value = value
+        else:
+            raise ValueError(f"The class takes only objects of int and float types")
+
 
     def __add__(self, other):
         """
