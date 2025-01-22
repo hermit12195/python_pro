@@ -1,8 +1,21 @@
 class MyClass:
+    """
+    The class realizes the functions len(), sum() and min().
+    Methods:
+
+    __len__() -> int
+        Provides the length of the string.
+    __iter__()
+        Provides the minimal number in the collection and sum of numbers in the collection.
+    """
     def __init__(self, value):
         self.value = value
 
-    def __len__(self):
+    def __len__(self) -> int:
+        """
+        Provides the length of the string.
+        :return: int
+        """
         if not isinstance(self.value, str):
             raise ValueError("Unsupported type of object, the len() supports only strings.")
         else:
@@ -12,6 +25,10 @@ class MyClass:
             return count
 
     def __iter__(self):
+        """
+        Provides the minimal number in the collection and sum of numbers in the collection.
+        :return: int or float
+        """
         if isinstance(self.value, list) or isinstance(self.value, set) or isinstance(self.value, tuple):
             return iter(self.value)
         else:
@@ -19,6 +36,12 @@ class MyClass:
 
 
 def test_functions(string_object: str, iterable_collection):
+    """
+    The function validates the class` functions len(), sum() and min().
+    :param string_object: str
+    :param iterable_collection: list, tuple or set
+    :return: int or float
+    """
     test_string_object = MyClass(string_object)
     test_iterable_collection = MyClass(iterable_collection)
     if len(test_string_object) == len(string_object):
@@ -29,4 +52,4 @@ def test_functions(string_object: str, iterable_collection):
         print("min() function is validated successfully!")
 
 
-test_functions("test", (1, 2, 3, 54, 0))
+test_functions("test", (1, 2, 3, 54, 0.5))
