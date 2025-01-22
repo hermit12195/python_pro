@@ -1,0 +1,32 @@
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def __len__(self):
+        if not isinstance(self.value, str):
+            raise ValueError("Unsupported type of object, the len() supports only strings.")
+        else:
+            count = 0
+            for el in self.value:
+                count += 1
+            return count
+
+    def __iter__(self):
+        if isinstance(self.value, list) or isinstance(self.value, set) or isinstance(self.value, tuple):
+            return iter(self.value)
+        else:
+            raise ValueError("Unsupported type of object, the sum() supports only integers.")
+
+
+def test_functions(string_object: str, iterable_collection):
+    test_string_object = MyClass(string_object)
+    test_iterable_collection = MyClass(iterable_collection)
+    if len(test_string_object) == len(string_object):
+        print("len() function is validated successfully!")
+    if sum(test_iterable_collection) == sum(iterable_collection):
+        print("sum() function is validated successfully!")
+    if min(test_iterable_collection) == min(iterable_collection):
+        print("min() function is validated successfully!")
+
+
+test_functions("test", (1, 2, 3, 54, 0))
