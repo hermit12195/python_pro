@@ -1,0 +1,91 @@
+class Vector:
+    """
+    The class allows to create the Vector with specified number of components. Also, it`s possible to perform adding of
+    vectors, subtracting of vectors, calculate the dot product of vectors and compare them with each other.
+    Methods:
+    _______
+
+    value(*args)
+        Specify the values for the components.
+    __add__(other)
+        Perform adding of vectors.
+    __sub__(other)
+        Perform subtracting of vectors.
+    __mul__(other)
+        Perform multiplying of vectors.
+    __eq__(other)
+        Compare vectors by their length.
+    """
+    def __init__(self, number_of_components):
+        self.number_of_components = number_of_components
+
+    def value(self, *args) -> tuple:
+        """
+        Specify the values for the components.
+        :param args: int or float
+        :return: tuple
+        """
+        if len(args) != self.number_of_components:
+            raise ValueError(
+                f"Unexpected number of values for components. \n Expected: {self.number_of_components} \n Got: {len(args)}")
+        else:
+            self.components = args
+            return self.components
+
+    def __add__(self, other):
+        """
+        Perform adding of vectors.
+        :param other: another object
+        :return: list
+        """
+        if len(self.components) != len(other.components):
+            raise ValueError(f"The quantity of components in vectors does not match!")
+        else:
+            result = []
+            for el1, el2 in zip(self.components, other.components):
+                result.append(el1 + el2)
+            return f"The result of adding two vectors is:{result}"
+
+    def __sub__(self, other):
+        """
+        Perform subtracting of vectors.
+        :param other: another object
+        :return: list
+        """
+        if len(self.components) != len(other.components):
+            raise ValueError(f"The quantity of components in vectors does not match!")
+        else:
+            result = []
+            for el1, el2 in zip(self.components, other.components):
+                result.append(el1 - el2)
+            return f"The result of adding two vectors is:{result}"
+
+    def __mul__(self, other):
+        """
+        Perform multiplying of vectors.
+        :param other: another object
+        :return: int or float
+        """
+        if len(self.components) != len(other.components):
+            raise ValueError(f"The quantity of components in vectors does not match!")
+        else:
+            result = 0
+            for el1, el2 in zip(self.components, other.components):
+                result += (el1 * el2)
+            return f"The result of adding two vectors is: {result}"
+
+    def __eq__(self, other) -> bool:
+        """
+        Compare vectors by their length.
+        :param other: another object
+        :return: bool
+        """
+        result1 = 0
+        result2 = 0
+        for el in self.components:
+            result1 += el ** 2
+            result1 **= 0.5
+        for el in other.components:
+            result2 += el ** 2
+            result2 **= 0.5
+        return result1 == result2
