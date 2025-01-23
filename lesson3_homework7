@@ -1,7 +1,7 @@
 class Vector:
     """
     The class allows to create the Vector with specified number of components. Also, it`s possible to perform adding of
-    vectors, subtracting of vectors, calculating the dot product of vectors and comparing them with each other.
+    vectors, subtracting of vectors, calculate the dot product of vectors and compare them with each other.
     Methods:
     _______
 
@@ -83,8 +83,6 @@ class Vector:
         result1 = 0
         result2 = 0
         for el1, el2 in zip(self.components, other.components):
-            result1 += el1 ** 2
-            result1 **= 0.5
-            result2 += el2 ** 2
-            result2 **= 0.5
+            result1 += (el1 ** 2)**0.5
+            result2 += (el2 ** 2)**0.5
         return result1 == result2
