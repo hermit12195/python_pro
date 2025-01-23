@@ -1,0 +1,87 @@
+import re
+
+
+class User:
+    """
+    The Class provides to get the attributes of the object via properties and validate the email address.
+    Methods:
+    ______
+
+    first_name()
+        Get first name of the object.
+    first_name(new_first_name)
+        Set new first name for the object.
+    last_name()
+        Get last name of the object.
+    last_name(new_last_name)
+        Set new last name for the object.
+    email()
+        Get last name of the email.
+    email(new_email)
+        Set new email for the object.
+    check_email(new_email)
+        Validate an email address.
+    """
+    def __init__(self, first_name: str, last_name: str, email: str):
+        self.__first_name = first_name
+        self.__last_name = last_name
+        self.__email = email
+
+    @property
+    def first_name(self) -> str:
+        """
+        Get first name of the object.
+        :return: str
+        """
+        return self.__first_name
+
+    @first_name.setter
+    def first_name(self, new_first_name: str):
+        """
+        Set new first name for the object.
+        :param new_first_name: str
+        """
+        self.__first_name = new_first_name
+
+    @property
+    def last_name(self) -> str:
+        """
+        Get last name of the object.
+        :return: str
+        """
+        return self.__last_name
+
+    @last_name.setter
+    def last_name(self, new_last_name: str):
+        """
+        Set new last name for the object.
+        :param new_last_name: str
+        """
+        self.__last_name = new_last_name
+
+    @property
+    def email(self) -> str:
+        """
+        Get last name of the email.
+        :return: str
+        """
+        return self.__email
+
+    @email.setter
+    def email(self, new_email: str):
+        """
+        Set new email for the object.
+        :param new_email: STR
+        """
+        self.__email = new_email
+
+    def check_email(self, new_email: str) -> str:
+        """
+        Validate an email address.
+        :param new_email: str
+        :return: str
+        """
+        if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', new_email):
+            return "The email address is validated!"
+        else:
+            return "The email address contains structure mistakes!"
