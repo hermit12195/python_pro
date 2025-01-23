@@ -1,0 +1,81 @@
+class PriceDescriptor:
+    """
+    The descriptor rounds the product price to 2 digits after dot.
+    Methods:
+    _______
+    __get__(instance, owner)
+        Returns modified product price.
+    __set__(instance, value)
+    Rounds the product price to 2 digits after dot.
+    """
+    def __get__(self, instance, owner):
+        """
+        Returns modified product price.
+        :param instance: object
+        :param owner: class
+        :return: int or float
+        """
+        return instance.__dict__.get("product_price")
+
+    def __set__(self, instance, value):
+        """
+        Rounds the product price to 2 digits after dot.
+        :param instance: object
+        :param value: class
+        """
+        instance.__dict__["product_price"] = round(value, 2)
+
+
+class Price:
+    """
+    The class allows to perform adding of objects, subtracting of products and comparing objects based on their price.
+    Methods:
+    _______
+    
+    __add__(other)
+        Perform adding of products based on their price.
+    __sub__(other)
+        Perform subtracting of products based on their price.
+    __eq__(other)
+        Compare if products are equal based on their price.
+    __lt__(other)
+        Compare if any of products is greater based on its price.
+    """
+    product_price = PriceDescriptor()
+
+    def __init__(self, product_name, product_price):
+        self.product_name = product_name
+        self.product_price = product_price
+
+    def __add__(self, other):
+        """
+        Perform adding of products based on their price.
+        :param other: another objects
+        :return: int or float
+        """
+        return self.product_price + other.product_price
+
+    def __sub__(self, other):
+        """
+        Perform subtracting of products based on their price.
+        :param other: another objects
+        :return: int or float
+        """
+        return self.product_price - other.product_price
+
+    def __eq__(self, other):
+        """
+        Compare if products are equal based on their price.
+        :param other: another objects
+        :return: bool
+        """
+        return self.product_price == other.product_price
+
+    def __gt__(self, other):
+        """
+        Compare if any of products is greater based on its price.
+        :param other: another objects
+        :return: bool 
+        """
+        return self.product_price > other.product_price
+
