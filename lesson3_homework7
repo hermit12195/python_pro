@@ -82,10 +82,9 @@ class Vector:
         """
         result1 = 0
         result2 = 0
-        for el in self.components:
-            result1 += el ** 2
+        for el1, el2 in zip(self.components, other.components):
+            result1 += el1 ** 2
             result1 **= 0.5
-        for el in other.components:
-            result2 += el ** 2
+            result2 += el2 ** 2
             result2 **= 0.5
         return result1 == result2
