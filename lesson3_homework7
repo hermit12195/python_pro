@@ -1,7 +1,7 @@
 class Vector:
     """
     The class allows to create the Vector with specified number of components. Also, it`s possible to perform adding of
-    vectors, subtracting of vectors, calculate the dot product of vectors and compare them with each other.
+    vectors, subtracting of vectors, calculating the dot product of vectors and comparing them with each other.
     Methods:
     _______
 
