@@ -109,6 +109,40 @@ class PriceDescriptor:
             instance.__dict__["price"] = round(value, 2)
 
 
+class CurrencyDescriptor:
+    """
+    The descriptor checks if the currency is 'EUR' and if so exchanges the sum to USD.
+    Methods:
+
+    __get__(instance, owner)
+        Returns the price of the product.
+    __set__(instance, value)
+        Checks if the currency is 'EUR' and if so exchanges the sum to USD.
+    """
+
+    def __get__(self, instance, owner):
+        """
+        Returns the price of the product.
+        :param instance: object
+        :param owner: class
+        :return: float
+        """
+        return instance.__dict__.get("price")
+
+    def __set__(self, instance, value):
+        """
+        Checks in the price is greater than '0'.
+        :param instance: object
+        :param value: float
+        """
+        if instance.currency == "EUR":
+            value /= 1.04
+            instance.__dict__["price"] = round(value, 2)
+            instance.currency = "USD"
+        else:
+            instance.__dict__["price"] = round(value, 2)
+
+
 class ProductWithDescriptor:
     """
     The class provides the ability to change the price of the product.
@@ -119,9 +153,11 @@ class ProductWithDescriptor:
         Sets the new price for the product.
     """
     price = PriceDescriptor()
+    price = CurrencyDescriptor()
 
-    def __init__(self, name: str, price: float):
+    def __init__(self, name: str, price: float, currency="USD"):
         self.name = name
+        self.currency = currency
         self.price = round(float(price), 2)
 
     def change_price(self, new_price: float):
@@ -130,6 +166,10 @@ class ProductWithDescriptor:
         :param new_price: float
         """
         self.price = new_price
+
+
+p1 = ProductWithDescriptor("dsf", 15, "EUR")
+print(p1.price)
 
 
 def test_classes():
