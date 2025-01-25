@@ -1,0 +1,11 @@
+def generator(file_name, key_word):
+    """
+    The generator iterates over all lines in the file and return only those that contain ket word.
+    :param file_name: str
+    :param key_word: str
+    :return: str
+    """
+    with open(file_name,"r") as fo:
+        for line in fo:
+            if key_word in line:
+                yield line.strip()
