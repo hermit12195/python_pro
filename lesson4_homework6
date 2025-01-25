@@ -1,0 +1,46 @@
+class MyIterator:
+    """
+    An iterator for traversing files in a given directory and providing file details.
+
+    Attributes:
+        path (str): The path of the directory to iterate over.
+        length (int): The total number of files in the directory.
+        index (int): The current index of iteration.
+    """
+
+    def __init__(self, path):
+        """
+        Initializes the iterator with a directory path.
+
+        Args:
+            path (str): The path of the directory to iterate over.
+        """
+        self.path = path
+        self.length = len(os.listdir(self.path))
+        self.index = -1
+
+    def __iter__(self):
+        """
+        Returns the iterator object itself.
+
+        Returns:
+            MyIterator: The current instance of the iterator.
+        """
+        return self
+
+    def __next__(self):
+        """
+        Returns the next file's details in the directory.
+
+        Returns:
+            str: A formatted string with the file's name and size.
+
+        Raises:
+            StopIteration: If all files in the directory have been iterated over.
+        """
+        self.index += 1
+        if self.index < self.length:
+            file = os.listdir(self.path)[self.index]
+            return f"Name: {file} \nSize: {os.path.getsize(file)} bytes\n"
+        else:
+            raise StopIteration
