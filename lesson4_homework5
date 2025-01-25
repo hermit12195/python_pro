@@ -1,0 +1,63 @@
+class ContexManager:
+    """
+    A context manager for handling file operations with a limit.
+
+    Attributes:
+        file_name (str): The name of the file to open.
+    """
+
+    def __init__(self, file_name):
+        """
+        Initializes the context manager with a file name.
+
+        Args:
+            file_name (str): The name of the file to open.
+        """
+        self.file_name = file_name
+
+    def __enter__(self):
+        """
+        Opens the file for writing and sets the stop limit.
+
+        Returns:
+            tuple: A tuple containing the file object and a stop limit.
+        """
+        self._file = open(self.file_name, "w")
+        _stop = 100
+        return self._file, _stop
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Closes the file and prints a completion message.
+
+        Args:
+            exc_type (type): The exception type, if any.
+            exc_val (Exception): The exception value, if any.
+            exc_tb (traceback): The traceback, if any.
+        """
+        self._file.close()
+        print("The operation is completed!")
+
+
+def generator():
+    """
+    A generator that yields even numbers indefinitely.
+
+    Yields:
+        int: The next even number in the sequence.
+    """
+    value = 2
+    while True:
+        if value % 2 == 0:
+            yield value
+        value += 1
+
+
+with ContexManager("file.txt") as (file, stop):
+    count = 0
+    for el in generator():
+        if count < stop:
+            file.write(f"{str(el)}\n")
+            count += 1
+        else:
+            break
