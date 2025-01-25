@@ -48,9 +48,8 @@ def generator():
     """
     value = 2
     while True:
-        if value % 2 == 0:
-            yield value
-        value += 1
+        yield value
+        value += 2
 
 
 with ContexManager("file.txt") as (file, stop):
