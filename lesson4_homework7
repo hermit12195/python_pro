@@ -1,0 +1,17 @@
+def generator(file_to_read, file_to_write):
+    """
+    A generator function that reads lines from a file, filters them for HTTP error codes (4xx or 5xx), 
+    writes the matching lines to another file, and yields each matching line.
+
+    Args:
+        file_to_read (str): Path to the file to read from.
+        file_to_write (str): Path to the file to write matching lines to.
+
+    Yields:
+        str: Lines from the input file containing HTTP error codes (4xx or 5xx).
+    """
+    with open(file_to_read, "r") as fr, open(file_to_write, "w") as fw:
+        for line in fr:
+            if re.search("[4-5][0-9][0-9]", line):
+                fw.write(line)
+                yield line
