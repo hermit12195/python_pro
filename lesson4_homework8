@@ -1,0 +1,69 @@
+import difflib
+
+
+class ContexManager:
+    """
+    A context manager for comparing the contents of a file before and after changes,
+    and saving the differences to a new file using the unified diff format. \
+    It supports only .ini or .json formats of file.
+
+    Args:
+        original_file (str): Path to the original file that is to be compared.
+        file_to_save (str): Path to the file where differences will be saved.
+
+    Methods:
+        __enter__(self): Opens the original file and reads its contents into memory.
+        __exit__(self, exc_type, exc_val, exc_tb): Compares the original file to the modified file
+                                                   and writes the differences to the specified output file.
+    """
+
+    def __init__(self, original_file, file_to_save):
+        """
+        Initializes the context manager with paths to the original file and the file
+        where differences will be saved.
+
+        Args:
+            original_file (str): Path to the original file to be compared.
+            file_to_save (str): Path to the file where differences will be saved.
+        """
+        if (original_file.endswith(".ini") or original_file.endswith(".json")
+                and file_to_save.endswith(".ini") or file_to_save.endswith(".json")):
+            self.file_name = original_file
+            self.file_to_save = file_to_save
+        else:
+            raise ValueError(f"The Context manager supports only .ini or .json formats of file.")
+
+    def __enter__(self):
+        """
+        Opens the original file in read mode and stores its contents.
+
+        Returns:
+            None
+        """
+        self.file = open(self.file_name, "r")
+        self.original = self.file.readlines()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Compares the original file contents with the current file contents and writes the differences
+        to the output file in the unified diff format.
+
+        Args:
+            exc_type (type): The exception type, if any, raised in the `with` block.
+            exc_val (Exception): The exception instance, if any, raised in the `with` block.
+            exc_tb (traceback): The traceback object, if any, from the raised exception.
+
+        Returns:
+            None
+        """
+        self.file = open(self.file_name, "r")
+        modified = self.file.readlines()
+        with open(self.file_to_save, "w") as save:
+            diff = difflib.unified_diff(
+                self.original,
+                modified,
+                fromfile="Original File",
+                tofile="Modified File"
+            )
+            for line in diff:
+                save.write(line)
