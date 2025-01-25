@@ -1,0 +1,52 @@
+from PIL import Image
+import os
+import csv
+import os.path
+
+
+class MyIterator:
+    def __init__(self, directory, csv_file):
+        """
+        Initialize the iterator with the directory containing images and the CSV file to write to.
+
+        Args:
+            directory (str): Path to the directory containing image files.
+            csv_file (file object): The CSV file object to write the image metadata to.
+        """
+        self.directory = directory
+        self.index = 0
+        self.writer = csv.writer(csvfile)
+        self.writer.writerow(["Name", "Format", "Size", "Mode"])
+
+    def __iter__(self):
+        """
+        Return the iterator object itself.
+
+        Returns:
+            self (MyIterator): The iterator instance.
+        """
+        return self
+
+    def __next__(self):
+        """
+        Retrieve the next image's metadata from the directory and write to the CSV.
+
+        If all files have been processed, it raises StopIteration to signal the end of iteration.
+
+        Returns:
+            None
+        """
+        if self.index < len(os.listdir(self.directory)):
+            file = os.listdir(self.directory)[self.index]
+            image = Image.open(self.directory + "/" + file)
+            self.writer.writerow([file, image.format, image.size, image.mode])
+            self.index += 1
+        else:
+            return StopIteration
+
+
+with open("test.csv", "a", newline="") as csvfile:
+    obj = MyIterator("images", csvfile)
+    next(obj)
+    next(obj)
+    next(obj)
