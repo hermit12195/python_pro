@@ -1,0 +1,27 @@
+import uuid
+
+
+class MyIterator:
+    """
+    A custom iterator that generates a new UUID (version 4) on each iteration.
+
+    Methods:
+        __iter__():
+            Returns the iterator object itself.
+        __next__():
+            Generates and returns a new UUID (version 4) for each call.
+    """
+
+    def __iter__(self):
+        """
+        Returns:
+            MyIterator: The iterator object itself.
+        """
+        return self
+
+    def __next__(self):
+        """
+        Returns:
+            uuid.UUID: A new universally unique identifier (UUID version 4).
+        """
+        return uuid.uuid4()
