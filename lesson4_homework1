@@ -1,0 +1,47 @@
+class MyIterator:
+    """
+    A custom iterator to iterate through the lines of a file in reverse order.
+
+    Methods:
+        __iter__():
+            Returns the iterator object (self).
+        __next__():
+            Returns the next line from the file in reverse order. Raises StopIteration when all lines are exhausted.
+    """
+
+    def __init__(self, file):
+        """
+        Initializes the MyIterator object.
+
+        Args:
+            file (TextIOWrapper): The file object to be read.
+        """
+        self.file = file.readlines()
+        self.index = -1
+
+    def __iter__(self):
+        """
+        Returns:
+            MyIterator: The iterator object itself.
+        """
+        return self
+
+    def __next__(self):
+        """
+        Returns:
+            str: The next line in reverse order from the file.
+
+        Raises:
+            StopIteration: When all lines from the file have been iterated.
+        """
+        self.index += 1
+        while self.index < len(self.file):
+            return self.file[::-1][self.index]
+        else:
+            raise StopIteration
+
+
+with open("file.txt", "r") as fo:
+    obj = MyIterator(fo)
+    for el in obj:
+        print(el)
