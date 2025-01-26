@@ -1,0 +1,59 @@
+import os
+
+
+class Backup:
+    """
+    A context manager to create a backup of a file, restore it if an exception occurs,
+    and optionally save modifications if no exception is raised.
+
+    Attributes:
+        file_to_read (str): The name of the file to be backed up and managed.
+    """
+
+    def __init__(self, file_to_read):
+        """
+        Initializes the Backup class with the file to read.
+
+        Args:
+            file_to_read (str): The path to the file to be backed up.
+        """
+        self.file_to_read = file_to_read
+
+    def __enter__(self):
+        """
+        Creates a backup file when entering the context.
+
+        The backup is saved as `<file_to_read>_backup.txt`.
+        """
+        with open(f"{self.file_to_read}_backup.txt", "w") as backup, open(self.file_to_read, "r") as file_to_read:
+            for line in file_to_read:
+                backup.write(line)
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Cleans up or restores the file when exiting the context.
+
+        If no exception occurs:
+            - Deletes the backup file.
+            - Creates a modified file `<file_to_read>_modified.txt`.
+
+        If an exception occurs:
+            - Restores the original file from the backup.
+            - Deletes the backup file.
+
+        Args:
+            exc_type (type): The class of the exception.
+            exc_val (Exception): The exception instance raised, if any.
+            exc_tb (traceback): A traceback object with exception details.
+        """
+        if exc_val is None:
+            os.remove(f"{self.file_to_read}_backup.txt")
+            with open(f"{self.file_to_read}(1)", "w") as modified, open(self.file_to_read, "r") as file_to_read:
+                for line in file_to_read:
+                    modified.write(line)
+            os.remove(self.file_to_read)
+        else:
+            with open(f"{self.file_to_read}_backup.txt", "r") as backup, open(self.file_to_read, "w") as file_to_read:
+                for line in backup:
+                    file_to_read.write(line)
+            os.remove(f"{self.file_to_read}_backup.txt")
