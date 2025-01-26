@@ -1,0 +1,68 @@
+class ContexManager:
+    """
+    A context manager for reading a binary file in chunks of a specified size.
+    It allows you to open the file, read it in blocks, and then automatically
+    report the total number of bytes read when the context is exited.
+
+    Attributes:
+        bin_file (str): The name of the binary file to be read.
+        block_size (int): The size of each block (in bytes) to read from the file.
+
+    Methods:
+        __enter__(self):
+            Opens the binary file and reads it in chunks of the specified size.
+            Prints each chunk as it is read.
+            Calculates the total number of bytes read.
+
+        __exit__(self, exc_type, exc_val, exc_tb):
+            Prints the total number of bytes read once the file reading is complete.
+
+    """
+
+    def __init__(self, bin_file, block_size):
+        """
+        Initializes the context manager with the binary file name and block size.
+
+        Parameters:
+            bin_file (str): The name of the binary file to be read.
+            block_size (int): The size of each block (in bytes) to read from the file.
+        """
+        self.bin_file = bin_file
+        self.block_size = block_size
+
+    def __enter__(self):
+        """
+        Opens the binary file in read mode and reads it in blocks of the specified size.
+        Prints each chunk of data as it is read, and tracks the total number of bytes read.
+
+        Returns:
+            None: This method does not return a value, but sets the 'size' attribute
+            which keeps track of the total number of bytes read from the file.
+        """
+        file = open(self.bin_file, "rb")
+        size = 0
+        while True:
+            chunk = file.read(self.block_size)
+            if not chunk:
+                break
+            size += self.block_size
+            print(chunk)
+        self.size = size
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        When exiting the context, prints the total number of bytes read from the file.
+
+        Parameters:
+            exc_type (type): The exception type, if an exception was raised inside the block.
+            exc_val (Exception): The exception instance, if an exception was raised.
+            exc_tb (traceback): The traceback instance, if an exception was raised.
+
+        Returns:
+            None
+        """
+        print(f"The number of read bytes is {self.size}")
+
+
+with ContexManager("example.bin", 50):
+    pass
