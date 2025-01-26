@@ -1,0 +1,47 @@
+import zipfile
+import os
+
+
+class ContexManager:
+    """
+    A context manager to archive files in a specified directory into a ZIP file.
+
+    Attributes:
+        direction (str): The directory containing files to be archived.
+    """
+
+    def __init__(self, direction):
+        """
+        Initializes the ContexManager class with the directory to archive.
+
+        Args:
+            direction (str): The path to the directory whose files will be archived.
+        """
+        self.direction = direction
+
+    def __enter__(self):
+        """
+        Gathers all files in the specified directory and adds them to a ZIP archive.
+
+        The archive is named 'file_archive.zip' and is created in append mode. Only
+        regular files in the directory are included in the archive.
+        """
+        file_list = []
+        for file in os.listdir(self.direction):
+            if os.path.isfile(os.path.join(self.direction, file)):
+                file_list.append(os.path.join(self.direction, file))
+        with zipfile.ZipFile("file_archive.zip", "a") as myzip:
+            for file in file_list:
+                myzip.write(file)
+            self.myzip = myzip
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Ensures the ZIP file is properly closed upon exiting the context.
+
+        Args:
+            exc_type (type): The class of the exception.
+            exc_val (Exception): The exception instance raised, if any.
+            exc_tb (traceback): A traceback object with exception details.
+        """
+        zipfile.ZipFile.close(self.myzip)
