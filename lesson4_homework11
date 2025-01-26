@@ -1,0 +1,41 @@
+def generator(file_name):
+    """
+    Generator function that reads a file line by line and calculates the average
+    of numerical values in each line. The average is yielded after processing each
+    line, rounded to two decimal places.
+
+    Parameters:
+        file_name (str): The name of the file to be processed.
+
+    Yields:
+        float: The average of the numbers in the line, rounded to two decimal places.
+
+    Example:
+        for avg in generator("data.txt"):
+            print(avg)
+
+    Assumptions:
+        - The file contains lines formatted as 'key: value', where 'value' is a
+          comma-separated list of numbers.
+        - Each line contains at least one number after the colon.
+    """
+    with open(file_name, "r") as fo:
+        index = 0
+        for line in fo:
+            avg_value = 0
+            positions = line.strip().split(":")[0]
+            numbers = line.strip().split(":")[1]
+            for el in numbers.split(","):
+                avg_value += float(el.strip())
+            yield f"Average value for {positions.split(" ")[0]}: {round(avg_value / len(numbers.split(",")), 2)}"
+            index += 1
+
+
+the file content for reference:
+CPU_Usage (%): 44.06, 65.2, 41.3
+Memory_Usage (GB): 4.73, 5.2, 6.3
+Disk_IO (MB/s): 258.77, 546.5, 412,8
+Network_Latency (ms): 30.49, 45.2, 48.2
+Error_Rate (%): 4.11, 5.9, 7.5
+Response_Time (ms): 379.44, 564.5, 857.1
+Throughput (requests/s): 319.53, 564.54, 574.1
