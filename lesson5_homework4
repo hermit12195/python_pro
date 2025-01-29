@@ -1,0 +1,18 @@
+class InsufficientResourcesException(Exception):
+    """
+        Custom exception class for handling insufficient resource errors.
+
+        Attributes:
+        - required_resource (str): The name of the resource that is lacking.
+        - required_amount (float/int): The amount of the resource required.
+        - current_amount (float/int): The currently available amount of the resource.
+        - message (str): A formatted error message indicating the shortage.
+    """
+    def __init__(self, required_resource, required_amount, current_amount):
+        self.required_resource = required_resource
+        self.required_amount = required_amount
+        self.current_amount = current_amount
+        self.message = (f"Not enough {self.required_resource}! "
+                        f"\nThe required amount of {self.required_resource}: {self.required_amount} "
+                        f"\nThe current amount of {self.required_resource}: {self.current_amount}")
+        super().__init__(self.message)
