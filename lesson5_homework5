@@ -1,0 +1,24 @@
+class InsufficientFundsException(Exception):
+    """
+        Custom exception class for handling insufficient funds errors in financial transactions.
+
+        Attributes:
+        - required_amount (float): The amount required to complete the transaction.
+        - current_balance (float): The available balance in the account.
+        - currency (str): The currency in which the transaction is being processed.
+        - transaction_type (str): A description of the type of transaction attempted.
+        - message (str): A formatted error message detailing the insufficient funds issue.
+
+        Methods:
+        - Inherits from Python's built-in Exception class.
+    """
+    def __init__(self, required_amount, current_balance, currency, transaction_type):
+        self.required_amount = required_amount
+        self.current_balance = current_balance
+        self.currency = currency
+        self.transaction_type = transaction_type
+        self.message = (f"Insufficient amount of funds on the account.\n"
+                        f"Required amount: {self.required_amount} {self.currency}\n"
+                        f"Current balance: {self.current_balance} {self.currency}\n"
+                        f"Type of transaction: {self.transaction_type}")
+        super().__init__(self.message)
