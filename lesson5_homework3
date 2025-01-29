@@ -1,0 +1,15 @@
+class GameEventException(Exception):
+    """
+       Custom exception class for handling game-related events.
+
+       Attributes:
+       - event_type (str): The type of the game event that caused the exception.
+       - message (dict): A dictionary containing the event type as the key and additional details as the value.
+
+       Methods:
+       - Inherits from Python's built-in Exception class.
+    """
+    def __init__(self, event_type, details):
+        self.event_type = event_type
+        self.message = {self.event_type: details}
+        super().__init__(self.message)
