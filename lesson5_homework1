@@ -1,0 +1,50 @@
+import sys
+
+
+class UnknownOperationError(Exception):
+    pass
+
+
+def calculator():
+    """
+    This function prompts the user to input two numbers and an operator, performs the corresponding arithmetic 
+    operation, and handles errors like division by zero, invalid input, and overflow.
+
+    Steps:
+    1. The user is asked to input the first number (num1), the operator, and the second number (num2).
+    2. Depending on the operator, one of the following operations is performed:
+       - Addition (+)
+       - Subtraction (-)
+       - Multiplication (*)
+       - Division (/)
+    3. Results are printed after performing the operation, rounded to two decimal places.
+    4. Error handling:
+       - ZeroDivisionError: Raised when division by zero is attempted.
+       - ValueError: Raised when non-numeric input is provided.
+       - OverflowError: Raised if the multiplication result exceeds the maximum allowable float value.
+       - UnknownOperatorError: Raised if the user enters an unsupported operator.
+    """
+    num1, operator, num2 = input("Enter 1st digit: ").strip(), input("Enter operator: ").strip(), input(
+        "Enter 2nd digit: ").strip()
+    try:
+        if operator == "+":
+            print(f"Result: {round(float(num1) + float(num2), 2)}")
+        elif operator == "-":
+            print(f"Result: {round(float(num1) - float(num2), 2)}")
+        elif operator == "*":
+            if float(num1) * float(num2) > sys.float_info.max:
+                raise OverflowError("The result exceeds the maximum allowable float value.")
+            else:
+                print(f"Result: {round(float(num1) * float(num2), 2)}")
+        elif operator == "/":
+            print(f"Result: {round(float(num1) / float(num2), 2)}")
+        else:
+            raise UnknownOperationError("Error: Unknown operator used.")
+    except ZeroDivisionError as e:
+        print(f"Error: {e.__class__.__name__}: {e}")
+    except ValueError as e:
+        print(f"Error: {e.__class__.__name__}: {e}")
+    except OverflowError as e:
+        print(f"Error: {e.__class__.__name__}: {e}")
+    except UnknownOperationError as e:
+        print(e)
