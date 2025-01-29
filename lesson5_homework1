@@ -24,6 +24,7 @@ def calculator():
        - OverflowError: Raised if the multiplication result exceeds the maximum allowable float value.
        - UnknownOperatorError: Raised if the user enters an unsupported operator.
     """
+
     num1, operator, num2 = input("Enter 1st digit: ").strip(), input("Enter operator: ").strip(), input(
         "Enter 2nd digit: ").strip()
     try:
