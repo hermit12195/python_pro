@@ -1,0 +1,51 @@
+import random
+
+with open("file.txt", "w") as fo:
+    for el in range(2000):
+        fo.write(f"{random.random()}\n")
+
+class FileArithmeticMean:
+    """
+    This class calculates the arithmetic mean of numbers stored in a file.
+
+    Attributes:
+    - file (str): The path to the file containing numeric values.
+    - list (list): A list to store numeric values read from the file.
+
+    Methods:
+    - get_mean():
+        Reads numbers from the specified file, computes their arithmetic mean,
+        and handles errors such as missing files or non-numeric values.
+
+    Error Handling:
+    - FileNotFoundError: Raised when the specified file does not exist.
+    - ValueError: Raised if the file contains non-numeric values.
+    """
+
+    def __init__(self, file):
+        self.file = file
+        self.list = []
+
+    def get_mean(self):
+        """
+        Prints out the arithmetic mean and catches Exceptions.
+        :return: float
+        """
+        try:
+            with open(self.file, "r") as file:
+                read_file = file.readlines()
+                if len(read_file) == 0:
+                    print(f"The file '{self.file}' is empty.")
+                elif len(read_file) == 1:
+                    try:
+                        print(f"The file {self.file} contains only 1 line: '{float(read_file[0])}'.")
+                    except ValueError as e:
+                        print(f"Error: {e.__class__.__name__} - the file contains the non-numeric values.")
+                else:
+                    for element in read_file:
+                        self.list.append(float(element.rstrip(r"\n")))
+                    print(sum(self.list) / len(self.list))
+        except FileNotFoundError as e:
+            print(f"Error: {e.__class__.__name__} - {e}")
+        except ValueError as e:
+            print(f"Error: {e.__class__.__name__} - the file contains the non-numeric values.")
