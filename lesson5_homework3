@@ -11,5 +11,7 @@ class GameEventException(Exception):
     """
     def __init__(self, event_type, details):
         self.event_type = event_type
-        self.message = {self.event_type: details}
+        self.dict = {self.event_type: details}
+        self.message = (f"\nType of event: {self.event_type}\n"
+                        f"Plot: {self.dict[self.event_type]}")
         super().__init__(self.message)
