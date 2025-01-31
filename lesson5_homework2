@@ -4,6 +4,7 @@ with open("file.txt", "w") as fo:
     for el in range(2000):
         fo.write(f"{random.random()}\n")
 
+
 class FileArithmeticMean:
     """
     This class calculates the arithmetic mean of numbers stored in a file.
@@ -49,4 +50,3 @@ class FileArithmeticMean:
             print(f"Error: {e.__class__.__name__} - {e}")
         except ValueError as e:
             print(f"Error: {e.__class__.__name__} - the file contains the non-numeric values.")
-
