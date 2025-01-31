@@ -43,9 +43,10 @@ class FileArithmeticMean:
                         print(f"Error: {e.__class__.__name__} - the file contains the non-numeric values.")
                 else:
                     for element in read_file:
-                        self.list.append(float(element.rstrip(r"\n")))
-                    print(sum(self.list) / len(self.list))
+                        self.list.append(float(element.rstrip("\n")))
+                    print(f"The arithmetic mean: {sum(self.list) / len(self.list)}")
         except FileNotFoundError as e:
             print(f"Error: {e.__class__.__name__} - {e}")
         except ValueError as e:
             print(f"Error: {e.__class__.__name__} - the file contains the non-numeric values.")
+
