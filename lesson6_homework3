@@ -1,0 +1,39 @@
+import csv
+
+fields = ["Ім'я", "Вік", "Оцінка"]
+rows = [["Петро", 21, 90],
+        ["Марина", 22, 85],
+        ["Андрій", 20, 88]]
+
+with open("example.csv", "w", encoding="utf-8", newline="") as fo:
+    writer = csv.writer(fo)
+    writer.writerow(fields)
+    writer.writerows(rows)
+
+
+def get_average_mark(file):
+    """
+    The function returns the average mark of students.
+    :param file: str
+    :return: f string
+    """
+
+    with open(file, "r", encoding="utf-8") as fr:
+        reader = csv.DictReader(fr)
+        list_with_marks = [int(el["Вік"]) for el in reader]
+        return f"The average mark is: {sum(list_with_marks) / len(list_with_marks)}"
+
+
+def add_new_student(file: str, name: str, age: int, mark: int):
+    """
+    The function return the
+    :param file: str
+    :param name: str
+    :param age: int
+    :param mark: int
+    :return:
+    """
+
+    with open(file, "a", encoding="utf-8") as file_open:
+        file_writer = csv.writer(file_open)
+        file_writer.writerow([name, age, mark])
