@@ -11,6 +11,23 @@ with open("example.csv", "w", encoding="utf-8", newline="") as fo:
     writer.writerows(rows)
 
 
+def show_content(file):
+    """
+    The function prints out the content of the file.
+    :param file: str
+    :return: f string
+    """
+    with open(file, "r", encoding="utf-8") as open_file:
+        read_file = csv.DictReader(open_file)
+        for student in read_file:
+            name = student["Ім'я"]
+            age = student["Вік"]
+            mark = student["Оцінка"]
+            print(f"{name}:l\n"
+                  f"The student age is: {age}\n"
+                  f"The student mark is: {mark}\n")
+
+
 def get_average_mark(file):
     """
     The function returns the average mark of students.
