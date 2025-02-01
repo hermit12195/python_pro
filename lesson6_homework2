@@ -1,0 +1,16 @@
+import requests
+
+
+def save_to_file(url, file):
+    """
+    The function saves the content of the web-page to the file.
+    :param url: URL
+    :param file: file name
+    """
+    
+    try:
+        r = requests.get(url)
+        with open(file, "w") as fo:
+            fo.write(r.text)
+    except:
+        print("The server is no accessible!")
