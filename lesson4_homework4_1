@@ -1,0 +1,67 @@
+import xml.etree.ElementTree as ET
+
+root = ET.Element("products")
+product = ET.SubElement(root, "product")
+ET.SubElement(product, "name").text = "Молоко"
+ET.SubElement(product, "price").text = "25"
+ET.SubElement(product, "quantity").text = "50"
+product = ET.SubElement(root, "product")
+ET.SubElement(product, "name").text = "Хліб"
+ET.SubElement(product, "price").text = "10"
+ET.SubElement(product, "quantity").text = "100"
+tree = ET.ElementTree(root)
+tree.write("example.xml", encoding="utf-8")
+
+
+class Products:
+    """
+    A class to manage products in an XML file.
+
+    Attributes:
+        file_name (str): The name of the XML file to store product data.
+        tree (ET.ElementTree): The parsed XML tree.
+        root (ET.Element): The root element of the XML tree.
+    """
+
+    def __init__(self, file_name):
+        """
+        Initializes the Products class.
+
+        Args:
+            file_name (str): The XML file name to store product data.
+        """
+
+        self.file_name = str(file_name)
+        self.tree = ET.parse(self.file_name)
+        self.root = self.tree.getroot()
+
+    def list_products(self):
+        """
+        Lists the available products along with their quantities.
+        """
+
+        for el in self.root.findall("product"):
+            print(
+                f"Currently, there are {el.find("quantity").text} available product(s) of type '{el.find("name").text}'.")
+
+    def change_quantity(self, product_name, product_quantity):
+        """
+        Updates the quantity of a specific product in the XML file.
+
+        Args:
+            product_name (str): The name of the product to update.
+            product_quantity (int): The new quantity to set for the product.
+
+        If the product exists, its quantity is updated and the changes are saved to the XML file.
+        """
+
+        indicator = False
+        for el in self.root.findall("product"):
+            if el.find("name").text == product_name:
+                el.find("quantity").text = str(product_quantity)
+                indicator = True
+
+        if not indicator:
+            print(f"The product with name '{product_name}' does not exist in the file {self.file_name}.")
+
+        self.tree.write(self.file_name, encoding="utf-8")
