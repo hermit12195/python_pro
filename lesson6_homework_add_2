@@ -1,0 +1,174 @@
+class MessageSender:
+    """
+    An abstract base class that defines the interface for sending messages.
+
+    Methods:
+        send_message(message: str):
+            Sends a message. This method should be implemented by subclasses.
+    """
+
+    def send_message(self, message: str):
+        pass
+
+
+class SMSService:
+    """
+    A service responsible for sending SMS messages.
+
+    Methods:
+        send_sms(phone_number, message):
+            Sends an SMS to the given phone number.
+            Validates input types before sending.
+    """
+
+    def send_sms(self, phone_number, message):
+        try:
+            if isinstance(phone_number, int) and isinstance(message, str):
+                print(f"Sending SMS to {phone_number}: {message}")
+            else:
+                raise ValueError(
+                    f"The message sending failed, please check the input object types for SMSService.\n"
+                    "Expected type for phone_number: int\n"
+                    f"Provided type for phone_number: {type(phone_number)}\n"
+                    "Expected type for message: str\n"
+                    f"Provided type for message: {type(message)}"
+                )
+        except ValueError as e:
+            print(e)
+
+
+class EmailService:
+    """
+    A service responsible for sending email messages.
+
+    Methods:
+        send_email(email_address, message):
+            Sends an email to the given email address.
+            Validates input types before sending.
+    """
+
+    def send_email(self, email_address, message):
+        try:
+            if isinstance(email_address, str) and isinstance(message, str):
+                print(f"Sending Email to {email_address}: {message}")
+            else:
+                raise ValueError(
+                    f"The message sending failed, please check the input object types for EmailService.\n"
+                    "Expected type for email_address: str\n"
+                    f"Provided type for email_address: {type(email_address)}\n"
+                    "Expected type for message: str\n"
+                    f"Provided type for message: {type(message)}"
+                )
+        except ValueError as e:
+            print(e)
+
+
+class PushService:
+    """
+    A service responsible for sending push notifications.
+
+    Methods:
+        send_push(device_id, message):
+            Sends a push notification to the given device.
+            Validates input types before sending.
+    """
+
+    def send_push(self, device_id, message):
+        try:
+            if isinstance(device_id, int) and isinstance(message, str):
+                print(f"Sending Push Notification to {device_id}: {message}")
+            else:
+                raise ValueError(
+                    f"The message sending failed, please check the input object types for PushService.\n"
+                    "Expected type for device_id: int\n"
+                    f"Provided type for device_id: {type(device_id)}\n"
+                    "Expected type for message: str\n"
+                    f"Provided type for message: {type(message)}"
+                )
+        except ValueError as e:
+            print(e)
+
+
+class SMS_Adapter(MessageSender):
+    """
+    An adapter that allows SMSService to be used with the MessageSender interface.
+
+    Attributes:
+        SMSService (SMSService): The SMS service instance.
+        phone_number (int): The recipient's phone number.
+
+    Methods:
+        send_message(message):
+            Sends an SMS message using the SMSService.
+    """
+
+    def __init__(self, SMSService, phone_number):
+        self.SMSService = SMSService
+        self.phone_number = phone_number
+
+    def send_message(self, message):
+        self.SMSService.send_sms(self.phone_number, message)
+
+
+class Email_Adapter(MessageSender):
+    """
+    An adapter that allows EmailService to be used with the MessageSender interface.
+
+    Attributes:
+        EmailService (EmailService): The Email service instance.
+        email_address (str): The recipient's email address.
+
+    Methods:
+        send_message(message):
+            Sends an email message using the EmailService.
+    """
+
+    def __init__(self, EmailService, email_address):
+        self.EmailService = EmailService
+        self.email_address = email_address
+
+    def send_message(self, message):
+        self.EmailService.send_email(self.email_address, message)
+
+
+class Push_Adapter(MessageSender):
+    """
+    An adapter that allows PushService to be used with the MessageSender interface.
+
+    Attributes:
+        PushService (PushService): The Push service instance.
+        device_id (int): The recipient's device ID.
+
+    Methods:
+        send_message(message):
+            Sends a push notification using the PushService.
+    """
+
+    def __init__(self, PushService, device_id):
+        self.PushService = PushService
+        self.device_id = device_id
+
+    def send_message(self, message):
+        self.PushService.send_push(self.device_id, message)
+
+
+# Creating adapter instances
+SMS_adapter = SMS_Adapter(SMSService(), 38095265534)
+EMAIL_adapter = Email_Adapter(EmailService(), "test@gmail.com")
+PUSH_adapter = Push_Adapter(PushService(), 5)
+
+
+def adapter_message_sender(message, *adapter_tuple):
+    """
+    Sends a message through multiple adapters.
+
+    Args:
+        message (str): The message to be sent.
+        *adapter_tuple: A variable number of adapter instances.
+    """
+
+    for adapter in adapter_tuple:
+        adapter.send_message(message)
+
+
+adapter_message_sender("test", SMS_adapter, EMAIL_adapter, PUSH_adapter)
