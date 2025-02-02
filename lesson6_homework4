@@ -1,0 +1,70 @@
+import xml.etree.ElementTree as ET
+
+root = ET.Element("library")
+id = ET.SubElement(root, "Book_ID")
+id.set("id", "1")
+ET.SubElement(id, "title").text = "Games people play"
+ET.SubElement(id, "author").text = "Dana Isaly"
+ET.SubElement(id, "publication_date").text = "20.20.2015"
+ET.SubElement(id, "availability").text = "True"
+tree = ET.ElementTree(root)
+tree.write("example.xml", encoding="utf-8")
+
+
+class Books:
+    """
+    A class to manage books in an XML file.
+
+    Attributes:
+        file_name (str): The name of the XML file to store book data.
+        tree (ET.ElementTree): The parsed XML tree.
+        root (ET.Element): The root element of the XML tree.
+    """
+
+    def __init__(self, file_name):
+        """
+        Initializes the Books class.
+
+        Args:
+            file_name (str): The XML file name to store book data.
+        """
+
+        self.file_name = str(file_name)
+        self.tree = ET.parse(self.file_name)
+        self.root = self.tree.getroot()
+
+    def show_available_books(self):
+        """
+        Prints the titles of books that are available (availability == "True").
+        """
+        
+        for el in self.root.findall("Book_ID"):
+            if el.find("availability").text == "True":
+                print(el.find("title").text)
+
+    def add_book(self, book_id: str, book_title: str, book_author: str, book_publication_date: str,
+                 book_available: bool):
+        """
+        Adds a new book to the XML file.
+
+        Args:
+            book_id (str): Unique identifier for the book.
+            book_title (str): Title of the book.
+            book_author (str): Author of the book.
+            book_publication_date (str): Publication date of the book.
+            book_available (bool): Availability status of the book.
+        """
+        
+        new_book = ET.SubElement(self.root, "Book_ID")
+        new_book.set("id", str(book_id))
+        ET.SubElement(new_book, "title").text = str(book_title)
+        ET.SubElement(new_book, "author").text = str(book_author)
+        ET.SubElement(new_book, "publication_date").text = str(book_publication_date)
+        ET.SubElement(new_book, "availability").text = str(book_available)
+
+        self.tree.write(self.file_name, encoding="utf-8")
+
+
+obj = Books("example.xml")
+obj.add_book(2, "Harry Potter", "Joanne Rowling", "20.20.2010", True)
+obj.show_available_books()
