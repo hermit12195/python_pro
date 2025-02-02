@@ -1,0 +1,125 @@
+import csv
+import json
+import xml.etree.ElementTree as ET
+
+
+class CSV_to_JSON:
+    """
+    A class to convert a CSV file to a JSON file.
+
+    Attributes:
+        csv_file (str): The path to the CSV file.
+        json_file (str): The path to the output JSON file.
+
+    Methods:
+        serialize_to_json: Reads the CSV file and converts it to a JSON file.
+    """
+
+    def __init__(self, csv_file, json_file):
+        """
+        Initializes the CSV_to_JSON class with file paths for input CSV and output JSON.
+
+        Args:
+            csv_file (str): The path to the CSV file to convert.
+            json_file (str): The path to the JSON file to save the converted data.
+        """
+        
+        self.csv_file = csv_file
+        self.json_file = json_file
+
+    def serialize_to_json(self):
+        """
+        Converts the CSV file to JSON format and saves it to JSON file.
+        """
+        
+        read_csv = csv.DictReader(open(self.csv_file, "r", encoding="utf-8"))
+        csv_list = [el for el in read_csv]
+        write_json = open(self.json_file, "w", encoding="utf-8")
+        json.dump(csv_list, write_json, ensure_ascii=False, indent=4)
+
+
+class JSON_to_CSV:
+    """
+    A class to convert a JSON file to a CSV file.
+
+    Attributes:
+        json_file (str): The path to the JSON file.
+        csv_file (str): The path to the output CSV file.
+
+    Methods:
+        serialize_to_csv: Reads the JSON file and converts it to a CSV file.
+    """
+
+    def __init__(self, json_file, csv_file):
+        """
+        Initializes the JSON_to_CSV class with file paths for input JSON and output CSV.
+
+        Args:
+            json_file (str): The path to the JSON file to convert.
+            csv_file (str): The path to the CSV file to save the converted data.
+        """
+        
+        self.json_file = json_file
+        self.csv_file = csv_file
+
+    def serialize_to_csv(self):
+        """
+        Converts the JSON file to CSV file.
+        """
+        
+        read_json = json.load(open(self.json_file, "r", encoding="utf-8"))
+        write_csv = open(self.csv_file, "w", encoding="utf-8", newline="")
+        field_names = list(read_json[0].keys())
+        writer = csv.DictWriter(write_csv, fieldnames=field_names)
+        writer.writeheader()
+        writer.writerows(read_json)
+
+
+class XML_to_JSON:
+    """
+    A class to convert an XML file to a JSON file.
+
+    Attributes:
+        xml_file (str): The path to the XML file.
+        parent_tag (str): The tag name of the parent element in the XML structure.
+        json_file (str): The path to the output JSON file.
+        tree (ElementTree): The parsed XML tree.
+        root (Element): The root element of the XML tree.
+
+    Methods:
+        serialize_to_json: Converts the XML file to a JSON file.
+    """
+
+    def __init__(self, xml_file, parent_tag, json_file):
+        """
+        Initializes the XML_to_JSON class with file paths for input XML, the parent tag,
+        and the output JSON file.
+
+        Args:
+            xml_file (str): The path to the XML file to convert.
+            parent_tag (str): The tag name of the parent element in the XML structure.
+            json_file (str): The path to the JSON file to save the converted data.
+        """
+        
+        self.xml_file = xml_file
+        self.parent_tag = parent_tag
+        self.json_file = json_file
+        self.tree = ET.parse(self.xml_file)
+        self.root = self.tree.getroot()
+
+    def serialize_to_json(self):
+        """
+        Converts the XML file to JSON file.
+        """
+        
+        tag_list, xml_list = [], []
+        for el in self.root.findall(f"./{self.parent_tag}/"):
+            if el.tag not in tag_list:
+                tag_list.append(el.tag)
+        for el in self.root.findall(self.parent_tag):
+            xml_dict = {}
+            for tag in tag_list:
+                xml_dict[tag] = el.find(tag).text
+            xml_list.append(xml_dict)
+        file = open(self.json_file, "w", encoding="utf-8")
+        json.dump(xml_list, file, indent=4, ensure_ascii=False)
