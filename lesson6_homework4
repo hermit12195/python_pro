@@ -1,0 +1,64 @@
+import json
+
+books = [
+    {"title": "Harry Potter", "author": "Joanne Rowling", "publication_year": 2011, "available": True},
+    {"title": "Games People Play", "author": "Eric Berne", "publication_year": 1964, "available": False}
+]
+
+with open("example.json", "w", encoding="utf-8") as fo:
+    json.dump(books, fo, indent=4)
+
+
+class Books:
+    """
+    A class to manage books stored in a JSON file.
+
+    Attributes:
+        file_name (str): The name of the JSON file containing book data.
+    """
+
+    def __init__(self, file_name: str):
+        """
+        Initializes the Books class.
+
+        Args:
+            file_name (str): The JSON file name to store book data.
+        """
+        self.file_name = file_name
+
+    def list_available_books(self):
+        """
+        Lists all currently available books.
+
+        Reads the JSON file, filters books where "available" is True, and prints their titles.
+        """
+        with open(self.file_name, "r") as file:
+            print("The list of currently available books:")
+            for el in json.load(file):
+                if el["available"]:
+                    print(el["title"])
+
+    def add_book(self, title: str, author: str, publication_year: int, available: bool):
+        """
+        Adds a new book to the JSON file.
+
+        Args:
+            title (str): The title of the book.
+            author (str): The author of the book.
+            publication_year (int): The year the book was published.
+            available (bool): Whether the book is available.
+
+        The new book entry is appended to the JSON file.
+        """
+        with open(self.file_name, "r") as file:
+            data = json.load(file)
+
+        data.append({
+            "title": title,
+            "author": author,
+            "publication_year": publication_year,
+            "available": available
+        })
+
+        with open(self.file_name, "w") as file:
+            json.dump(data, file, indent=4)
