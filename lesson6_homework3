@@ -11,7 +11,7 @@ with open("example.csv", "w", encoding="utf-8", newline="") as fo:
     writer.writerows(rows)
 
 
-def show_content(file):
+def show_content(file: str):
     """
     The function prints out the content of the file.
     :param file: str
@@ -23,12 +23,12 @@ def show_content(file):
             name = student["Ім'я"]
             age = student["Вік"]
             mark = student["Оцінка"]
-            print(f"{name}:l\n"
+            print(f"{name}:\n"
                   f"The student age is: {age}\n"
                   f"The student mark is: {mark}\n")
 
 
-def get_average_mark(file):
+def get_average_mark(file: str):
     """
     The function returns the average mark of students.
     :param file: str
@@ -54,3 +54,4 @@ def add_new_student(file: str, name: str, age: int, mark: int):
     with open(file, "a", encoding="utf-8") as file_open:
         file_writer = csv.writer(file_open)
         file_writer.writerow([name, age, mark])
+
