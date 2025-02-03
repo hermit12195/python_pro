@@ -17,6 +17,7 @@ def show_content(file: str):
     :param file: str
     :return: f string
     """
+
     with open(file, "r", encoding="utf-8") as open_file:
         read_file = csv.DictReader(open_file)
         for student in read_file:
@@ -54,4 +55,3 @@ def add_new_student(file: str, name: str, age: int, mark: int):
     with open(file, "a", encoding="utf-8") as file_open:
         file_writer = csv.writer(file_open)
         file_writer.writerow([name, age, mark])
-
