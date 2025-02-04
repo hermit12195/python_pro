@@ -1,4 +1,4 @@
-def factorial(num):
+def factorial(num: int) -> int:
     """
     Calculates the factorial of a number.
 
@@ -15,7 +15,7 @@ def factorial(num):
     return count
 
 
-def common_divisor(num1, num2):
+def common_divisor(num1: int, num2: int) -> int:
     """
     Calculates the greatest common divisor (GCD) of two numbers using the Euclidean algorithm.
 
