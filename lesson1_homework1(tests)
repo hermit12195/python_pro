@@ -1,0 +1,49 @@
+"""The custom module for testing the StringProcessor class' methods."""
+
+import unittest
+import test
+
+
+class StringTest(unittest.TestCase):
+    """Unit tests for the StringProcessor class."""
+
+    def setUp(self):
+        """Initialize the StringProcessor instance before each test."""
+        self.obj = test.StringProcessor
+
+    @unittest.skip
+    def test_empty_reverse_string(self):
+        """Test reverse_string method with an empty string."""
+        self.assertFalse(self.obj.reverse_string(""))
+
+    def test_empty_capitalize_string(self):
+        """Test capitalize_string method with an empty string."""
+        self.assertFalse(self.obj.capitalize_string(""))
+
+    def test_empty_count_vowels(self):
+        """Test count_vowels method with an empty string."""
+        self.assertFalse(self.obj.count_vowels(""))
+
+    def test_case_reverse_string(self):
+        """Test reverse_string method with mixed-case input."""
+        self.assertEqual(self.obj.reverse_string("tEsT"), "TsEt")
+
+    def test_case_capitalize_string(self):
+        """Test capitalize_string method with mixed-case input."""
+        self.assertEqual(self.obj.capitalize_string("TEsT"), "Test")
+
+    def test_case_count_vowels(self):
+        """Test count_vowels method with mixed-case input."""
+        self.assertEqual(self.obj.count_vowels("TEsT"), 1)
+
+    def test_non_alphabetic_string_reverse_string(self):
+        """Test reverse_string method with a string containing special characters."""
+        self.assertEqual(self.obj.reverse_string("$Test№1"), "1№tseT$")
+
+    def test_non_alphabetic_capitalize_string(self):
+        """Test capitalize_string method with a string containing special characters."""
+        self.assertEqual(self.obj.capitalize_string("$Test№1"), "$test№1")
+
+    def test_non_alphabetic_count_vowels(self):
+        """Test count_vowels method with a string containing special characters."""
+        self.assertEqual(self.obj.count_vowels("$Test№1"), 1)
