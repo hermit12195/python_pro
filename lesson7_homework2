@@ -1,0 +1,89 @@
+import unittest
+import requests as r
+from unittest.mock import Mock
+from unittest.mock import patch
+
+
+class WebService:
+    """
+    A simple web service class that interacts with external APIs.
+
+    Methods:
+    - get_data(url: str) -> dict: Fetches data from the given URL and returns the JSON content.
+    - get_code(url: str) -> int: Fetches data from the given URL and returns the HTTP status code.
+    """
+
+    def get_data(url: str) -> dict:
+        """
+        Fetches data from the given URL and returns the JSON content.
+
+        Args:
+        - url (str): The URL to send the GET request to.
+
+        Returns:
+        - dict: The JSON response content of the request.
+        """
+        response = r.get(url)
+        return response.json()
+
+    def get_code(url: str) -> int:
+        """
+        Fetches data from the given URL and returns the HTTP status code.
+
+        Args:
+        - url (str): The URL to send the GET request to.
+
+        Returns:
+        - int: The HTTP status code of the request.
+        """
+        response = r.get(url)
+        return response.status_code
+
+
+class TestWebService(unittest.TestCase):
+    """
+    Unit test cases for the WebService class. These tests mock the external HTTP requests
+    to ensure the methods of the WebService class behave as expected.
+    """
+
+    def setUp(self):
+        """
+        Set up the test case by initializing the WebService object.
+        """
+        self.obj = WebService
+
+    @patch("requests.get")
+    def test_fake_get_data(self, mock_get):
+        """
+        Test for the get_data method when mocking the response.
+
+        Mocks a response with a predefined JSON object and checks that the
+        get_data method processes the response correctly.
+        """
+        mock_get.return_value.json.return_value = {"data": "test"}
+        self.assertEqual(self.obj.get_data("https://jsonplaceholder.typicode.com/todos/1"),
+                         {"data": "test"})
+
+    @patch("requests.get")
+    def test_success_get_data(self, mock_get):
+        """
+        Test for the get_code method with a successful HTTP request (status code 200).
+
+        Mocks the status code of the response to be 200 and verifies that the
+        get_code method returns the correct status code.
+        """
+        mock_get.return_value.status_code = 200
+        self.assertEqual(self.obj.get_code("https://jsonplacejhugholder.typicode.com/todos/1"), 200)
+
+
+    def test_failure_get_data(self):
+        """
+        Test for the get_code method with a failed HTTP request (status code 400).
+
+        Mocks the status code of the response to be 400 and verifies that the
+        get_code method returns the failure status code.
+        """
+        mock_g = Mock()
+        mock_g.return_value.status_code = 400
+        r.get = mock_g
+        self.assertEqual(self.obj.get_code("https://jsonplacejhugholder.typicode.com/todos/1"), 400)
