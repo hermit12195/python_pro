@@ -1,0 +1,52 @@
+import pytest
+
+def divide(a: int, b: int) -> float:
+    """
+    Divides two integers, a and b.
+
+    Args:
+        a (int): The numerator.
+        b (int): The denominator.
+
+    Returns:
+        float: The result of the division.
+
+    Raises:
+        ZeroDivisionError: If b is 0, as division by zero is not allowed.
+    """
+    if b == 0:
+        raise ZeroDivisionError("The division to '0' is not allowed.")
+    return a / b
+
+
+def test_error_divide():
+    """
+    Tests that a ZeroDivisionError is raised with the correct message 
+    when trying to divide by 0.
+    """
+    with pytest.raises(ZeroDivisionError, match="The division to '0' is not allowed."):
+        divide(2, 0)
+
+
+def test_value_divide():
+    """
+    Tests a valid division case where a is divided by b and the result is checked.
+    """
+    assert divide(2, 1) == 2
+
+
+@pytest.mark.parametrize("a, b, expected", [
+    (1, 1, 1),
+    (2, 1, 2),
+    (4, 2, 2)
+])
+def test_divide(a, b, expected):
+    """
+    Parametrized test that checks multiple values of a and b for correct division.
+
+    Args:
+        a (int): The numerator.
+        b (int): The denominator.
+        expected (float): The expected result of the division.
+    """
+    assert divide(a, b) == expected
