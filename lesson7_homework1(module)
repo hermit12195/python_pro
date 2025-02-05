@@ -1,0 +1,40 @@
+"""Custom Module for modification of string objects."""
+
+import re
+
+
+class StringProcessor:
+    """A class for performing various string modifications."""
+
+    def reverse_string(s: str) -> str:
+        """Return the reversed version of the input string.
+
+        Args:
+            s (str): The input string.
+
+        Returns:
+            str: The reversed string.
+        """
+        return s[::-1]
+
+    def capitalize_string(s: str) -> str:
+        """Capitalize the first letter of the input string.
+
+        Args:
+            s (str): The input string.
+
+        Returns:
+            str: The capitalized string.
+        """
+        return s.capitalize()
+
+    def count_vowels(s: str) -> int:
+        """Count the number of vowels in the input string.
+
+        Args:
+            s (str): The input string.
+
+        Returns:
+            int: The count of vowels (both uppercase and lowercase).
+        """
+        return len(re.findall("[aAeEiIoOuU]", s))
