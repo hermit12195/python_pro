@@ -1,0 +1,118 @@
+"""Custom module to test the fixtures"""
+import pytest
+
+
+@pytest.fixture(scope="class")
+def user_manager():
+    """
+    A pytest fixture that initializes the UserManager object before each test
+    and provides it to the tests. It adds two users ('Alice' and 'Bob') for
+    testing purposes.
+
+
+    Returns:
+        UserManager: An instance of the UserManager class with pre-added users.
+    """
+    um = UserManager()
+    um.add_user("Alice", 30)
+    um.add_user("Bob", 25)
+    return um
+
+
+class UserManager:
+    """
+    A simple class for managing a dictionary of users.
+
+    Methods:
+        - add_user(name: str, age: int): Adds a user with a specified name and age to the dictionary.
+        - remove_user(name: str): Removes a user by name.
+        - get_all_users() -> list: Returns a list of all user names in the dictionary.
+    """
+
+    def __init__(self):
+        """
+        Initializes an empty dictionary to store users.
+        """
+        self.dict_w_users = {}
+
+    def add_user(self, name: str, age: int):
+        """
+        Adds a user to the dictionary with the given name and age.
+
+        Args:
+            name (str): The name of the user.
+            age (int): The age of the user.
+        """
+        self.dict_w_users[name] = age
+
+    def remove_user(self, name: str):
+        """
+        Removes a user from the dictionary by the given name.
+
+        Args:
+            name (str): The name of the user to remove.
+        """
+        del self.dict_w_users[name]
+
+    def get_all_users(self):
+        """
+        Returns a list of all user names in the dictionary.
+
+        Returns:
+            list: A list containing the names of all users.
+        """
+        return self.dict_w_users.keys()
+
+
+class TestUserManager:
+    """
+    Test class for the UserManager class. This class contains unit tests
+    for the methods of UserManager using pytest framework.
+
+    Tests include adding a user, removing a user, and verifying the list of all users.
+    """
+
+    def test_add_user(self, user_manager):
+        """
+        Test for the add_user method. Adds a new user ('Vlad') and asserts
+        that the user is present in the list of all users.
+
+        Args:
+            user_manager (UserManager): The UserManager instance provided by the fixture.
+        """
+        user_manager.add_user("Vlad", 29)
+        assert "Vlad" in user_manager.get_all_users()
+
+    def test_remove_user(self, user_manager):
+        """
+        Test for the remove_user method. Removes a user ('Alice') and asserts
+        that the user is no longer in the list of all users.
+
+        Args:
+            user_manager (UserManager): The UserManager instance provided by the fixture.
+        """
+        user_manager.remove_user("Alice")
+        assert "Alice" not in user_manager.get_all_users()
+
+    def test_get_all_users(self, user_manager):
+        """
+        Test for the get_all_users method. Verifies that the number of users
+        in the dictionary is 2 after adding 'Alice' and 'Bob' in the fixture.
+
+        Args:
+            user_manager (UserManager): The UserManager instance provided by the fixture.
+        """
+        assert len(user_manager.get_all_users()) == 2
+
+    def test_get_all_users2(self, user_manager):
+        """
+        Test for the get_all_users method with a condition. If the number of users
+        is less than 3, the test is skipped; otherwise, it verifies that the number
+        of users is 3.
+
+        Args:
+            user_manager (UserManager): The UserManager instance provided by the fixture.
+        """
+        if len(user_manager.get_all_users()) < 3:
+            pytest.skip("The number of users is less than 3!")
+        assert len(user_manager.get_all_users()) == 3
