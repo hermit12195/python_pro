@@ -1,4 +1,4 @@
-def up(string):
+def up(string: str) -> str:
     """
     Converts all characters in a string to uppercase.
 
@@ -11,7 +11,7 @@ def up(string):
 
     return string.upper()
 
-def remove_space(string):
+def remove_space(string: str) -> str:
     """
     Removes leading and trailing spaces from a string.
 
