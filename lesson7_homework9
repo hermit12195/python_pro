@@ -1,0 +1,42 @@
+"""Custom Module to test AgeVerifier class"""
+import pytest
+
+
+class AgeVerifier:
+    """
+    The class verifies of the age is equal or greater than 18.
+    """
+    def is_adult(age: int) -> bool:
+        """
+        Verifies of the age is equal or greater than 18.
+        :return: bool
+        """
+        return True if age >= 18 else False
+
+class TestAgeVerifier:
+    """
+    The class runs several tests on AgeVerifier.is_adult() method.
+    """
+    def test_is_not_adult(self):
+        """
+        Checks if the method correctly works with age that is less than 18.
+        :return: assert
+        """
+        assert AgeVerifier.is_adult(17) == False
+
+    @pytest.mark.skip
+    def test_0_is_adult(self):
+        """
+        Skips the test with the age of '0'.
+        :return: assert
+        """
+        assert AgeVerifier.is_adult(0) == False
+
+    age = 121
+    @pytest.mark.skipif(age > 120, reason="Неправильне значення віку")
+    def test_is_adult(self):
+        """
+        Skips the test if the age is greater than 120.
+        :return: assert
+        """
+        assert AgeVerifier.is_adult(121) == False
