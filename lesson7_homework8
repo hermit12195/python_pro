@@ -1,0 +1,26 @@
+"""Custom module to tests operations with matrices"""
+import numpy as np
+
+
+def matrix_multiply(matrix1: list[list[int]], matrix2: list[list[int]]) -> list[list[int]]:
+    """Multiplies two matrices.
+    >>> matrix_multiply([[1, 2], [3, 4]], [[5, 6], [7, 8]])
+    array([[19, 22],
+           [43, 50]])
+    >>> matrix_multiply([[1, 2, 3, 4], [3, 4, 7, 7]], [[5, 6, 8, 8], [7, 8, 8, 8], [5, 6, 8, 8], [5, 6, 8, 8]])
+    array([[ 54,  64,  80,  80],
+           [113, 134, 168, 168]])
+    """
+    return np.dot(matrix1, matrix2)
+
+
+def transpose_matrix(matrix):
+    """
+    Транспонує матрицю.
+
+    >>> transpose_matrix([[1, 2, 3, 56, 6, 6], [3, 4, 6, 5, 4, 4]])
+    [[1, 3], [2, 4], [3, 6], [56, 5], [6, 4], [6, 4]]
+    >>> transpose_matrix([[1, 2], [3, 4]])
+    [[1, 3], [2, 4]]
+    """
+    return list(map(list, zip(*matrix)))
