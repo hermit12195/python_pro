@@ -1,0 +1,63 @@
+"""The custom module for FileProcessor class testing."""
+import pytest
+import random
+import sys
+
+
+class FileProcessor:
+    """
+    A class to handle file operations such as reading and writing.
+    """
+
+    def write_to_file(file_path: str, data: str):
+        """
+        Writes the given data to a file.
+
+        :param file_path: Path to the file.
+        :param data: Data to write to the file.
+        """
+        file = open(file_path, "w")
+        file.write(data)
+
+    def read_from_file(file_path: str) -> str:
+        """
+        Reads data from a file and returns it as a string.
+
+        :param file_path: Path to the file.
+        :return: Content of the file as a string.
+        """
+        file = open(file_path, "r")
+        return file.read()
+
+
+def test_file_write_read(tmpdir):
+    """Tests writing and reading from a file."""
+    file = tmpdir.join("testfile.txt")
+    FileProcessor.write_to_file(file, "Hello, World!")
+    content = FileProcessor.read_from_file(file)
+    assert content == "Hello, World!"
+
+
+def test_large_file_write(tmpdir):
+    """Tests writing a large file and skips if too large."""
+    file = tmpdir.join("testfile.txt")
+    data_to_write = str(random.sample(range(1, 10000000), 1000000))
+    if sys.getsizeof(data_to_write) / 1024 > 1000:
+        pytest.skip("The object you want to write to the file is too large!")
+    FileProcessor.write_to_file(file, data_to_write)
+
+
+def test_empty_file_write(tmpdir):
+    """Tests writing an empty file."""
+    file = tmpdir.join("testfile.txt")
+    FileProcessor.write_to_file(file, "")
+    content = FileProcessor.read_from_file(file)
+    assert content == ""
+
+
+def test_not_found_file_read(tmpdir):
+    """Tests reading a non-existent file, expecting a FileNotFoundError."""
+    file = tmpdir.join("testfile.txt")
+    FileProcessor.write_to_file(file, "Test")
+    with pytest.raises(FileNotFoundError):
+        FileProcessor.read_from_file("test.txt")
