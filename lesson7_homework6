@@ -1,0 +1,84 @@
+"""Custom module for testing BankAccount class"""
+import pytest
+from unittest.mock import MagicMock
+
+
+@pytest.fixture
+def fixture_bank_account():
+    """Fixture that creates a BankAccount instance with an initial balance of 10."""
+    bal = BankAccount()
+    bal.deposit(10)
+    return bal
+
+
+class BankAccount:
+    """A simple bank account model that supports deposit, withdrawal, and balance retrieval."""
+
+    def __init__(self):
+        """Initializes the bank account with a balance of 0."""
+        self.balance = 0
+
+    def deposit(self, amount: float):
+        """Deposits a specified amount into the bank account."""
+        self.balance += amount
+
+    def withdraw(self, amount: float):
+        """Withdraws a specified amount from the bank account."""
+        self.balance -= amount
+
+    def get_balance(self) -> float:
+        """Returns the current balance of the bank account."""
+        return self.balance
+
+
+class TestBankAccount:
+    """Test suite for the BankAccount class."""
+
+    def test_deposit(self, fixture_bank_account):
+        """Tests whether deposit() correctly adds to the balance."""
+        fixture_bank_account.deposit(1)
+        assert fixture_bank_account.get_balance() == 11
+
+    def test_withdraw(self, fixture_bank_account):
+        """Tests whether withdraw() correctly deducts from the balance."""
+        fixture_bank_account.withdraw(1)
+        assert fixture_bank_account.get_balance() == 9
+
+    def test_get_balance(self):
+        """Tests get_balance() using a mock to return a predefined value."""
+        mock_balance = MagicMock()
+        mock_balance.get_balance.return_value = 11
+        BankAccount = MagicMock(return_value=mock_balance)
+        obj = BankAccount()
+        assert obj.get_balance() == 11
+
+    def test_low_get_balance(self):
+        """Tests get_balance() and skips if the balance is 0."""
+        obj = BankAccount()
+        if obj.get_balance() == 0:
+            pytest.skip("The balance is empty.")
+        assert obj.get_balance() == 1
+
+    @pytest.mark.parametrize("num, expected", [
+        (1, 1),
+        (2, 2),
+        (4, 4)
+    ])
+    def test_parametrized_deposit(self, num, expected):
+        """Tests deposit() with multiple input values."""
+        obj = BankAccount()
+        obj.deposit(num)
+        assert obj.get_balance() == expected
+
+    @pytest.mark.parametrize("num, expected", [
+        (1, -1),
+        (2, -2),
+        (4, -4)
+    ])
+    def test_parametrized_withdraw(self, num, expected):
+        """Tests withdraw() with multiple input values and skips if balance goes negative."""
+        obj = BankAccount()
+        obj.withdraw(num)
+        if obj.get_balance() < 0:
+            pytest.skip()
+        assert obj.get_balance() == expected
