@@ -1,0 +1,22 @@
+"""Custom Module to test Generic class and Callable function."""
+from typing import Generic, Callable, List, TypeVar
+
+T = TypeVar("T")
+
+
+class Processor(Generic[T]):
+    """The class accepts list as an argument and returns the modified list."""
+    def __init__(self, data: List[T]):
+        """
+        Initializes 'data' object.
+        :param data: List[T]
+        """
+        self.data = data
+
+    def apply(self, func: Callable[[T], T]) -> List[T]:
+        """
+        Applies the function to each element of the list and returns the modified list.
+        :param func: Callable[[T], T]
+        :return: List[T]
+        """
+        return [func(el) for el in self.data]
