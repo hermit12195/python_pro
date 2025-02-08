@@ -1,0 +1,63 @@
+"""Custom module to test Protocol and TypedDict types of annotation."""
+from typing import TypedDict, Protocol, Optional
+
+
+class User(TypedDict):
+    """
+    Class that defines the keys and types of values for the User dictionary.
+    """
+    id: int
+    name: str
+    is_admin: bool
+
+
+class UserDatabase(Protocol):
+    """
+    Protocol that defines the requirements to the class.
+    """
+
+    def get_user(self, user_id: int) -> Optional[User]:
+        """
+        Returns the object of type User or None if the user_id is not valid.
+        :param user_id: int
+        :return: Optional[User]
+        """
+        ...
+
+    def save_user(self, user: User) -> None:
+        """
+        Saves the object of type User to the database.
+        :param user: User
+        :return: None
+        """
+        ...
+
+
+class InMemoryUserDB:
+    """
+    Class for the manipulations with User DB.
+    """
+    def __init__(self):
+        """
+        Initializes the DB list.
+        """
+        self.user_db = []
+
+    def get_user(self, user_id: int) -> Optional[User]:
+        """
+        Returns the object of type User or None if the user_id is not valid.
+        :param user_id: int
+        :return: Optional[User]
+        """
+        for el in self.user_db:
+            if el[list(el.keys())[0]] == user_id:
+                return el
+        return None
+
+    def save_user(self, user: User) -> None:
+        """
+        Saves the object of type User to the database.
+        :param user: User
+        :return: None
+        """
+        self.user_db.append(user)
