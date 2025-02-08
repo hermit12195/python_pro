@@ -1,0 +1,6 @@
+"""Custom module for calculations."""
+
+
+def calculate_discount(price: float, discount: float) -> float:
+    """The function returns the price with discount if it`s greater than '0', otherwise it returns '0'."""
+    return 0.0 if price - (price * discount / 100) <= 0 else price - (price * discount / 100)
