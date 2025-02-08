@@ -1,3 +1,4 @@
+"""Custom module to converts objects to type 'int'."""
 from typing import Union, Optional
 
 
@@ -11,3 +12,8 @@ def parse_input(obj: Union[int, str]) -> Optional[int]:
         return int(obj)
     except ValueError:
         return None
+
+
+print(parse_input(42))  # 42
+print(parse_input("100"))  # 100
+print(parse_input("hello"))
