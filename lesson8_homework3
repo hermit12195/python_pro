@@ -1,0 +1,13 @@
+from typing import Union, Optional
+
+
+def parse_input(obj: Union[int, str]) -> Optional[int]:
+    """
+    The function converts to type 'int' and returns 'int' if possible, otherwise it returns 'None'.
+    :param obj: Union[int, str]
+    :return: Optional[int]
+    """
+    try:
+        return int(obj)
+    except ValueError:
+        return None
