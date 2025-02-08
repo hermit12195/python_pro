@@ -1,0 +1,30 @@
+"""Custom module for calculations."""
+from typing import Callable
+
+
+def square(x: int) -> int:
+    """
+    The function returns the square of the number.
+    :param x: int
+    :return: int
+    """
+    return x**2
+
+
+def double(x: int) -> int:
+    """
+    The function returns the doubled number.
+    :param x: int
+    :return: int
+    """
+    return x*2
+
+
+def apply_operation(x: int, operation: Callable[[int], int]) -> int:
+    """
+    The function applies another function to the number and returns number.
+    :param x: int
+    :param operation: Callable[[int], int])
+    :return: int
+    """
+    return operation(x)
