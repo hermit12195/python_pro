@@ -1,0 +1,13 @@
+"""Custom module to return first object of any list."""
+from typing import List, TypeVar
+
+T = TypeVar("T")
+
+
+def get_first(any_list: List[T]) -> T | None:
+    """
+    The function returns the first object of any list if it`s not empty, else it returns 'None'.
+    :param any_list: List[T]
+    :return: T
+    """
+    return any_list[0] if len(any_list) > 0 else None
