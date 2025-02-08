@@ -1,0 +1,51 @@
+"""Custom Module for testing of abstract classes."""
+from typing import final, Dict, Any
+import abc
+
+
+@final
+class Config():
+    """
+    Class that can not be inherited.
+    """
+    pass
+
+
+class BaseRepository(abc.ABC):
+    """
+    Abstract class for data management.
+    """
+
+    @abc.abstractmethod
+    def __init__(self) -> None: pass
+
+    """
+    Ititializes object.
+    """
+
+    @abc.abstractmethod
+    def save(self, data: Dict[str, Any]) -> None: pass
+
+    """
+    Saves data.
+    """
+
+
+class SQLRepository(BaseRepository):
+    """Child class of BaseRepository"""
+
+    def __init__(self) -> None:
+        """
+        Ititializes DB.
+        :param db: list
+        :return: None
+        """
+        self.db: list = []
+
+    def save(self, data: Dict[str, Any]) -> None:
+        """
+        Saves data to DB.
+        :param data: Dict[str, Any])
+        :return: None
+        """
+        self.db.append(data.keys())
