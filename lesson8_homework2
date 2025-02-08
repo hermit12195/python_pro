@@ -1,0 +1,7 @@
+"""Custom module to filtering objects."""
+
+from typing import List, Tuple
+
+
+def filter_adults(adult_list: List[Tuple[str, int]]) -> List[Tuple[str, int]]:
+    return [adult for adult in adult_list if adult[1] >= 18]
