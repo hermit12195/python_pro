@@ -6,7 +6,7 @@ from typing import List, Tuple
 def filter_adults(adult_list: List[Tuple[str, int]]) -> List[Tuple[str, int]]:
     """
     The function returns a list of adults whose age is equal or greater '18'.
-    :param obj: List[Tuple[str, int]])
+    :param adult_list: List[Tuple[str, int]])
     :return: List[Tuple[str, int]]
     """
     return [adult for adult in adult_list if adult[1] >= 18]
