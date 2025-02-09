@@ -1,0 +1,17 @@
+"""Custom Module"""
+from ED import EventDispatcher
+
+
+def on_message(data: str):
+    """
+    Prints out th message.
+    :param data: str
+    :return: str
+    """
+    print(f"Отримано повідомлення: {data}")
+
+
+dispatcher = EventDispatcher()
+
+dispatcher.register_event("message", on_message)
+dispatcher.dispatch_event("message", "Привіт!")
