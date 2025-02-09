@@ -1,0 +1,34 @@
+"""Custom Module"""
+from typing import Dict, List, Callable, Any
+
+
+class EventDispatcher:
+    """
+    A simple event dispatcher that allows registering and dispatching events.
+    """
+
+    def __init__(self):
+        """
+        Initializes the event dispatcher with an empty event registry.
+        """
+        self.db: Dict[str, List[Callable[[Any], None]]] = {}
+
+    def register_event(self, name: str, handler: Callable[[Any], None]):
+        """
+        Registers an event handler for a given event name.
+
+        :param name: The name of the event to register.
+        :param handler: The function that handles the event.
+        """
+        self.db[name] = [handler]
+
+    def dispatch_event(self, name: str, data: Any):
+        """
+        Dispatches an event by executing the associated handler with the provided data.
+
+        :param name: The name of the event to dispatch.
+        :param data: The data to pass to the event handler.
+        """
+        for el in self.db.keys():
+            if el == name:
+                return self.db[el][0](data)
