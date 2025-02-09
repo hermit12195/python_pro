@@ -15,7 +15,7 @@ class AsyncFetcher:
         :return: Awaitable[Dict[str, Any]]
         """
         mock_reply = AsyncMock(return_value={'Success': 200})
-        return await mock_reply()
+        return await mock_reply(url)
 
 
 async def main() -> None:
