@@ -1,0 +1,31 @@
+"""Custom module to test asynchronous concept of programming."""
+import asyncio
+from typing import Awaitable, Dict, Any
+from unittest.mock import AsyncMock
+
+
+class AsyncFetcher:
+    """
+    Class imitates the real HTTP response and returns awaitable object.
+    """
+    async def fetch(self, url: str) -> Awaitable[Dict[str, Any]]:
+        """
+        Imitates the real HTTP response and returns awaitable object.
+        :param url: str
+        :return: Awaitable[Dict[str, Any]]
+        """
+        mock_reply = AsyncMock(return_value={'Success': 200})
+        return await mock_reply()
+
+
+async def main() -> None:
+    """
+    Creates an object of class AsyncFetcher, calls method 'fetch', waits for the response and prints out it.
+    :return: None
+    """
+    fetcher = AsyncFetcher()
+    result = await fetcher.fetch("https://example.com/api")
+    print(result)
+
+
+asyncio.run(main())
