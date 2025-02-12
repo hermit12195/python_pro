@@ -1,0 +1,36 @@
+"""Custom Module for the filtering of text."""
+import re
+
+
+class Grep:
+    """Class for the filtering of text."""
+    @staticmethod
+    def grep_by_name(text: str, word: str) -> None:
+        """
+        Extracts every occurrence of the specified word and prints out its location.
+
+        :param text: str
+        :param word: str
+        :return: None
+        """
+        for el in re.finditer(f"{word}", text):
+            print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
+
+    @staticmethod
+    def grep_by_type(text: str, data_type: str) -> None:
+        """
+        Extracts every occurrence of the string that matches
+        the specified type and prints out its location.
+
+        :param text: str
+        :param type: str
+        :return: None
+        """
+        if data_type == "str":
+            for el in re.finditer(r"[A-Za-z]+", text):
+                print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
+        elif data_type == "int":
+            for el in re.finditer(r"\d+", text):
+                print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
+        else:
+            print("Unsupported type of data! Please use either 'str' or 'int'.")
