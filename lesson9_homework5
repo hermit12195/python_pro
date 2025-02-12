@@ -1,0 +1,11 @@
+"""Custom Module for removing of HTML tags."""
+import re
+
+
+def html_tag_cleaner(text: str) -> str:
+    """
+    Removes HTML tags from text.
+    :param text: str
+    :return: str
+    """
+    return re.sub(r"<\w+>", "", text)
