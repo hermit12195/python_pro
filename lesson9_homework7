@@ -1,0 +1,17 @@
+"""Custom Module for IP address validation."""
+import re
+
+
+def ip_validator(text: str) -> list:
+    """
+    Validates the IP address.
+
+    :param text: str
+    :return: list
+    """
+    list_w_ips = []
+    for ip in re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', text):
+        if len([el for el in ip.split(".") if 0 <= int(el) < 255]) == 4:
+            list_w_ips.append(ip)
+
+    return list_w_ips
