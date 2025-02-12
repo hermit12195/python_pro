@@ -1,0 +1,13 @@
+"""Custom module for email validation"""
+import re
+
+
+def email_validator(email: str) -> str:
+    """
+    Checks if the email is valid.
+    :param email: str
+    :return: str
+    """
+    if re.match(r'\b\w[a-zA-Z0-9.]+\w+\b@\w+\.\w{2,6}', email):
+        return f"{email} is valid!"
+    return f"{email} is NOT valid!"
