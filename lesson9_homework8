@@ -1,0 +1,12 @@
+"""Custom Module for URLs extraction."""
+import re
+
+
+def url_extractor(text: str) -> list:
+    """
+    Extracts URLs from the text.
+
+    :param text: str
+    :return: list
+    """
+    return re.findall(r'https://\S+', text)
