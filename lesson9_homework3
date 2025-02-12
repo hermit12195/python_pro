@@ -1,0 +1,11 @@
+"""Custom Module for extracting hashtags from rare text."""
+import re
+
+
+def hashtag_filter(text: str) -> list:
+    """
+    Extracts hashtags from text and returns them in a form of list.
+    :param text: str
+    :return: list
+    """
+    return re.findall(r"#\w+", text)
