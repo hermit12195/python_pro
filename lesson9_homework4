@@ -1,0 +1,11 @@
+"""Custom Module for converting data string."""
+import re
+
+
+def data_converter(data: str) -> str:
+    """
+    Convert data string from DD/MM/YYYY format to YYYY-MM-DD.
+    :param text: str
+    :return: str
+    """
+    return "-".join(re.split(r"/", data)[::-1])
