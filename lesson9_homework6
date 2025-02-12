@@ -1,0 +1,15 @@
+"""Custom Module for password validation."""
+import re
+
+
+def password_validator(password: str) -> str:
+    """
+    Validates if password has at least one uppercase  letter, one lowercase letter,
+    one digit, one symbol and its length is not less than 8 symbols.
+
+    :param text: str
+    :return: str
+    """
+    if re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$", password):
+        return "The password is robust!"
+    return "The password in not robust!"
