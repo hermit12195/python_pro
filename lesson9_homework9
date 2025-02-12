@@ -4,7 +4,7 @@ import re
 
 def log_analyzer(file: str) -> None:
     """
-    Extracts URLs from the text.
+    Analyzes the log file.
 
     :param file: str
     :return: None
