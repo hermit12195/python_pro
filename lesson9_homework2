@@ -1,0 +1,11 @@
+"""Custom Module for extracting phone numbers from rare text."""
+import re
+
+
+def phone_number_filter(text: str) -> list:
+    """
+    Returns list with extracted phone numbers.
+    :param text: str
+    :return: list
+    """
+    return re.findall(r"[(]{0,1}\d{3}[)]{0,1}[.\s-]{0,1}\d{3}[.-]{0,1}\d{4}", text)
