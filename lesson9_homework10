@@ -51,3 +51,9 @@ def credit_card_validator(number: int, expiration_date: str, cvv: int) -> None:
         print("Credit card CVV is valid!")
     else:
         print("Credit card CVV is NOT valid! Please check the format.")
+
+
+print(postal_code_validator("Ukraine", "12345"))
+print(postal_code_validator("USA", "12345-5"))
+print(postal_code_validator("Canada", "A1B 2C3"))
+credit_card_validator(1234567891234567, "19/25", 123)
