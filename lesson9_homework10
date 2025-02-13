@@ -1,36 +1,53 @@
-"""Custom Module for the filtering of text."""
+"""Custom Module for testing of REGEX."""
 import re
+from datetime import datetime
 
 
-class Grep:
-    """Class for the filtering of text."""
-    @staticmethod
-    def grep_by_name(text: str, word: str) -> None:
-        """
-        Extracts every occurrence of the specified word and prints out its location.
+def postal_code_validator(country: str, code: str) -> str:
+    """
+    Validates Postal Code for several countries.
+    :param country: str
+    :param code: str
+    :return: str
+    """
+    if country == "Ukraine":
+        if re.match(r"\d{5}$", code):
+            return "Postal code is valid!"
+        return "Postal code is NOT valid"
+    if country == "USA":
+        if re.match(r"\d{5}|\d{5}-\d{1,4}$", code):
+            return "Postal code is valid!"
+        return "Postal code is NOT valid"
+    if country == "Canada":
+        if re.match(r"\w{1}\d{1}\w{1}\s\d{1}\w{1}\d{1}$", code):
+            return "Postal code is valid!"
+        return "Postal code is NOT valid"
+    return "Country is not supported! Please choose: Ukraine, USA or Canada"
 
-        :param text: str
-        :param word: str
-        :return: None
-        """
-        for el in re.finditer(f"{word}", text):
-            print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
 
-    @staticmethod
-    def grep_by_type(text: str, data_type: str) -> None:
-        """
-        Extracts every occurrence of the string that matches
-        the specified type and prints out its location.
 
-        :param text: str
-        :param type: str
-        :return: None
-        """
-        if data_type == "str":
-            for el in re.finditer(r"[A-Za-z]+", text):
-                print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
-        elif data_type == "int":
-            for el in re.finditer(r"\d+", text):
-                print(f"{el.group()} - start index: {el.start()}, stop index: {el.end()}")
+def credit_card_validator(number: int, expiration_date: str, cvv: int) -> None:
+    """
+    Validates the card details.
+    :param number: int
+    :param expiration_date: str
+    :param cvv: int
+    :return: None
+    """
+    if re.match(r"\d{16}$", str(number)):
+        print("Credit card number is valid!")
+    else:
+        print("Credit card number is NOT valid! Please check the format.")
+
+    if re.match(r"\d{2}/\d{2}$", expiration_date) and 0 < int(expiration_date.split("/")[0]) <= 12:
+        if (datetime.strptime(expiration_date, "%m/%y") >
+                datetime.strptime(datetime.now().strftime("%m/%y"), "%m/%y")):
+            print("Credit card expiration date is valid!")
         else:
-            print("Unsupported type of data! Please use either 'str' or 'int'.")
+            print("Credit card expiration date is outdated!")
+    else:
+        print("Credit card expiration date is NOT valid! Please check the format.")
+    if re.match(r"\d{3}$", str(cvv)):
+        print("Credit card CVV is valid!")
+    else:
+        print("Credit card CVV is NOT valid! Please check the format.")
