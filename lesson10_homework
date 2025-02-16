@@ -1,0 +1,282 @@
+"""Custom module for the Cinematheque program."""
+import sqlite3
+import re
+import datetime
+
+
+class Cinematheque():
+    """
+    Stores and modifies data in SQLite DB.
+    """
+
+    def __init__(self, db_name: str) -> None:
+        """
+        Initiates DB creation with specified fields.
+        :param db_name: str
+        """
+        self.conn = sqlite3.connect(db_name)
+        self.curs = self.conn.cursor()
+        self.curs.execute("CREATE TABLE IF NOT EXISTS movies ("
+                          "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                          "title TEXT,"
+                          "release_year INTEGER,"
+                          "genre TEXT)")
+        self.curs.execute("CREATE TABLE IF NOT EXISTS actors ("
+                          "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                          "name TEXT,"
+                          "birth_year INTEGER)")
+        self.curs.execute("CREATE TABLE IF NOT EXISTS movie_cast ("
+                          "movie_id INTEGER,"
+                          "actor_id INTEGER,"
+                          "PRIMARY KEY(movie_id, actor_id),"
+                          "FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,"
+                          "FOREIGN KEY (actor_id) REFERENCES actors(id) ON DELETE CASCADE)")
+        self.conn.commit()
+
+    def add_movie(self, title: str, release_year: int, genre: str, movie_actors=None) -> None:
+        """
+        Adds movie record to the 'movies' table. Optionally: populates 'movie_cast' table for the
+        'many to many' relation between 'movies' and 'actors' table.
+        :param title: str
+        :param release_year: int
+        :param genre: str
+        :param movie_actors: list | None
+        :return: None
+        """
+        try:
+            self.curs.execute("INSERT INTO movies (title, release_year, genre) VALUES(?, ?, ?)",
+                              (title, release_year, genre))
+            self.conn.commit()
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+        self.curs.execute("SELECT id FROM movies WHERE title =(?)", (title,))
+        movie = self.curs.fetchone()
+        if movie_actors is not None and movie_actors[0]:
+            for movie_actor in movie_actors:
+                self.curs.execute("SELECT name FROM actors")
+                try:
+                    if movie_actor in [el[0] for el in self.curs.fetchall()]:
+                        self.curs.execute("SELECT id FROM actors WHERE name=(?)", (movie_actor,))
+                        actor = self.curs.fetchone()
+                        self.curs.execute("INSERT INTO movie_cast (movie_id, actor_id) VALUES(?, ?)",
+                                          (movie[0], actor[0]))
+                        self.conn.commit()
+                    else:
+                        raise sqlite3.IntegrityError
+                except sqlite3.IntegrityError:
+                    print(f"Unknown actor '{movie_actor}'! Please add actor to the 'actors' DB first.")
+
+    def add_actor(self, name: str, birth_year: int) -> None:
+        """
+        Adds actor record to the 'actors' table.
+        :param name: str
+        :param birth_year: int
+        :return: None
+        """
+        self.curs.execute("INSERT INTO actors (name, birth_year) VALUES(?, ?)", (name, birth_year))
+        self.conn.commit()
+
+    def show_all_movies(self) -> None:
+        """
+        Lists all movies with actors.
+        :return: None
+        """
+        self.curs.execute("""SELECT movies.title, actors.name FROM movie_cast
+                    INNER JOIN movies
+                    ON movie_cast.movie_id=movies.id
+                    INNER JOIN actors
+                    ON movie_cast.actor_id=actors.id
+                    """)
+        movie_dict: dict = {}
+        for movie, actor in self.curs.fetchall():
+            if movie in movie_dict:
+                movie_dict[movie].append(actor)
+            else:
+                movie_dict[movie] = [actor]
+        for key, values in movie_dict.items():
+            print(f"Movie: {key.capitalize()}; Actors: {str(values).strip("[]").replace("'", "")}")
+
+    def show_unique_genres(self) -> None:
+        """
+        Lists unique genres from 'movies' table.
+        :return: None
+        """
+        self.curs.execute("SELECT DISTINCT genre FROM movies")
+        for el in self.curs.fetchall():
+            print(*el)
+
+    def count_movies_by_genre(self) -> None:
+        """
+        Lists genres with number of movies of particular genre.
+        :return: None
+        """
+        self.curs.execute("SELECT DISTINCT genre FROM movies")
+        for genre in [el[0] for el in self.curs.fetchall()]:
+            self.curs.execute("SELECT COUNT() FROM movies WHERE genre=(?)", (genre,))
+            print(f"{genre.capitalize()}: {self.curs.fetchone()[0]}")
+
+    def avg_age(self, genre: str) -> None:
+        """
+        Provides the average age of actors in particular genre.
+        :param genre: str
+        :return: None
+        """
+        self.curs.execute("SELECT DISTINCT genre FROM movies")
+        if genre in [el[0] for el in self.curs.fetchall()]:
+            self.curs.execute("""SELECT AVG(actors.birth_year) FROM movie_cast
+                            JOIN movies ON
+                            movie_cast.movie_id=movies.id
+                            JOIN actors ON 
+                            movie_cast.actor_id=actors.id
+                            WHERE movies.genre = (?)
+                            """, (genre,))
+            print(round(self.curs.fetchone()[0]))
+        else:
+            self.curs.execute("SELECT DISTINCT genre FROM movies")
+            print("Unknown genre! Please choose available genre:")
+            print(*[el[0] for el in self.curs.fetchall()], sep=", ")
+
+    def movie_search(self, pattern: str) -> None:
+        """
+        Provides the movie based on the search pattern.
+        :param pattern: str
+        :return: None
+        """
+        self.curs.execute("SELECT * FROM movies WHERE title LIKE (?)", (pattern + "%",))
+        res = self.curs.fetchall()
+        if res:
+            print(re.sub(r"[()']", "", str(res[0][1:])))
+        else:
+            print("Movie is not found:(")
+
+    def show_limited_movies(self, limit: int, offset: int) -> None:
+        """
+        List movies with pagination.
+        :param limit: int
+        :param offset: int
+        :return: None
+        """
+        self.curs.execute("SELECT * FROM movies LIMIT (?) OFFSET (?)", (limit, offset))
+        res = self.curs.fetchall()
+        if res:
+            for el in res:
+                print(el[1])
+        else:
+            print("The specified start position exceeds the number of movies available!")
+
+    def show_actors_movies(self) -> None:
+        """
+        Lists all movies and all actors available in 'movies' and 'actors' tables.
+        :return: None
+        """
+        self.curs.execute("""SELECT name from actors
+                          UNION ALL
+                          SELECT title from movies""")
+        for el in self.curs.fetchall():
+            print(el[0])
+
+    def movie_age(self) -> None:
+        """
+        Lists movies with their age.
+        :return: None
+        """
+        self.curs.execute("""SELECT title, release_year FROM movies ORDER BY release_year DESC""")
+        for el in self.curs.fetchall():
+            print(f"Movie: {el[0]}; Age: {int(datetime.date.today().strftime("%Y")) - el[1]} years")
+
+    def close_db(self) -> None:
+        """
+        Closes DB.
+        :return: None
+        """
+        self.conn.close()
+
+
+db = Cinematheque("cinema_db")
+db.add_actor('Daniel Radcliffe', 1989)
+db.add_actor('Emma Watson', 1985)
+db.add_actor('Michael J. Fox', 1967)
+db.add_actor('Lea Thompson', 1969)
+db.add_actor("Bryan Cranston", 1972)
+db.add_movie("Harry Potter", 2000, "fantasy", ["Daniel Radcliffe", "Emma Watson"])
+db.add_movie("Back to the Future", 1986, "scientific fantasy", ["Michael J. Fox", "Lea Thompson"])
+db.add_movie("Jurassic Period", 1985, "scientific fantasy")
+db.add_movie("Breaking Bad", 1984, "action movie", ["Bryan Cranston"])
+
+MENU = ("\n1. Add movie.\n"
+        "2. Add actor.\n"
+        "3. List all movies with actors.\n"
+        "4. List movie genres available.\n"
+        "5. List movies by genre.\n"
+        "6. Get the average age of actors in the movies of particular genre.\n"
+        "7. Search movies by title.\n"
+        "8. List movies (with pagination).\n"
+        "9. List all movies and actors.\n"
+        "10. List all movies with their age.\n"
+        "11. Menu.\n"
+        "0. Exit.\n")
+
+print("WELCOME TO THE CINEMATHEQUE", MENU)
+action = input("Choose action: ")
+try:
+    action = int(action)
+    while int(action) != 0:
+        if action == 1:
+            title = input("Insert movie title: ")
+            release_year = int(input("Insert the release year of the movie: "))
+            genre = input("Insert the genre of the film: ")
+            actors = input("(OPTIONAL) Insert actors separated by coma: ").strip().split(", ")
+            if actors:
+                db.add_movie(title, release_year, genre, actors)
+            else:
+                db.add_movie(title, release_year, genre)
+            print()
+        elif action == 2:
+            name = input("Insert name of the actor: ")
+            birth_year = int(input("Insert the birth year of the actor: "))
+            db.add_actor(name, birth_year)
+            print()
+        elif action == 3:
+            print("Movies with actors:")
+            db.show_all_movies()
+            print()
+        elif action == 4:
+            print("Unique genres:")
+            db.show_unique_genres()
+            print()
+        elif action == 5:
+            print("Genre and number of movies:")
+            db.count_movies_by_genre()
+            print()
+        elif action == 6:
+            genre = input("Choose genre: ")
+            print(f"Average age of actors in '{genre}' genre:")
+            db.avg_age(genre)
+            print()
+        elif action == 7:
+            print("Searching movies...")
+            db.movie_search(input("Insert movie title: "))
+            print()
+        elif action == 8:
+            offset = int(input("Provide the start position: "))
+            limit = int(input("Provide the number of records to display: "))
+            print(f"Page {offset} with {limit} movies:")
+            db.show_limited_movies(limit, offset)
+            print()
+        elif action == 9:
+            print("All movies and all actors:")
+            db.show_actors_movies()
+            print()
+        elif action == 10:
+            print("All movies with year of release:")
+            db.movie_age()
+            print()
+        elif action == 11:
+            print(MENU)
+        else:
+            print("Invalid option! Please choose option from range [0-11].")
+        action = int(input("Choose action: "))
+    db.close_db()
+    print("End of session!")
+except ValueError as e:
+    print(f"Invalid data type: {e}. Please use integers[0-11].")
