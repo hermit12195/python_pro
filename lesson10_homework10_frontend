@@ -1,0 +1,92 @@
+"""Custom module for the Cinematheque realization."""
+
+from homework import Cinematheque
+
+db = Cinematheque("cinema_db")
+db.add_actor('Daniel Radcliffe', 1989)
+db.add_actor('Emma Watson', 1985)
+db.add_actor('Michael J. Fox', 1967)
+db.add_actor('Lea Thompson', 1969)
+db.add_actor("Bryan Cranston", 1972)
+db.add_movie("Harry Potter", 2000, "fantasy", ["Daniel Radcliffe", "Emma Watson"])
+db.add_movie("Back to the Future", 1986, "scientific fantasy", ["Michael J. Fox", "Lea Thompson"])
+db.add_movie("Jurassic Period", 1985, "scientific fantasy")
+db.add_movie("Breaking Bad", 1984, "action movie", ["Bryan Cranston"])
+
+MENU = ("\n1. Add movie.\n"
+        "2. Add actor.\n"
+        "3. List all movies with actors.\n"
+        "4. List movie genres available.\n"
+        "5. List movies by genre.\n"
+        "6. Get the average age of actors in the movies of particular genre.\n"
+        "7. Search movies by title.\n"
+        "8. List movies (with pagination).\n"
+        "9. List all movies and actors.\n"
+        "10. List all movies with their age.\n"
+        "11. Menu.\n"
+        "0. Exit.\n")
+
+print("WELCOME TO THE CINEMATHEQUE", MENU)
+action = input("Choose action: ")
+try:
+    action = int(action)
+    while int(action) != 0:
+        if action == 1:
+            title = input("Insert movie title: ")
+            release_year = int(input("Insert the release year of the movie: "))
+            genre = input("Insert the genre of the film: ")
+            actors = input("(OPTIONAL) Insert actors separated by coma: ").strip().split(", ")
+            if actors:
+                db.add_movie(title, release_year, genre, actors)
+            else:
+                db.add_movie(title, release_year, genre)
+            print()
+        elif action == 2:
+            name = input("Insert name of the actor: ")
+            birth_year = int(input("Insert the birth year of the actor: "))
+            db.add_actor(name, birth_year)
+            print()
+        elif action == 3:
+            print("Movies with actors:")
+            db.show_all_movies()
+            print()
+        elif action == 4:
+            print("Unique genres:")
+            db.show_unique_genres()
+            print()
+        elif action == 5:
+            print("Genre and number of movies:")
+            db.count_movies_by_genre()
+            print()
+        elif action == 6:
+            genre = input("Choose genre: ")
+            print(f"Average age of actors in '{genre}' genre:")
+            db.avg_age(genre)
+            print()
+        elif action == 7:
+            print("Searching movies...")
+            db.movie_search(input("Insert movie title: "))
+            print()
+        elif action == 8:
+            offset = int(input("Provide the start position: "))
+            limit = int(input("Provide the number of records to display: "))
+            print(f"Page {offset} with {limit} movies:")
+            db.show_limited_movies(limit, offset)
+            print()
+        elif action == 9:
+            print("All movies and all actors:")
+            db.show_actors_movies()
+            print()
+        elif action == 10:
+            print("All movies with year of release:")
+            db.movie_age()
+            print()
+        elif action == 11:
+            print(MENU)
+        else:
+            print("Invalid option! Please choose option from range [0-11].")
+        action = int(input("Choose action: "))
+    db.close_db()
+    print("End of session!")
+except ValueError as e:
+    print(f"Invalid data type: {e}. Please use integers[0-11].")
