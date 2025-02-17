@@ -1,6 +1,6 @@
 """Custom module for the Cinematheque realization."""
 
-from homework import Cinematheque
+from backend import Cinematheque
 
 db = Cinematheque("cinema_db")
 db.add_actor('Daniel Radcliffe', 1989)
