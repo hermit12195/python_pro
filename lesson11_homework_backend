@@ -1,0 +1,386 @@
+import sqlite3
+import re
+from typing import Union
+
+
+class TotalRevenueAggregator:
+    """
+    A custom aggregate function to calculate the total revenue generated
+    by a product based on its price and quantity sold.
+    """
+
+    def __init__(self) -> None:
+        """
+        Initializes the total revenue to 0.
+        """
+        self.total_revenue = 0
+
+    def step(self, price: float, quantity: int) -> None:
+        """
+        Adds the revenue from a product's sale (price * quantity) to the total revenue.
+
+        :param price: The price of a single unit of the product.
+        :param quantity: The number of units sold.
+        """
+        self.total_revenue += price * quantity
+
+    def finalize(self) -> float:
+        """
+        Finalizes the calculation of total revenue and returns the result.
+
+        :return: The total revenue for the product.
+        """
+        return self.total_revenue
+
+
+class DB:
+    """
+    A class to manage a SQLite database for an e-commerce application, with
+    functionality to manage customers, products, orders, and order details.
+    """
+
+    def __init__(self, _db_name: str) -> None:
+        """
+        Initializes a connection to the SQLite database and creates the necessary
+        tables and indexes if they don't already exist.
+
+        :param _db_name: The name of the database to connect to.
+        """
+        try:
+            self.conn = sqlite3.connect(_db_name)
+            self.curs = self.conn.cursor()
+        except sqlite3.Error as e:
+            print(f"The database with name {_db_name} is not found!")
+            print(f"Error: {e}")
+        else:
+            self.curs.execute("""CREATE TABLE IF NOT EXISTS Customers 
+            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            phone TEXT UNIQUE NOT NULL)""")
+            self.curs.execute("""CREATE TABLE IF NOT EXISTS Products 
+                    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    price REAL NOT NULL,
+                    stock INTEGER NOT NULL)""")
+            self.curs.execute("""CREATE TABLE IF NOT EXISTS Orders 
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            customer_id INTEGER,
+                            order_date TEXT DEFAULT CURRENT_TIMESTAMP,
+                            FOREIGN KEY (customer_id) REFERENCES Customers (id))""")
+            self.curs.execute("""CREATE TABLE IF NOT EXISTS OrderDetails 
+                                    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    order_id INTEGER,
+                                    product_id INTEGER,
+                                    quantity INTEGER NOT NULL,
+                                    FOREIGN KEY (order_id) REFERENCES Orders (id),
+                                    FOREIGN KEY (product_id) REFERENCES Products (id))""")
+            self.curs.execute("""CREATE TRIGGER stock_update
+            AFTER INSERT ON OrderDetails
+            FOR EACH ROW
+            BEGIN
+                UPDATE products
+                SET stock=stock - NEW.quantity
+                WHERE id = NEW.product_id;
+            END;""")
+            self.curs.execute("CREATE INDEX email_index ON customers (email);")
+            self.conn.commit()
+
+    def add_customer(self, _name: str, _email: str, _phone: int) -> None:
+        """
+        Adds a new customer to the database.
+
+        :param _name: The name of the customer.
+        :param _email: The email address of the customer.
+        :param _phone: The phone number of the customer.
+        """
+        if isinstance(_name, str) and re.match(r"\w+@\w+\.\w{3,6}", _email) and isinstance(_phone, int):
+            try:
+                self.curs.execute("""INSERT INTO customers (name, email, phone) values(?, ?, ?)""",
+                                  (_name, _email, _phone))
+                self.conn.commit()
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check ")
+
+    def add_product(self, _name: str, _price: Union[int, float], _stock: int) -> None:
+        """
+        Adds a new product to the database.
+
+        :param _name: The name of the product.
+        :param _price: The price of the product.
+        :param _stock: The available stock of the product.
+        """
+        if isinstance(_name, str) and isinstance(_price, (int, float)) and isinstance(_stock, int):
+            try:
+                self.curs.execute("""INSERT INTO products (name, price, stock) VALUES (?, ?, ?)""",
+                                  (_name, float(_price), _stock))
+                self.conn.commit()
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check the input.")
+
+    def add_order(self, _customer_phone: int, _product: str, _quantity: int) -> None:
+        """
+        Adds an order for a customer, including the products they want to purchase.
+
+        :param _customer_phone: The phone number of the customer placing the order.
+        :param _product: The name of the product being ordered.
+        :param _quantity: The quantity of the product being ordered.
+        """
+        if isinstance(_customer_phone, int) and isinstance(_product, str) and isinstance(_quantity, int):
+            try:
+                self.curs.execute("""SELECT id FROM Customers WHERE phone=(?)""", (_customer_phone,))
+                _customer_id = self.curs.fetchone()
+                if _customer_id is not None:
+                    _customer_id = _customer_id[0]
+                    self.curs.execute("SELECT id, stock FROM Products WHERE name =(?)", (_product,))
+                    _product_id = self.curs.fetchone()
+                    if _product_id is not None:
+                        if _product_id[1] >= _quantity:
+                            _product_id = _product_id[0]
+                            self.curs.execute("""INSERT INTO Orders (customer_id) VALUES (?)""", (_customer_id,))
+                            _order_id = self.curs.lastrowid
+                            self.curs.execute(
+                                """INSERT INTO OrderDetails (order_id, product_id, quantity) VALUES (?, ?, ?)""",
+                                (_order_id, _product_id, _quantity))
+                            self.conn.commit()
+                            print("The order was successfully submitted!")
+                        else:
+                            print(f"There are not enough {_product}s in the shop for the order!\n"
+                                  f"Requested: {_quantity}\n"
+                                  f"Available: {_product_id[1]}")
+                    else:
+                        print(f"There is no product in DB: {_product}")
+                else:
+                    print(f"There is no customer in DB with phone number: {_customer_phone}")
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+
+    def list_all_products(self) -> None:
+        """
+        Lists all available products in the database.
+        """
+        try:
+            self.curs.execute("SELECT name from products WHERE stock > 0")
+            print("All available products: ")
+            for el in self.curs.fetchall():
+                print("-", *el)
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def client_orders(self, _client_phone: int) -> None:
+        """
+        Lists all orders placed by a specific client based on their phone number.
+
+        :param _client_phone: The phone number of the client.
+        """
+        if isinstance(_client_phone, int):
+            try:
+                self.curs.execute("""SELECT orders.id FROM orders
+                JOIN customers on orders.customer_id=customers.id  
+                WHERE phone == (?)""", (_client_phone,))
+                _orders_list = [el[0] for el in self.curs.fetchall()]
+                print(f"List of orders registered on phone '{_client_phone}':")
+                for order in _orders_list:
+                    self.curs.execute("""SELECT products.name, OrderDetails.quantity FROM products
+                    JOIN OrderDetails on products.id = OrderDetails.product_id
+                    JOIN orders on OrderDetails.order_id = orders.id 
+                    WHERE orders.id = (?)""", (order,))
+                    for el in self.curs.fetchall():
+                        print(f"- Product: {el[0]}; Quantity: {el[1]}")
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check the input.")
+
+    def number_of_orders(self) -> None:
+        """
+        Displays the total number of orders in the database.
+        """
+        try:
+            self.curs.execute("""SELECT COUNT(id) FROM orders""")
+            print(f"Currently, there are {self.curs.fetchone()[0]} orders submitted!")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def search_client(self, _pattern: str) -> None:
+        """
+        Searches for clients based on a given name pattern.
+
+        :param _pattern: The pattern of the name to search for.
+        """
+        if isinstance(_pattern, str):
+            try:
+                self.curs.execute("""SELECT * FROM customers WHERE name LIKE (?)""", (_pattern + "%",))
+                _search_res = self.curs.fetchall()
+                if len(_search_res) != 0:
+                    print("Search result:")
+                    for el in _search_res:
+                        print(f"- Name:{el[1]}; Email:{el[2]}; Phone:{el[3]}")
+                else:
+                    print("No customer found:(")
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check the input.")
+
+    def search_product(self, _pattern: str) -> None:
+        """
+        Searches for products based on a given name pattern.
+
+        :param _pattern: The pattern of the product name to search for.
+        """
+        if isinstance(_pattern, str):
+            try:
+                self.curs.execute("""SELECT * FROM products WHERE name LIKE (?)""", (_pattern + "%",))
+                _search_res = self.curs.fetchall()
+                if len(_search_res) != 0:
+                    print("Search result:")
+                    for el in _search_res:
+                        print(f"- Name:{el[1]}; Price:{el[2]}; Stock:{el[3]}")
+                else:
+                    print("No product found:(")
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check the input.")
+
+    def list_products_w_pagination(self, _limit: int, _offset: int) -> None:
+        """
+        Lists a paginated set of product names from the database based on the specified limit and offset.
+
+        :param _limit: The maximum number of products to retrieve.
+        :param _offset: The offset to start retrieving products from.
+        :return: None
+        """
+        if isinstance(_limit, int) and isinstance(_offset, int):
+            try:
+                self.curs.execute("SELECT name FROM products LIMIT (?) OFFSET (?)", (_limit, _offset))
+                _search_res = self.curs.fetchall()
+                if len(_search_res) != 0:
+                    print("Products:")
+                    for el in _search_res:
+                        print("-", el[0])
+                else:
+                    print("No products found with limits set! Please check the input.")
+            except sqlite3.Error as e:
+                print(f"Error: {e}")
+        else:
+            print("Inappropriate data type inserted! Please check the input.")
+
+    def list_products_w_clients(self) -> None:
+        """
+        Lists the orders of each client, along with the products purchased and their quantities.
+
+        :return: None
+        """
+        try:
+            self.curs.execute("""SELECT orders.id, customers.name FROM orders
+                            JOIN customers on orders.customer_id=customers.id
+                            ORDER BY customers.name""")
+            res_dict: dict = {}
+            for el in self.curs.fetchall():
+                if el[1] not in res_dict:
+                    res_dict[el[1]] = [el[0]]
+                else:
+                    res_dict[el[1]].append(el[0])
+            if len(res_dict) != 0:
+                for customer, orders in res_dict.items():
+                    print(f"\n{customer}'s orders:")
+                    for order in orders:
+                        self.curs.execute("""SELECT products.name, OrderDetails.quantity FROM products
+                                    JOIN OrderDetails on products.id = OrderDetails.product_id
+                                    JOIN orders on OrderDetails.order_id = orders.id 
+                                    WHERE orders.id = (?)""", (order,))
+                        for el in self.curs.fetchall():
+                            print(f"- Product: {el[0]}; Quantity: {el[1]}")
+            else:
+                print("No orders in DB!")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def list_purchased_products(self) -> None:
+        """
+        Lists all distinct products that have been purchased based on the order details.
+
+        :return: None
+        """
+        try:
+            self.curs.execute("""SELECT DISTINCT products.name  from OrderDetails
+            JOIN products ON OrderDetails.product_id=products.id""")
+            print("The list of purchased products:")
+            res = self.curs.fetchall()
+            if len(res) != 0:
+                for el in res:
+                    print(f"- {el[0]}")
+            else:
+                print("No purchased products yet :(")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def orders_sum_per_client(self) -> None:
+        """
+        Calculates and prints the total sum of orders for each customer, including the quantity and price.
+
+        :return: None
+        """
+        try:
+            self.curs.execute("""SELECT customers.name, SUM(products.price * OrderDetails.quantity) from customers
+            JOIN orders on customers.id=orders.customer_id
+            JOIN OrderDetails on orders.id = OrderDetails.order_id
+            JOIN products on OrderDetails.product_id=products.id
+            GROUP BY Customers.id""")
+            for el in self.curs.fetchall():
+                print(f"The total sum of orders for '{el[0]}' is '{el[1]}'.")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def all_clients_all_products(self) -> None:
+        """
+        Lists all customers and products from the database in a combined manner.
+
+        :return: None
+        """
+        try:
+            self.curs.execute("""SELECT name, email from customers
+            UNION 
+            SELECT name, stock from products""")
+            for el in self.curs.fetchall():
+                print(el[0], "-", el[1])
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def list_instock_outofstock_products(self) -> None:
+        """
+        Lists products that are either in stock or out of stock from the database.
+
+        :return: None
+        """
+        try:
+            self.curs.execute("""SELECT name, stock from products WHERE stock > 0
+            UNION ALL
+            SELECT name, stock from products WHERE stock = 0""")
+            for el in self.curs.fetchall():
+                print(el[0], "-", el[1])
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+
+    def total_revenue_per_product(self) -> None:
+        """
+        Calculates and lists the total revenue per product based on the quantity sold and the product price.
+
+        :return: None
+        """
+        try:
+            self.conn.create_aggregate("total_revenue", 2, TotalRevenueAggregator)
+            self.curs.execute("""SELECT products.name, total_revenue(OrderDetails.quantity, products.price) FROM products
+            JOIN OrderDetails ON products.id=OrderDetails.product_id
+            GROUP BY products.name""")
+            print("Total revenue per product:")
+            for el in self.curs.fetchall():
+                print(f"- Product: {el[0]}; Total Revenue: {el[1]}")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
