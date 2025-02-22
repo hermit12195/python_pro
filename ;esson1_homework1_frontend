@@ -1,0 +1,14 @@
+from DB_builder import Shopping
+
+
+shop = Shopping("localhost", 27017, "shopping")
+shop.add_product("phone", 1000, "electronics", 2)
+shop.add_product("laptop", 5000, "computers", 5)
+shop.add_product("earpods", 500, "electronics", 10)
+
+print(shop.add_order("Vlad", {"phone": 2, "earpods": 2}))
+print(shop.add_order("Zhanna", {"laptop": 1, "earpods": 1}))
+shop.get_recent_orders()
+shop.remove_unavailable_products()
+shop.count_products_timeperiod(5)
+shop.orders_total_sum()
