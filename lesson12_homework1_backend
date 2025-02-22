@@ -1,0 +1,98 @@
+"""Custom module for MongoDB testing."""
+from pymongo import MongoClient
+import datetime
+from datetime import timedelta
+
+
+class Shopping:
+    """
+    A class to manage shopping operations, including products and orders, using MongoDB as the backend.
+
+    Attributes:
+        products (Collection): MongoDB collection for storing products.
+        orders (Collection): MongoDB collection for storing orders.
+    """
+
+    def __init__(self, client_host: str, client_port: int, db_name: str):
+        """
+        Initializes the Shopping class by connecting to the MongoDB server and setting up the database and collections.
+
+        Args:
+            client_host (str): The host address of the MongoDB server.
+            client_port (int): The port number of the MongoDB server.
+            db_name (str): The name of the database to use.
+        """
+        client = MongoClient(client_host, client_port)
+        database = client[db_name]
+        self.products = database["products"]
+        self.products.create_index("category")  # Create an index on the 'category' field
+        self.orders = database["orders"]
+
+    def add_product(self, _name: str, _price: float, _category: str, stock: int) -> None:
+        """
+        Adds a new product to the products collection.
+
+        Args:
+            _name (str): The name of the product.
+            _price (float): The price of the product.
+            _category (str): The category of the product.
+            stock (int): The stock quantity of the product.
+        """
+        self.products.insert_one({"name": _name, "price": _price, "category": _category, "stock": stock})
+
+    def add_order(self, _client: str, _product_dict: dict) -> str:
+        """
+        Adds a new order to the orders collection after checking product availability.
+
+        Args:
+            _client (str): The name of the client placing the order.
+            _product_dict (dict): A dictionary where keys are product names and values are quantities.
+
+        Returns:
+            str: A message indicating whether the order was successfully submitted or if there was insufficient stock.
+        """
+        _total_price = 0
+        for key, value in _product_dict.items():
+            for el in self.products.find({"name": key}):
+                if el["stock"] >= value:
+                    _total_price += el["price"] * value
+                    self.products.update_one({"name": key}, {"$inc": {"stock": -value}})
+                else:
+                    return f"Not enough {el['name']} in database!"
+        self.orders.insert_one(
+            {"client": _client, "product_list": _product_dict, "total_price": _total_price,
+             "timestamp": datetime.datetime.now(datetime.UTC)})
+        return "The order was successfully submitted!"
+
+    def get_recent_orders(self) -> None:
+        """
+        Prints all orders placed within the last 30 days.
+        """
+        for el in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=30)}}):
+            print(el)
+
+    def remove_unavailable_products(self) -> None:
+        """
+        Removes all products with a stock quantity of 0 from the products collection.
+        """
+        res = self.products.delete_many({"stock": 0})
+        print(f"Removed products: {res.deleted_count}")
+
+    def count_products_timeperiod(self, days: int) -> None:
+        """
+        Counts the total number of products sold within a specified time period.
+
+        Args:
+            days (int): The number of days to look back for orders.
+        """
+        total = 0
+        for el in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=days)}}):
+            total += sum(list(el["product_list"].values()))
+        print(total)
+
+    def orders_total_sum(self) -> None:
+        """
+        Calculates and prints the total sum of all orders' total prices.
+        """
+        res = self.orders.aggregate([{"$group": {"_id": None, "total": {"$sum": "$total_price"}}}])
+        print("Total sum:", list(res)[0]["total"])
