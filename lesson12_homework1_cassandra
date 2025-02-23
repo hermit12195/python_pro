@@ -54,7 +54,7 @@ class ConnectCassandra:
         except Exception as e:
             print(f"ERROR: {e}")
 
-    def update_event(self, _event_id: str, _metadata: str) -> None:
+    def update_event(self, _event_id: str, _time_stamp: str,  _metadata: str) -> None:
         """
         Updates metadata field.
         :param _event_id: str
@@ -63,7 +63,8 @@ class ConnectCassandra:
         """
         try:
             _event_id: str = uuid.UUID(_event_id)
-            self.session.execute("""UPDATE logs SET metadata=(%s) WHERE event_id=(%s)""", (_metadata, _event_id))
+            self.session.execute("""UPDATE logs SET metadata=(%s) WHERE event_id=(%s) AND time_stamp=(%s) """,
+                                 (_metadata, _event_id, _time_stamp))
         except Exception as e:
             print(f"ERROR: {e}")
 
@@ -85,5 +86,5 @@ class ConnectCassandra:
 cass = ConnectCassandra()
 cass.add_log(1, "ssh login2", "ip: 192.168.1.12")
 cass.read_log(24)
-cass.update_event("6ed09f7e-96f5-4b7c-a755-d9efc82c03ac", "TEST")
+cass.update_event("1f3f3911-3e8f-4406-9e84-38f9ee70b6a9","2025-02-23 11:57:54.006000+0000", "TEST")
 cass.remove_events("45926165-142f-4927-9a09-9c916012f615", 7)
