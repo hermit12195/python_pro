@@ -1,0 +1,89 @@
+"""Custom Module for Cassandra testing"""
+import uuid
+import datetime
+from datetime import timedelta
+from cassandra.cluster import Cluster
+
+
+class ConnectCassandra:
+    """
+    Performs CRUD operations with Cassandra DB.
+    """
+
+    def __init__(self):
+        """
+        Connects to Cassandra server, creates the KEY SPACE and table 'logs'.
+        """
+        self.cluster = Cluster(["127.0.0.1"], port=9042)
+        self.session = self.cluster.connect()
+        self.session.execute("""CREATE KEYSPACE IF NOT EXISTS my_keyspace
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}""")
+        self.session.execute("USE my_keyspace")
+        self.session.execute("""CREATE TABLE IF NOT EXISTS logs
+        (event_id UUID, user_id INT, event_type VARCHAR, time_stamp TIMESTAMP, metadata TEXT,
+        PRIMARY KEY (event_id, time_stamp))""")
+
+    def add_log(self, _user_id: int, _event_type: str, _metadata: str) -> None:
+        """
+        Adds record to the 'logs' table.
+        :param _user_id: int
+        :param _event_type: str
+        :param _metadata: str
+        :return: None
+        """
+        try:
+            self.session.execute("""INSERT INTO logs
+            (event_id, user_id, event_type, time_stamp, metadata)
+            VALUES(%s, %s, %s, %s, %s)""",
+            (uuid.uuid4(), int(_user_id), str(_event_type),
+            datetime.datetime.now(datetime.UTC), _metadata))
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def read_log(self, _hours: int) -> None:
+        """
+        Prints out the logs within specified time period.
+        :param _hours: int
+        :return: None
+        """
+        try:
+            rows = self.session.execute("""SELECT * FROM logs WHERE time_stamp > (%s) ALLOW FILTERING""",
+                                        (datetime.datetime.now(datetime.UTC) - timedelta(hours=_hours),))
+            for row in rows:
+                print(f"TIME: {row.time_stamp}; USER: {row.user_id}; EVENT: {row.event_type}; METADATA: {row.metadata}")
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def update_event(self, _event_id: str, _metadata: str) -> None:
+        """
+        Updates metadata field.
+        :param _event_id: str
+        :param _metadata: str
+        :return:
+        """
+        try:
+            _event_id: str = uuid.UUID(_event_id)
+            self.session.execute("""UPDATE logs SET metadata=(%s) WHERE event_id=(%s)""", (_metadata, _event_id))
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def remove_events(self, _event_id: str, _days: int) -> None:
+        """
+        Removes the log records within specified time period.
+        :param _event_id: str
+        :param _days: int
+        :return: None
+        """
+        try:
+            _event_id: str = uuid.UUID(_event_id)
+            self.session.execute("""DELETE FROM logs WHERE time_stamp > (%s) and event_id=(%s) """,
+                                 (datetime.datetime.now(datetime.UTC) - timedelta(days=_days), _event_id))
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+
+cass = ConnectCassandra()
+cass.add_log(1, "ssh login2", "ip: 192.168.1.12")
+cass.read_log(24)
+cass.update_event("6ed09f7e-96f5-4b7c-a755-d9efc82c03ac", "TEST")
+cass.remove_events("45926165-142f-4927-9a09-9c916012f615", 7)
