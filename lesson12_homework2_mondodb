@@ -1,0 +1,60 @@
+"""Custom module for MongoDB testing"""
+from pymongo import MongoClient
+
+
+class ConnectMongo:
+    """
+    A class for performing CRUD operations on a MongoDB collection named 'cats' within the 'vet_clinic' database.
+    """
+
+    def __init__(self) -> None:
+        """
+        Initializes a connection to the MongoDB server and selects the 'vet_clinic' database
+        and the 'cats' collection.
+        """
+        client = MongoClient(host="localhost", port=27017)
+        db = client["vet_clinic"]
+        self.cats = db["cats"]
+
+    def add_cat(self, _name: str, _breed: str, _age: int) -> None:
+        """
+        Adds a new cat record to the database.
+
+        :param _name: Name of the cat.
+        :param _breed: Breed of the cat.
+        :param _age: Age of the cat.
+        """
+        self.cats.insert_one({"name": _name, "breed": _breed, "age": _age})
+
+    def get_cat(self, _name: str) -> None:
+        """
+        Retrieves a cat's information from the database.
+
+        :param _name: Name of the cat.
+        :return: Dictionary containing the cat's details or None if not found.
+        """
+        print(self.cats.find_one({"name": _name}))
+
+    def update_age(self, _name: str, _age: int) -> None:
+        """
+        Updates the age of a cat in the database.
+
+        :param _name: Name of the cat.
+        :param _age: New age of the cat.
+        """
+        self.cats.update_one({"name": _name}, {"$set": {"age": _age}})
+
+    def remove_cat(self, _name: str) -> None:
+        """
+        Deletes a cat's record from the database.
+
+        :param _name: Name of the cat.
+        """
+        self.cats.delete_one({"name": _name})
+
+
+cats = ConnectMongo()
+cats.add_cat("Buma", "siberian cat", 11)
+cats.update_age("Buma", 10)
+cats.remove_cat("Buma")
+cats.get_cat("Buma")
