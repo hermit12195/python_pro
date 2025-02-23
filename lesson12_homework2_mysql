@@ -18,7 +18,7 @@ class ConnectMySQL:
         self.mydb = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Hermit121$"
+            password="TEST"
         )
         self.curs = self.mydb.cursor()
 
