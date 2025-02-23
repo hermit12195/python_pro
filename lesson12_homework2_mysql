@@ -1,0 +1,97 @@
+"""Custom module for MySQL testing"""
+import mysql.connector
+
+
+class ConnectMySQL:
+    """
+    A class to manage a MySQL database for a veterinary clinic.
+
+    This class handles the creation of a database and a table for storing cat records.
+    It provides methods to register, retrieve, update, and remove cat records.
+    """
+
+    def __init__(self) -> None:
+        """
+        Initializes the connection to the MySQL database, creates the 'vet_clinic' database
+        (if not exists), and creates the 'cats' table.
+        """
+        self.mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="Hermit121$"
+        )
+        self.curs = self.mydb.cursor()
+
+        try:
+            self.curs.execute("CREATE DATABASE vet_clinic")
+        except mysql.connector.errors.DatabaseError:
+            self.curs.execute("USE vet_clinic")
+
+        self.curs.execute("""
+            CREATE TABLE IF NOT EXISTS cats (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                name VARCHAR(100) NOT NULL,
+                breed VARCHAR(100) NOT NULL,
+                age INT NOT NULL
+            )
+        """)
+        self.mydb.commit()
+
+    def register_cat(self, _name: str, _breed: str, _age: int) -> None:
+        """
+        Registers a new cat in the database.
+
+        :param _name: The name of the cat.
+        :param _breed: The breed of the cat.
+        :param _age: The age of the cat in years.
+        """
+        try:
+            self.curs.execute("INSERT INTO cats (name, breed, age) VALUES(%s, %s, %s)", (_name, _breed, _age))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def get_cat(self, _name: str) -> None:
+        """
+        Retrieves a cat's details from the database by name.
+
+        :param _name: The name of the cat to search for.
+        """
+        try:
+            self.curs.execute("SELECT name, breed, age FROM cats WHERE name = %s", (_name,))
+            for el in self.curs.fetchall():
+                print(el)
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def update_age(self, _name: str, _age: int) -> None:
+        """
+        Updates the age of a cat in the database.
+
+        :param _name: The name of the cat whose age should be updated.
+        :param _age: The new age of the cat.
+        """
+        try:
+            self.curs.execute("UPDATE cats SET age = %s WHERE name = %s", (_age, _name))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+    def remove_cat(self, _name: str) -> None:
+        """
+        Removes a cat record from the database by name.
+
+        :param _name: The name of the cat to remove.
+        """
+        try:
+            self.curs.execute("DELETE FROM cats WHERE name = %s", (_name,))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"ERROR: {e}")
+
+
+cats = ConnectMySQL()
+cats.register_cat('Buma', 'siberian cat', 11)
+cats.get_cat("Buma")
+cats.update_age("Buma", 10)
+cats.remove_cat("Buma")
