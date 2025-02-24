@@ -1,0 +1,34 @@
+"""Custom module for Redis DB backup"""
+import redis as r
+import json
+import datetime
+import time
+
+
+class RedisBackup:
+    """
+    Connects to Redis DB and creates a backup of DB in json format.
+    """
+    def __init__(self) -> None:
+        """
+        Connects to Redis DB.
+        """
+        self.db = r.Redis(host="localhost", port=6379, db=0)
+
+    def backup_redis_db(self) -> None:
+        """
+        Creates a backup of DB in json format.
+        """
+        redis_dict: dict = {}
+        for session_key in self.db.keys("*"):
+            redis_dict[session_key.decode("utf-8")] = {key.decode("utf-8"): value.decode("utf-8") for (key, value) in
+                                                       self.db.hgetall(session_key).items()}
+        with open(f"backup_redis_db_{datetime.datetime.utcnow().isoformat().replace(':', '-').replace('.', '-')}.json",
+                  "w") as fo:
+            json.dump(redis_dict, fo, indent=4)
+
+
+red = RedisBackup()
+while True:
+    red.backup_redis_db()
+    time.sleep(1800)
