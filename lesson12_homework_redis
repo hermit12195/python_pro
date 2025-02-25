@@ -1,7 +1,7 @@
 """Custom Module for Redis testing"""
-import redis
 import uuid
 import datetime
+import redis
 
 
 class ConnectRedis:
