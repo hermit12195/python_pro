@@ -1,7 +1,6 @@
 """Custom module for MongoDB testing."""
+from datetime import timedelta, datetime
 from pymongo import MongoClient
-import datetime
-from datetime import timedelta
 
 
 class Shopping:
@@ -61,14 +60,14 @@ class Shopping:
                     return f"Not enough {element['name']} in database!"
         self.orders.insert_one(
             {"client": _client, "product_list": _product_dict, "total_price": _total_price,
-             "timestamp": datetime.datetime.now(datetime.UTC)})
+             "timestamp": datetime.utcnow()})
         return "The order was successfully submitted!"
 
     def get_recent_orders(self) -> None:
         """
         Prints all orders placed within the last 30 days.
         """
-        for element in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=30)}}):
+        for element in self.orders.find({"timestamp": {"$gt": datetime.utcnow() - timedelta(days=30)}}):
             print(element)
 
     def remove_unavailable_products(self) -> None:
@@ -86,7 +85,7 @@ class Shopping:
             days (int): The number of days to look back for orders.
         """
         total = 0
-        for element in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=days)}}):
+        for element in self.orders.find({"timestamp": {"$gt": datetime.utcnow() - timedelta(days=days)}}):
             total += sum(list(element["product_list"].values()))
         print(total)
 
