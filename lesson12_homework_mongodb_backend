@@ -53,12 +53,12 @@ class Shopping:
         """
         _total_price = 0
         for key, value in _product_dict.items():
-            for el in self.products.find({"name": key}):
-                if el["stock"] >= value:
-                    _total_price += el["price"] * value
+            for element in self.products.find({"name": key}):
+                if element["stock"] >= value:
+                    _total_price += element["price"] * value
                     self.products.update_one({"name": key}, {"$inc": {"stock": -value}})
                 else:
-                    return f"Not enough {el['name']} in database!"
+                    return f"Not enough {element['name']} in database!"
         self.orders.insert_one(
             {"client": _client, "product_list": _product_dict, "total_price": _total_price,
              "timestamp": datetime.datetime.now(datetime.UTC)})
@@ -68,8 +68,8 @@ class Shopping:
         """
         Prints all orders placed within the last 30 days.
         """
-        for el in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=30)}}):
-            print(el)
+        for element in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=30)}}):
+            print(element)
 
     def remove_unavailable_products(self) -> None:
         """
@@ -86,8 +86,8 @@ class Shopping:
             days (int): The number of days to look back for orders.
         """
         total = 0
-        for el in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=days)}}):
-            total += sum(list(el["product_list"].values()))
+        for element in self.orders.find({"timestamp": {"$gt": datetime.datetime.now(datetime.UTC) - timedelta(days=days)}}):
+            total += sum(list(element["product_list"].values()))
         print(total)
 
     def orders_total_sum(self) -> None:
