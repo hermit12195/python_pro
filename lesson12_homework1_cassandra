@@ -102,12 +102,3 @@ class ConnectCassandra:
 
     def close(self):
         self.cluster.shutdown()
-
-
-cass = ConnectCassandra("127.0.0.1", 9042)
-cass.create_keyspace_table()
-cass.add_log(1, "ssh login2", "ip: 192.168.1.12")
-cass.update_event("7e891bf5-3de8-45ed-b691-1d4716a03c34", "ssh login2", datetime.utcnow(), "TEST")
-cass.read_log("ssh login2", 24)
-cass.remove_events("ssh login2", "b2babed4-7a29-4473-aa9c-f2360189f56a", 7)
-cass.close()
