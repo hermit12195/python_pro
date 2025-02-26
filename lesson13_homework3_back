@@ -1,5 +1,4 @@
 """Custom Module for Multiprocessing tests"""
-from multiprocessing import freeze_support, set_start_method
 import concurrent.futures
 
 
