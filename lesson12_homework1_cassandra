@@ -2,10 +2,8 @@
 import uuid
 from datetime import timedelta, datetime
 import logging
+from cassandra import InvalidQueryException
 from cassandra.cluster import Cluster
-
-logging.basicConfig(level=logging.ERROR)
-logger = logging.getLogger(__name__)
 
 
 class ConnectCassandra:
@@ -13,11 +11,11 @@ class ConnectCassandra:
     Performs CRUD operations with Cassandra DB.
     """
 
-    def __init__(self):
+    def __init__(self, ip: str, port: int):
         """
         Connects to Cassandra server, creates the KEY SPACE and table 'logs'.
         """
-        self.cluster = Cluster(["127.0.0.1"], port=9042)
+        self.cluster = Cluster([ip], port)
         self.session = self.cluster.connect()
 
     def create_keyspace_table(self):
@@ -36,14 +34,22 @@ class ConnectCassandra:
         :param _metadata: str
         :return: None
         """
-        try:
-            self.session.execute("""INSERT INTO logs
-            (event_id, user_id, event_type, time_stamp, metadata)
-            VALUES(%s, %s, %s, %s, %s)""",
-                                 (uuid.uuid4(), int(_user_id), str(_event_type),
-                                  datetime.utcnow(), _metadata))
-        except Exception as e:
-            logger.exception(f"Error during event handling: {e}")
+        if isinstance(_user_id, int) and isinstance(_event_type, str) and isinstance(_metadata, str):
+            try:
+                _event_id = uuid.uuid4()
+            except AttributeError as e:
+                print(f"Error during event ID creation: {e}")
+            else:
+                try:
+                    self.session.execute("""INSERT INTO logs
+                    (event_id, user_id, event_type, time_stamp, metadata)
+                    VALUES(%s, %s, %s, %s, %s)""",
+                                         (_event_id, int(_user_id), str(_event_type),
+                                          datetime.utcnow(), _metadata))
+                except InvalidQueryException as e:
+                    print(f"Error during event handling: {e}")
+        else:
+            print("Invalid data type for the arguments!")
 
     def read_log(self, _event_type: str, _hours: int) -> None:
         """
@@ -56,8 +62,8 @@ class ConnectCassandra:
                                         (_event_type, datetime.utcnow() - timedelta(hours=_hours)))
             for row in rows:
                 print(f"TIME: {row.time_stamp}; USER: {row.user_id}; EVENT: {row.event_type}; METADATA: {row.metadata}")
-        except Exception as e:
-            logger.exception(f"Error during event handling: {e}")
+        except InvalidQueryException as e:
+            print(f"Error during event handling: {e}")
 
     def update_event(self, _event_id: str, _event_type: str, _time_stamp: datetime, _metadata: str) -> None:
         """
@@ -73,8 +79,8 @@ class ConnectCassandra:
             self.session.execute(
                 """UPDATE logs SET metadata=(%s) WHERE event_type=(%s) AND event_id=(%s) AND time_stamp=(%s) """,
                 (_metadata, _event_type, _event_id, _time_stamp))
-        except Exception as e:
-            logger.exception(f"Error during event handling: {e}")
+        except InvalidQueryException as e:
+            print(f"Error during event handling: {e}")
 
     def remove_events(self, _event_type, _event_id: str, _days: int) -> None:
         """
@@ -91,13 +97,17 @@ class ConnectCassandra:
                 self.session.execute("""
                     DELETE FROM logs WHERE event_type = %s AND time_stamp = %s AND event_id = %s
                 """, (_event_type, row.time_stamp, row.event_id))
-        except Exception as e:
-            logger.exception(f"Error during event handling: {e}")
+        except InvalidQueryException as e:
+            print(f"Error during event handling: {e}")
+
+    def close(self):
+        self.cluster.shutdown()
 
 
-cass = ConnectCassandra()
+cass = ConnectCassandra("127.0.0.1", 9042)
 cass.create_keyspace_table()
 cass.add_log(1, "ssh login2", "ip: 192.168.1.12")
-cass.update_event("7e891bf5-3de8-45ed-b691-1d4716a03c34", "ssh login2", datetime.datetime.utcnow(), "TEST")
+cass.update_event("7e891bf5-3de8-45ed-b691-1d4716a03c34", "ssh login2", datetime.utcnow(), "TEST")
 cass.read_log("ssh login2", 24)
 cass.remove_events("ssh login2", "b2babed4-7a29-4473-aa9c-f2360189f56a", 7)
+cass.close()
