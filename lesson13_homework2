@@ -1,0 +1,31 @@
+"""Custom Module for Multy-threading tests"""
+import concurrent.futures
+import threading
+from PIL import Image
+
+
+def image_resizer(image: str, width: int, height: int):
+    """
+    Resizes and opens an image.
+    :param image: str
+    :param width: int
+    :param height: int
+    :return:
+    """
+    if isinstance(image, str) and isinstance(width, int) and isinstance(height, int):
+        print(f"The thread {threading.current_thread().name} has taken the task!")
+        image = Image.open(image)
+        res_img = image.resize((width, height))
+        res_img.show()
+        print(f"The thread {threading.current_thread().name} has released the task!")
+    else:
+        print("Invalid data type!")
+
+
+pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
+pool.submit(image_resizer, "image1.png", 40, 40)
+pool.submit(image_resizer, "image2.png", 50, 50)
+
+pool.shutdown(wait=True)
+
+print("The main thread is over!")
