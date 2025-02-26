@@ -1,0 +1,55 @@
+"""Custom Module for Multiprocessing tests"""
+from multiprocessing import freeze_support, set_start_method
+import concurrent.futures
+
+
+def calculator(my_list: list):
+    """
+    Provides the sum of all elements in the list.
+    :param my_list: list
+    :return:
+    """
+    print(sum(my_list))
+
+
+class MultiProcessor:
+    """
+    A class that divides a range of numbers into smaller chunks and processes them in parallel using multiple worker processes.
+
+    Attributes:
+        incr (float): The size of each chunk, calculated by dividing the range of numbers by the number of workers.
+        array (list): A list of integers from 0 to the specified range.
+        workers_number (int): The number of worker processes to use for parallel processing.
+
+    Methods:
+        __init__(list_range, workers_number):
+            Initializes the MultiProcessor with a specified range and number of workers.
+
+        start():
+            Divides the range into smaller chunks and assigns each chunk to a worker process for concurrent execution.
+    """
+    def __init__(self, list_range, workers_number):
+        """
+        Initializes the MultiProcessor with a specified range and number of workers.
+
+        Args:
+            list_range (int): The upper limit for generating the list of numbers.
+            workers_number (int): The number of worker processes to use for parallel processing.
+        """
+        self.incr = int(list_range / workers_number)
+        self.array = [num for num in range(list_range)]
+        self.workers_number = workers_number
+
+    def start(self):
+        """
+        Divides the range into smaller chunks and assigns each chunk to a worker process for concurrent execution.
+
+        This method uses the ProcessPoolExecutor to start multiple processes and submit tasks for parallel execution.
+        Each worker processes a specific range of numbers from the list.
+        """
+        start, end = 0, self.incr
+        pool = concurrent.futures.ProcessPoolExecutor(max_workers=self.workers_number)
+        for _ in range(self.workers_number):
+            pool.submit(calculator, self.array[start:end])
+            start += self.incr
+            end += self.incr
