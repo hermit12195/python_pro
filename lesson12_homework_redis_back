@@ -1,0 +1,147 @@
+"""Custom Module for Redis testing"""
+import uuid
+import datetime
+from redis import Redis, ConnectionError, DataError
+
+
+class ConnectRedis:
+    """
+    A class to manage user sessions using Redis for storage.
+
+    Attributes:
+        r (redis.Redis): A Redis connection object.
+    """
+
+    def __init__(self, host: str, port: int, db: int) -> None:
+        """
+        Initializes the ConnectRedis class by connecting to the Redis server.
+        """
+        if isinstance(host, str) and isinstance(port, int) and isinstance(db, int):
+            try:
+                self.r = Redis(host=host, port=port, db=db)
+            except ConnectionError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
+
+    def add_session(self, user_id: int) -> None:
+        """
+        Adds a new session for the user.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+
+        Returns:
+            str: The session token generated for the user.
+        """
+        if isinstance(user_id, int):
+            try:
+                session_token = str(uuid.uuid4())
+                session_key = f"session:{session_token}"
+                self.r.hset(session_key, "user_id", user_id)
+                self.r.hset(session_key, "session_token", session_token)
+                self.r.hset(session_key, "login_time", datetime.datetime.now(datetime.UTC).isoformat())
+            except DataError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
+
+    def get_session_token(self, user_id: int) -> None:
+        """
+        Retrieves the session token for the user.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+
+        Returns:
+            str | None: The session token if it exists, otherwise None.
+        """
+        if isinstance(user_id, int):
+            try:
+                session_token_list = []
+                for key in self.r.keys():
+                    session = {key.decode("utf-8"): value.decode("utf-8") for (key, value) in
+                               self.r.hgetall(key).items()}
+                    if str(user_id) == session['user_id']:
+                        session_token_list.append(session["session_token"])
+                if session_token_list:
+                    for token in session_token_list:
+                        print(token)
+                else:
+                    print("No sessions for the specified user ID!")
+            except DataError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
+
+    def update_session(self, user_id: int, session_key: str) -> None:
+        """
+        Updates the login time for the user's session.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+        """
+        if isinstance(user_id, int) and isinstance(session_key, str):
+            try:
+                session = {key.decode("utf-8"): value.decode("utf-8") for (key, value) in
+                           self.r.hgetall(session_key).items()}
+                if session:
+                    if int(session["user_id"]) == user_id:
+                        self.r.hset(session_key, "login_time", datetime.datetime.now(datetime.UTC).isoformat())
+                    else:
+                        print("Wrong user ID!")
+                else:
+                    print("Wrong session ID!")
+            except DataError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
+
+    def delete_sessions(self, user_id: int) -> None:
+        """
+        Deletes sessions for the user.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+        """
+        if isinstance(user_id, int):
+            try:
+                session_list = []
+                for key in self.r.keys():
+                    session = {key.decode("utf-8"): value.decode("utf-8") for (key, value) in
+                               self.r.hgetall(key).items()}
+                    if str(user_id) == session['user_id']:
+                        session_list.append(key.decode("utf-8"))
+                if session_list:
+                    for sess in session_list:
+                        self.r.delete(sess)
+                else:
+                    print("No sessions found with specified user ID!")
+            except DataError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
+
+    def set_ttl(self, session_key: str, user_id: int, expiration: int) -> None:
+        """
+        Sets the time-to-live (TTL) for the user's session.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+            expiration (int): The expiration time in seconds.
+        """
+        if isinstance(user_id, int) and isinstance(session_key, str) and isinstance(expiration, int):
+            try:
+                session = {key.decode("utf-8"): value.decode("utf-8") for (key, value) in
+                           self.r.hgetall(session_key).items()}
+                if session:
+                    if int(session["user_id"]) == user_id:
+                        self.r.expire(session_key, expiration)
+                    else:
+                        print("Wrong user ID!")
+                else:
+                    print("Wrong session ID!")
+            except DataError as e:
+                print("ERROR", e)
+        else:
+            print("Invalid data type")
