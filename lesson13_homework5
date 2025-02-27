@@ -1,0 +1,37 @@
+from threading import Thread, BoundedSemaphore, current_thread
+import re
+
+sem = BoundedSemaphore(2)
+
+
+def file_search(file: str) -> None:
+    """
+    Opens file and prints only IP addresses.
+    :param file: str
+    :return: None
+    """
+    with sem:
+        print(f"Thread {current_thread().name} has taken the task!")
+        with open(file, "r") as fo:
+            for line in fo.readlines():
+                if line.strip():
+                    print(re.match("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", line).group())
+        print(f"Thread {current_thread().name} has finished the task")
+        print(f"Thread {current_thread().name} is alive: {current_thread().is_alive()}")
+
+
+t1 = Thread(target=file_search, args=("file1.txt",))
+t2 = Thread(target=file_search, args=("file2.txt",))
+t3 = Thread(target=file_search, args=("file3.txt",))
+
+t1.start()
+t2.start()
+t3.start()
+
+t1.join()
+t2.join()
+t3.join()
+
+print(f"Thread {t1.name} is alive: {t1.is_alive()}")
+print(f"Thread {t2.name} is alive: {t2.is_alive()}")
+print(f"Thread {t3.name} is alive: {t3.is_alive()}")
