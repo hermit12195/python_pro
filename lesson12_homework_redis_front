@@ -1,0 +1,8 @@
+from test import ConnectRedis
+
+red = ConnectRedis("localhost", 6379, 0)
+#red.add_session(1)
+#red.get_session_token(1)
+#red.update_session(1, "session:d489c432-5ca3-47b3-a42e-890ddd165a8b")
+#red.delete_sessions(1)
+red.set_ttl("session:c4cf3014-6d6e-4a90-bd3f-833a3ad0119d",1, 1800)
