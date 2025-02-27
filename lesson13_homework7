@@ -1,0 +1,41 @@
+"""Custom Module for the Multiprocessing testing"""
+from multiprocessing import Pool
+
+
+def factorial(start: int, end: int) -> int:
+    """
+    Calculates factorial for the given range.
+    :param start: int
+    :param end: int
+    :return: int
+    """
+    fact: int = 1
+    for num in range(start, end + 1):
+        fact *= num
+    return fact
+
+
+def multiproc(num: int, worker_num: int) -> None:
+    """
+    Calculates the factorial of number using specified number of worker processes.
+    :param num: int
+    :param worker_num: int
+    :return: None
+    """
+    if isinstance(num, int) and isinstance(worker_num, int):
+        ranges, inc, start = [], int(num / worker_num), 1
+        for _ in range(worker_num):
+            ranges.append((start, (inc + start - 1)))
+            start += inc
+        with Pool(worker_num) as pool:
+            res = pool.starmap(factorial, ranges)
+        sum: int = 1
+        for r in res:
+            sum *= r
+        print(sum)
+    else:
+        print("Invalid data type!")
+
+
+if __name__ == '__main__':
+    multiproc(100, 4)
