@@ -1,28 +1,41 @@
 """Custom Module for Multy-threading tests"""
 import threading
-import requests as r
-from PIL import Image
+import logging
+import shortuuid
+from requests import get, RequestException
+from PIL import Image, UnidentifiedImageError
 from io import BytesIO
 
+logging.basicConfig(level=logging.ERROR)
 
-def image_downloader(_url: str) -> None:
+
+def image_downloader(url: str, save=False) -> None:
     """
     Downloads and opens image.
     :param _url: str
     :return: None
     """
-    print(_url)
-    _get_image = r.get(_url)
-    _save_image = Image.open(BytesIO(_get_image.content))
-    _save_image.show()
+    if isinstance(url, str) and isinstance(save, bool):
+        try:
+            get_image = get(url)
+            save_image = Image.open(BytesIO(get_image.content))
+            save_image.show()
+            if save:
+                save_image.save(f"saved_image_{shortuuid.ShortUUID().random(length=5)}.png")
+        except (RequestException, UnidentifiedImageError) as e:
+            logging.error(f"Error:{e}")
+    else:
+        logging.error("Invalid data type! Please use string for 'url' argument and bool for 'save' argument.")
 
 
 t1 = threading.Thread(target=image_downloader, args=(
-"https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?cs=srgb&dl=pexels-matthew-montrone-230847-1324803.jpg&fm=jpg&_gl=1*aez6w1*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4ODAzNi4wLjAuMA..",))
+    "https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?cs=srgb&dl=pexels-matthew-montrone-230847-1324803.jpg&fm=jpg&_gl=1*aez6w1*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4ODAzNi4wLjAuMA..",),
+                      kwargs=
+                      {"save": True})
 t2 = threading.Thread(target=image_downloader, args=(
-"https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg?cs=srgb&dl=pexels-souvenirpixels-1519088.jpg&fm=jpg&_gl=1*pzxd3x*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4ODYwOC4wLjAuMA..",))
+    "https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg?cs=srgb&dl=pexels-souvenirpixels-1519088.jpg&fm=jpg&_gl=1*pzxd3x*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4ODYwOC4wLjAuMA..",))
 t3 = threading.Thread(target=image_downloader, args=(
-"https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg&_gl=1*ke992b*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4OTA2MS4wLjAuMA..",))
+    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg&_gl=1*ke992b*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4OTA2MS4wLjAuMA..",))
 t1.start()
 t2.start()
 t3.start()
