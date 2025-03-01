@@ -1,0 +1,28 @@
+import asyncio
+import random
+import time
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+
+
+async def download_page(url: str) -> None:
+    """
+    Simulates the page downloading and provides the completion time.
+    :param url: str
+    :return: None
+    """
+    if isinstance(url, str):
+        try:
+            delay = [1, 2, 3, 4, 5]
+            start = time.time()
+            print("Downloading the URL!")
+            await asyncio.sleep(random.choice(delay))
+            print(f"Time for task completion: {time.time() - start:.2f} sec")
+        except asyncio.TimeoutError as e:
+            logging.error(f"ERROR: {e}")
+    else:
+        logging.error("Invalid data type! Please use type str for 'url' argument.")
+
+
+asyncio.run(download_page("https://www.google.com/"))
