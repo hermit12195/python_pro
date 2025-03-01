@@ -31,8 +31,14 @@ async def main(urls: list) -> None:
     :param urls: list
     :return: None
     """
-    tasks: list = [download_page(url) for url in urls]
-    await asyncio.gather(*tasks)
+    if isinstance(urls, list):
+        try:
+            tasks: list = [download_page(url) for url in urls]
+            await asyncio.gather(*tasks)
+        except asyncio.TimeoutError as e:
+            logging.error(f"ERROR: {e}")
+    else:
+        logging.error("Invalid data type! Please use type list for 'urls' argument.")
 
 
 asyncio.run(
