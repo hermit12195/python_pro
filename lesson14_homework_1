@@ -31,10 +31,7 @@ async def main(urls: list) -> None:
     :param urls: list
     :return: None
     """
-    tasks: list = []
-    for url in urls:
-        task = download_page(url)
-        tasks.append(task)
+    tasks: list = [download_page(url) for url in urls]
     await asyncio.gather(*tasks)
 
 
