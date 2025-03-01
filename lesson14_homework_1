@@ -25,4 +25,18 @@ async def download_page(url: str) -> None:
         logging.error("Invalid data type! Please use type str for 'url' argument.")
 
 
-asyncio.run(download_page("https://www.google.com/"))
+async def main(urls: list) -> None:
+    """
+    Asynchronously downloads pages from a list of URLs concurrently.
+    :param urls: list
+    :return: None
+    """
+    tasks: list = []
+    for url in urls:
+        task = download_page(url)
+        tasks.append(task)
+    await asyncio.gather(*tasks)
+
+
+asyncio.run(
+    main(["https://www.google.com/", "https://www.google.com/", "https://www.google.com/", "https://www.google.com/"]))
