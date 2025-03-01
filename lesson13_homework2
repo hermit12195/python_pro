@@ -1,10 +1,14 @@
 """Custom Module for Multy-threading tests"""
+from pathlib import Path
+import logging
 import concurrent.futures
-import threading
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
+import shortuuid
+
+logging.basicConfig(level=logging.ERROR)
 
 
-def image_resizer(image: str, width: int, height: int):
+def image_resizer(image: Path, width: int, height: int, save=False):
     """
     Resizes and opens an image.
     :param image: str
@@ -12,20 +16,28 @@ def image_resizer(image: str, width: int, height: int):
     :param height: int
     :return:
     """
-    if isinstance(image, str) and isinstance(width, int) and isinstance(height, int):
-        print(f"The thread {threading.current_thread().name} has taken the task!")
-        image = Image.open(image)
-        res_img = image.resize((width, height))
-        res_img.show()
-        print(f"The thread {threading.current_thread().name} has released the task!")
+    if isinstance(image, Path) and isinstance(width, int) and isinstance(height, int):
+        try:
+            image = Image.open(image)
+            res_img = image.resize((width, height))
+            res_img.show()
+            if save:
+                res_img.save(f"image{shortuuid.ShortUUID().random(length=5)}.png")
+        except UnidentifiedImageError as e:
+            logging.error(f"Error:{e}")
     else:
-        print("Invalid data type!")
+        logging.error(
+            "Invalid data type! Please use str type for 'image' argument, int for 'width' and int for 'height'.")
 
 
-pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
-pool.submit(image_resizer, "image1.png", 40, 40)
-pool.submit(image_resizer, "image2.png", 50, 50)
-
-pool.shutdown(wait=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as exe:
+    for file in Path.cwd().iterdir():
+        if file.is_file():
+            try:
+                (Image.open(file).verify())
+            except UnidentifiedImageError:
+                pass
+            else:
+                exe.submit(image_resizer, file, 40, 40, save=True)
 
 print("The main thread is over!")
