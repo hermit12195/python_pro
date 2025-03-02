@@ -1,0 +1,24 @@
+import time
+
+
+def req() -> None:
+    """
+    Simulates request.
+    :return: None
+    """
+    time.sleep(0.01)
+
+
+
+def main() -> str:
+    """
+    Counts the time needed for handling of 500 requests.
+    :return: str
+    """
+    start = time.time()
+    for _ in range(500):
+        req()
+    return f"Synchronous: {time.time() - start: 2f} sec"
+
+
+print(main())
