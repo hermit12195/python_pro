@@ -1,0 +1,40 @@
+from typing import List
+import asyncio
+import logging
+import aiohttp
+import aiofiles
+import shortuuid
+
+logging.basicConfig(level=logging.ERROR)
+
+
+async def download_image(url: str) -> None:
+    print("Started downloading an image!")
+    if isinstance(url, str):
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        extension = response.headers.get('Content-Type').split('/')[-1]
+                        async with aiofiles.open(f"image_{shortuuid.ShortUUID().random(length=5)}.{extension}",
+                                                 "wb") as im:
+                            await im.write(await response.read())
+                    else:
+                        logging.error("The sever status response is not 200! Please check connectivity to the server.")
+        except aiohttp.ClientConnectionError as e:
+            logging.error(f"ERROR: {e}")
+    else:
+        logging.error("Invalid data type! Please use type str for 'url' argument.")
+
+
+async def main(urls: List[str]) -> None:
+    if isinstance(urls, list):
+        url_list = [download_image(url) for url in urls]
+        await asyncio.gather(*url_list)
+    else:
+        logging.error("Invalid data type! Please use type List[str] for 'urls' argument.")
+
+
+asyncio.run(main([
+    "https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg?cs=srgb&dl=pexels-souvenirpixels-1519088.jpg&fm=jpg&_gl=1*pzxd3x*_ga*MTM5NDkzMTU1My4xNzQwNTg4MDM0*_ga_8JE65Q40S6*MTc0MDU4ODAzMy4xLjEuMTc0MDU4ODYwOC4wLjAuMA..",
+    "https://cdn.pixabay.com/photo/2015/10/01/19/05/car-967470_960_720.png"]))
