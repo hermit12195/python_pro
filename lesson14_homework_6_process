@@ -1,0 +1,20 @@
+import multiprocessing
+import time
+
+
+def req():
+    """
+    Simulates request.
+    :return: None
+    """
+    time.sleep(0.01)
+
+
+if __name__ == '__main__':
+    processes = [multiprocessing.Process(target=req) for _ in range(500)]
+    start = time.time()
+    for proc in processes:
+        proc.start()
+    for proc in processes:
+        proc.join()
+    print(f'Multiprocessing: {time.time() - start: 2f} sec')
