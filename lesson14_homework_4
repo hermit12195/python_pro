@@ -13,7 +13,7 @@ async def slow_task() -> None:
     try:
         print("Slow task is started!")
         await asyncio.sleep(10)
-    except asyncio.CancelledError as e:
+    except asyncio.TimeoutError as e:
         logging.error(f"ERROR: {e.__repr__()}")
 
 
