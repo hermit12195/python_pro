@@ -1,0 +1,39 @@
+import asyncio
+import logging
+from aiohttp import web, ClientSession
+
+logging.basicConfig(level=logging.ERROR)
+routes = web.RouteTableDef()
+
+
+@routes.get('/')
+async def hello_handler(request: web.Request) -> web.Response:
+    """
+    Handles Get requests for the route '/'.
+    :param request: web.Request
+    :return: web.Response
+    """
+    try:
+        return web.Response(text="Hello world!")
+    except web.HTTPError as e:
+        logging.error(f"ERROR: {e.text}")
+
+
+@routes.get('/slow')
+async def slow_handler(request: web.Request) -> web.Response:
+    """
+    Handles Get requests for the route '/slow'.
+    :param request: web.Request
+    :return: web.Response
+    """
+    try:
+        await asyncio.sleep(5)
+        return web.Response(text="Operation completed!")
+    except web.HTTPError as e:
+        logging.error(f"ERROR: {e.text}")
+
+
+app = web.Application()
+app.add_routes(routes)
+
+web.run_app(app)
