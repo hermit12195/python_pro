@@ -1,0 +1,18 @@
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+
+def req() -> None:
+    """
+    Simulates request.
+    :return: None
+    """
+    time.sleep(0.01)
+
+
+start = time.time()
+with ThreadPoolExecutor(max_workers=500) as exe:
+    futures = [exe.submit(req) for _ in range(500)]
+    for future in futures:
+        future.result()
+print(f"Multithreading:{time.time() - start: 2f} sec")
