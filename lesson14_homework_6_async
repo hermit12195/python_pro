@@ -1,0 +1,24 @@
+import asyncio
+import time
+
+
+async def req():
+    """
+    Simulates request.
+    :return: None
+    """
+    await asyncio.sleep(0.01)
+
+
+async def main():
+    """
+    Counts the time needed for handling of 500 requests.
+    :return: str
+    """
+    tasks = [req() for _ in range(500)]
+    start = time.time()
+    await asyncio.gather(*tasks)
+    return f'Asynchronous: {time.time() - start: 2f} sec'
+
+
+print(asyncio.run(main()))
