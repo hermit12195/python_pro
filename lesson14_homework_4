@@ -1,0 +1,31 @@
+"""Custom Module for asyncio.wait_for tests"""
+import asyncio
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+
+
+async def slow_task() -> None:
+    """
+    Simulates the slow task.
+    :return: None
+    """
+    try:
+        print("Slow task is started!")
+        await asyncio.sleep(10)
+    except asyncio.CancelledError as e:
+        logging.error(f"ERROR: {e.__repr__()}")
+
+
+async def main() -> None:
+    """
+    Waits for the slow task to get completed and throws the TIMEOUT error if it fails to complete in time.
+    :return: None
+    """
+    try:
+        await asyncio.wait_for(slow_task(), timeout=5)
+    except asyncio.TimeoutError as e:
+        logging.error(f"ERROR: {e.__repr__()}")
+
+
+asyncio.run(main())
