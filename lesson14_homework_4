@@ -25,8 +25,13 @@ async def main() -> None:
     """
     try:
         await asyncio.wait_for(slow_task(), timeout=5)
+        logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Application was successfully completed!")
     except asyncio.TimeoutError as e:
         logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
 
 asyncio.run(main())
+
+with open("app.log", "r") as logs:
+    for line in logs.readlines():
+        print(line)
