@@ -49,7 +49,7 @@ async def main():
             producer(queue),
             consumer(queue)
         )
-        logging.info("Application was successfully completed!")
+        logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Application was successfully completed!")
     except asyncio.TimeoutError as e:
         logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
