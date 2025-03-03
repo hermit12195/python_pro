@@ -1,10 +1,11 @@
+import datetime
 import asyncio
 import random
 import time
 import logging
 from typing import List
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="app.log", level=logging.INFO)
 
 
 async def download_page(url: str) -> None:
@@ -17,13 +18,15 @@ async def download_page(url: str) -> None:
         try:
             delay = [1, 2, 3, 4, 5]
             start = time.time()
-            print("Downloading the URL!")
+            logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Downloading the URL!")
             await asyncio.sleep(random.choice(delay))
-            print(f"Time for task completion: {time.time() - start:.2f} sec")
+            logging.info(
+                f"{datetime.datetime.utcnow().replace(microsecond=0)} - Time for task completion: {time.time() - start:.2f} sec")
         except asyncio.TimeoutError as e:
-            logging.info(f"ERROR: {e}")
+            logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e}")
     else:
-        logging.info("Invalid data type! Please use type str for 'url' argument.")
+        logging.info(
+            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'url' argument.")
 
 
 async def main(urls: List[str]) -> None:
@@ -33,14 +36,28 @@ async def main(urls: List[str]) -> None:
     :return: None
     """
     if isinstance(urls, list):
+        tasks: List[str] = []
+        for item in urls:
+            if isinstance(item, str):
+                tasks.append(download_page(item))
+            else:
+                logging.info(
+                    f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for items inside 'urls' list.")
+                continue
         try:
-            tasks: list = [download_page(url) for url in urls]
             await asyncio.wait_for(asyncio.gather(*tasks), 5)
+            logging.info(
+                f"{datetime.datetime.utcnow().replace(microsecond=0)} - The application successfully completed!")
         except asyncio.TimeoutError as e:
-            logging.info(f"ERROR: {e.__repr__()}")
+            logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
     else:
-        logging.info("Invalid data type! Please use type List[str] for 'urls' argument.")
+        logging.info(
+            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type List[str] for 'urls' argument.")
 
 
 asyncio.run(
     main(["https://www.google.com/", "https://www.google.com/", "https://www.google.com/", "https://www.google.com/"]))
+
+with open("app.log", "r") as logs:
+    for line in logs.readlines():
+        print(line)
