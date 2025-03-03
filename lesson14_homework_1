@@ -22,8 +22,7 @@ async def fetch_content(url: str) -> str:
         except (aiohttp.ClientConnectionError, aiohttp.ClientSession) as e:
             logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
     else:
-        logging.error(
-            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for url argument.")
+        logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for url argument.")
 
 
 async def fetch_all(urls: List[str]) -> None:
@@ -38,20 +37,17 @@ async def fetch_all(urls: List[str]) -> None:
             if isinstance(item, str):
                 tasks.append(fetch_content(item))
             else:
-                logging.error(
-                    f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str inside list 'urls'.")
+                logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str inside list 'urls'.")
                 continue
         try:
             res = await asyncio.gather(*tasks)
             for r in res:
                 print(r)
-            logging.info(
-                f"{datetime.datetime.utcnow().replace(microsecond=0)} - The application successfully completed!")
+            logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - The application successfully completed!")
         except asyncio.TimeoutError as e:
             logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
     else:
-        logging.error(
-            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type list for urls argument.")
+        logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type list for urls argument.")
 
 
 asyncio.run(fetch_all(["https://lms.ithillel.ua/", "https://lms.ithillel.ua/"]))
