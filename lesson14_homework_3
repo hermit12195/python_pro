@@ -1,8 +1,9 @@
 """Custom Module for testing asyncio.Queue"""
+import datetime
 import asyncio
 import logging
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 
 async def producer(queue: asyncio.Queue) -> None:
@@ -15,14 +16,14 @@ async def producer(queue: asyncio.Queue) -> None:
         try:
             for element in range(1, 6):
                 await queue.put(element)
-                print(f"Produced a task '{element}'!")
-                await queue.join()
+                logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Produced a task '{element}'!")
                 await asyncio.sleep(1)
         except asyncio.TimeoutError as e:
-            logging.error(f"ERROR: {e}")
+            logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
     else:
-        logging.error("Invalid data type! Please use type asyncio.Queue for queue argument.")
+        logging.error(
+            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type asyncio.Queue for queue argument.")
 
 
 async def consumer(queue):
@@ -30,13 +31,15 @@ async def consumer(queue):
         try:
             while not queue.empty():
                 element = await queue.get()
-                print(f"Consumer received a task '{element}'!")
+                logging.info(
+                    f"{datetime.datetime.utcnow().replace(microsecond=0)} - Consumer received a task '{element}'!")
                 queue.task_done()
                 await asyncio.sleep(2)
         except asyncio.TimeoutError as e:
-            logging.error(f"ERROR: {e}")
+            logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
     else:
-        logging.error("Invalid data type! Please use type asyncio.Queue for queue argument.")
+        logging.error(
+            f"{datetime.datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type asyncio.Queue for queue argument.")
 
 
 async def main():
@@ -46,8 +49,13 @@ async def main():
             producer(queue),
             consumer(queue)
         )
+        logging.info("Application was successfully completed!")
     except asyncio.TimeoutError as e:
-        logging.error(f"ERROR: {e}")
+        logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
 
 asyncio.run(main())
+
+with open("app.log", "r") as logs:
+    for line in logs.readlines():
+        print(line)
