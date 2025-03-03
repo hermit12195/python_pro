@@ -2,8 +2,9 @@ import asyncio
 import random
 import time
 import logging
+from typing import List
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.INFO)
 
 
 async def download_page(url: str) -> None:
@@ -20,12 +21,12 @@ async def download_page(url: str) -> None:
             await asyncio.sleep(random.choice(delay))
             print(f"Time for task completion: {time.time() - start:.2f} sec")
         except asyncio.TimeoutError as e:
-            logging.error(f"ERROR: {e}")
+            logging.info(f"ERROR: {e}")
     else:
-        logging.error("Invalid data type! Please use type str for 'url' argument.")
+        logging.info("Invalid data type! Please use type str for 'url' argument.")
 
 
-async def main(urls: list) -> None:
+async def main(urls: List[str]) -> None:
     """
     Asynchronously downloads pages from a list of URLs concurrently.
     :param urls: list
@@ -34,11 +35,11 @@ async def main(urls: list) -> None:
     if isinstance(urls, list):
         try:
             tasks: list = [download_page(url) for url in urls]
-            await asyncio.gather(*tasks)
+            await asyncio.wait_for(asyncio.gather(*tasks), 5)
         except asyncio.TimeoutError as e:
-            logging.error(f"ERROR: {e}")
+            logging.info(f"ERROR: {e.__repr__()}")
     else:
-        logging.error("Invalid data type! Please use type list for 'urls' argument.")
+        logging.info("Invalid data type! Please use type List[str] for 'urls' argument.")
 
 
 asyncio.run(
