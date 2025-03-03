@@ -2,8 +2,9 @@
 import aiohttp
 import asyncio
 import logging
+from typing import List
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 
 async def fetch_content(url: str) -> str:
@@ -16,29 +17,40 @@ async def fetch_content(url: str) -> str:
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as response:
-                    print(type(response.text()))
                     return await response.text()
-        except aiohttp.ClientConnectionError as e:
-            logging.error(f"ERROR: {e}")
+        except (aiohttp.ClientConnectionError, aiohttp.ClientSession) as e:
+            logging.info(f"ERROR: {e.__repr__()}")
     else:
-        logging.error("Invalid data type! Please use type str for url argument.")
+        logging.info("Invalid data type! Please use type str for url argument.")
 
 
-async def fetch_all(urls: list) -> None:
+async def fetch_all(urls: List[str]) -> None:
     """
     Asynchronously handles several HTTP requests.
     :param urls: list
     :return: None
     """
     if isinstance(urls, list):
+        tasks: List[str] = []
+        for item in urls:
+            if isinstance(item, str):
+                tasks.append(fetch_content(item))
+            else:
+                logging.info("Invalid data type! Please use type str inside list 'urls'.")
+                continue
         try:
-            tasks = [fetch_content(url) for url in urls]
             res = await asyncio.gather(*tasks)
             for r in res:
                 print(r)
+            logging.info("The application successfully completed!")
         except asyncio.TimeoutError as e:
-            logging.error(f"ERROR: {e}")
+            logging.info(f"ERROR: {e.__repr__()}")
     else:
-        logging.error("Invalid data type! Please use type list for urls argument.")
+        logging.info("Invalid data type! Please use type list for urls argument.")
 
-asyncio.run(fetch_all(["https://lms.ithillel.ua/", "https://lms.ithillel.ua/"]))
+
+asyncio.run(fetch_all([1, "https://lms.ithillel.ua/"]))
+
+with open('app.log', "r") as logs:
+    for line in logs.readlines():
+        print(line)
