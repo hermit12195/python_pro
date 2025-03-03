@@ -1,8 +1,9 @@
 """Custom Module for asyncio.wait_for tests"""
+import datetime
 import asyncio
 import logging
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 
 async def slow_task() -> None:
@@ -11,10 +12,10 @@ async def slow_task() -> None:
     :return: None
     """
     try:
-        print("Slow task is started!")
+        logging.info(f"{datetime.datetime.utcnow().replace(microsecond=0)} - Slow task is started!")
         await asyncio.sleep(10)
     except asyncio.TimeoutError as e:
-        logging.error(f"ERROR: {e.__repr__()}")
+        logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
 
 async def main() -> None:
@@ -25,7 +26,7 @@ async def main() -> None:
     try:
         await asyncio.wait_for(slow_task(), timeout=5)
     except asyncio.TimeoutError as e:
-        logging.error(f"ERROR: {e.__repr__()}")
+        logging.error(f"{datetime.datetime.utcnow().replace(microsecond=0)} - ERROR: {e.__repr__()}")
 
 
 asyncio.run(main())
