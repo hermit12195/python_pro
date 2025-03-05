@@ -1,0 +1,8 @@
+from test import get_page, parse_news, filter_by_date, save_to_csv, news_number
+
+soup = get_page("https://www.zhitomir.info/")
+news_list = parse_news(soup)
+save_to_csv("test.csv", news_list)
+filter_by_date(news_list, 5)
+
+print(news_number("test.csv"))
