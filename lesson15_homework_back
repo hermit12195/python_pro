@@ -1,0 +1,105 @@
+import csv
+from datetime import datetime, timedelta
+import requests
+import logging
+import pandas as pd
+from bs4 import BeautifulSoup
+
+logging.basicConfig(filename="app.log", level=logging.DEBUG)
+
+
+def get_page(url: str) -> tuple:
+    if isinstance(url, str):
+        try:
+            res = requests.get(url)
+            logging.info(
+                f"{datetime.utcnow().replace(microsecond=0)} - Successfully established connection with server!")
+            return (BeautifulSoup(res.text, "lxml"), url)
+        except requests.ConnectionError as e:
+            logging.error(f"ERROR: {e.__repr__()}")
+    else:
+        logging.error(
+            f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'url' argument.")
+
+
+def parse_news(soup: tuple) -> list:
+    if isinstance(soup, tuple):
+        news_list: list = []
+        soup, url = soup[0], soup[1]
+        try:
+            news_line = soup.find_all("div", class_="news-item")
+            if len(news_line) != 0:
+                for div in news_line:
+                    news_dict = {}
+                    div_title = div.find(class_="news-title")
+                    if div_title is not None:
+                        news_title = div_title.find("a").text
+                        news_link = url + div_title.find("a").get("href").lstrip("/")
+                    else:
+                        raise ValueError(
+                            "No divs found with class 'news-title'! None type is returned! Please check the class name.")
+                    div_date = div.find(class_="news-date")
+                    if div_date is not None:
+                        news_date = datetime.strptime(div_date.text.split(", ")[0], '%d.%m.%Y').date()
+                    else:
+                        raise ValueError(
+                            "No divs found with class 'news-date'! None type is returned! Please check the class name.")
+                    plot_soup = BeautifulSoup(requests.get(news_link).text, "lxml")
+                    news_plot = plot_soup.find(class_="text").text.strip()
+                    news_dict["title"] = news_title
+                    news_dict["date"] = news_date
+                    news_dict["link"] = news_link
+                    news_dict["plot"] = news_plot
+                    news_list.append(news_dict)
+                logging.info(f"{datetime.utcnow().replace(microsecond=0)} - Successfully parsed the news!")
+                return news_list
+            else:
+                raise ValueError(
+                    "No divs found with class 'news-item'! None type is returned! Please check the class name.")
+        except ValueError as e:
+            logging.error(f"{datetime.utcnow().replace(microsecond=0)} - {e}")
+            exit()
+    else:
+        logging.error(
+            f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type tuple for 'soup' argument.")
+        exit()
+
+
+def save_to_csv(filename: str, data: list):
+    if isinstance(filename, str) and isinstance(data, list):
+        try:
+            with open(filename, "w", encoding="UTF-8") as csvfile:
+                csvwriter = csv.DictWriter(csvfile, fieldnames=["title", "link", "date", "plot"])
+                csvwriter.writeheader()
+                csvwriter.writerows(data)
+            logging.info(
+                f"{datetime.utcnow().replace(microsecond=0)} - Successfully saved the parsed data in CSV file!")
+        except FileNotFoundError as e:
+            logging.error(
+                f"{datetime.utcnow().replace(microsecond=0)} - File not found! Please check the file name.")
+            exit()
+    else:
+        logging.error(
+            f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'filename' argument and type list for 'data' argument.")
+        exit()
+
+
+def filter_by_date(news_list: list, days_num: int):
+    if isinstance(news_list, list) and isinstance(days_num, int):
+        for news_dict in news_list:
+            if news_dict["date"] >= datetime.utcnow().date() - timedelta(days=days_num):
+                print(f"{news_dict['title']}\n\n {news_dict['plot'].strip()}")
+                print("******************************************************************************")
+        logging.info("Successfully sorted news by date!")
+    else:
+        logging.error(
+            f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type list for 'news_list' argument and int for 'days_num' argument.")
+
+
+def news_number(file_name: str):
+    if isinstance(file_name, str):
+        df = pd.read_csv(file_name)
+        return df.groupby(df["date"]).size()
+    else:
+        logging.error(
+            f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'file_name' argument.")
