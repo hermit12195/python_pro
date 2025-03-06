@@ -1,4 +1,3 @@
-"""Custom Module for BeautifulSoap testing"""
 import csv
 from datetime import datetime, timedelta
 import requests
@@ -8,6 +7,11 @@ from bs4 import BeautifulSoup
 
 logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
+
+class EmptyFileError(Exception):
+    def __init__(self):
+        self.message=("File is empty! Please check the parsed file content.")
+        super().__init__(self.message)
 
 def get_page(url: str) -> tuple:
     if isinstance(url, str):
@@ -26,14 +30,18 @@ def get_page(url: str) -> tuple:
 def parse_news(soup: tuple) -> list:
     if isinstance(soup, tuple):
         news_list: list = []
-        soup, url = soup[0], soup[1]
+        if soup[1] and soup[0]:
+            soup, url = soup[0], soup[1]
+        else:
+            logging.error(f"{datetime.utcnow().replace(microsecond=0)} - url argument is None type!")
+            raise ValueError("None type error! Please check the parsed arguments.")
         try:
             news_line = soup.find_all("div", class_="news-item")
             if len(news_line) != 0:
                 for div in news_line:
                     news_dict = {}
                     div_title = div.find(class_="news-title")
-                    if div_title is not None:
+                    if div_title and div_title.find("a"):
                         news_title = div_title.find("a").text
                         news_link = url + div_title.find("a").get("href").lstrip("/")
                     else:
@@ -41,7 +49,7 @@ def parse_news(soup: tuple) -> list:
                             "No divs found with class 'news-title'! None type is returned! Please check the class name.")
                     div_date = div.find(class_="news-date")
                     if div_date is not None:
-                        news_date = datetime.strptime(div_date.text.split(", ")[0], '%d.%m.%Y').date()
+                        news_date = div_date.text.split(", ")[0]
                     else:
                         raise ValueError(
                             "No divs found with class 'news-date'! None type is returned! Please check the class name.")
@@ -58,12 +66,12 @@ def parse_news(soup: tuple) -> list:
                 raise ValueError(
                     "No divs found with class 'news-item'! None type is returned! Please check the class name.")
         except ValueError as e:
-            logging.error(f"{datetime.utcnow().replace(microsecond=0)} - {e}")
-            exit()
+            logging.error(f"{datetime.utcnow().replace(microsecond=0)} - {e.__repr__()}")
+            raise ValueError(f'{e.__repr__()}')
     else:
         logging.error(
             f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type tuple for 'soup' argument.")
-        exit()
+        raise ValueError("Invalid data type! Please use type tuple for 'soup' argument.")
 
 
 def save_to_csv(filename: str, data: list):
@@ -78,20 +86,25 @@ def save_to_csv(filename: str, data: list):
         except FileNotFoundError as e:
             logging.error(
                 f"{datetime.utcnow().replace(microsecond=0)} - File not found! Please check the file name.")
-            exit()
+            raise FileNotFoundError
     else:
         logging.error(
             f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'filename' argument and type list for 'data' argument.")
-        exit()
+        raise ValueError("Invalid data type! Please use type str for 'filename' argument and type list for 'data' argument.")
 
 
 def filter_by_date(news_list: list, days_num: int):
     if isinstance(news_list, list) and isinstance(days_num, int):
-        for news_dict in news_list:
-            if news_dict["date"] >= datetime.utcnow().date() - timedelta(days=days_num):
-                print(f"{news_dict['title']}\n\n {news_dict['plot'].strip()}")
-                print("******************************************************************************")
-        logging.info("Successfully sorted news by date!")
+        if news_list != 0 and news_list:
+            filtered_list: list = []
+            for news_dict in news_list:
+                if datetime.strptime(news_dict["date"], '%d.%m.%Y').date() >= datetime.utcnow().date() - timedelta(days=days_num):
+                    filtered_list.append((news_dict['title'],news_dict['date'].strip()))
+            return filtered_list
+            logging.info("Successfully sorted news by date!")
+        else:
+            logging.error(
+                f"{datetime.utcnow().replace(microsecond=0)} - Empty list! Please check the parsed argument with type list.")
     else:
         logging.error(
             f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type list for 'news_list' argument and int for 'days_num' argument.")
@@ -99,8 +112,12 @@ def filter_by_date(news_list: list, days_num: int):
 
 def news_number(file_name: str):
     if isinstance(file_name, str):
-        df = pd.read_csv(file_name)
-        return df.groupby(df["date"]).size()
+        try:
+            df = pd.read_csv(file_name)
+            return df.groupby(df["date"]).size()
+        except pd.errors.EmptyDataError as e:
+            logging.error(f"{datetime.utcnow().replace(microsecond=0)} - {e.__repr__()}")
+            raise EmptyFileError
     else:
         logging.error(
             f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'file_name' argument.")
