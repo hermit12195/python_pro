@@ -2,6 +2,7 @@ import csv
 from datetime import datetime, timedelta
 import requests
 import logging
+import aiohttp
 import pandas as pd
 from bs4 import BeautifulSoup
 
@@ -13,13 +14,20 @@ class EmptyFileError(Exception):
         self.message=("File is empty! Please check the parsed file content.")
         super().__init__(self.message)
 
-def get_page(url: str) -> tuple:
+async def get_page(url: str) -> tuple:
     if isinstance(url, str):
+        soup=""
         try:
-            res = requests.get(url)
-            logging.info(
-                f"{datetime.utcnow().replace(microsecond=0)} - Successfully established connection with server!")
-            return (BeautifulSoup(res.text, "lxml"), url)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        logging.info(
+                            f"{datetime.utcnow().replace(microsecond=0)} - Successfully established connection with server!")
+                        soup=await response.text()
+                        return (BeautifulSoup(soup, "lxml"), url)
+                    else:
+                        logging.error(
+                            f"{datetime.datetime.utcnow().replace(microsecond=0)} - The server status response is not 200! Please check connectivity to the server.")
         except requests.ConnectionError as e:
             logging.error(f"ERROR: {e.__repr__()}")
     else:
@@ -27,7 +35,7 @@ def get_page(url: str) -> tuple:
             f"{datetime.utcnow().replace(microsecond=0)} - Invalid data type! Please use type str for 'url' argument.")
 
 
-def parse_news(soup: tuple) -> list:
+async def parse_news(soup: tuple) -> list:
     if isinstance(soup, tuple):
         news_list: list = []
         if soup[1] and soup[0]:
@@ -38,30 +46,33 @@ def parse_news(soup: tuple) -> list:
         try:
             news_line = soup.find_all("div", class_="news-item")
             if len(news_line) != 0:
-                for div in news_line:
-                    news_dict = {}
-                    div_title = div.find(class_="news-title")
-                    if div_title and div_title.find("a"):
-                        news_title = div_title.find("a").text
-                        news_link = url + div_title.find("a").get("href").lstrip("/")
-                    else:
-                        raise ValueError(
-                            "No divs found with class 'news-title'! None type is returned! Please check the class name.")
-                    div_date = div.find(class_="news-date")
-                    if div_date is not None:
-                        news_date = div_date.text.split(", ")[0]
-                    else:
-                        raise ValueError(
-                            "No divs found with class 'news-date'! None type is returned! Please check the class name.")
-                    plot_soup = BeautifulSoup(requests.get(news_link).text, "lxml")
-                    news_plot = plot_soup.find(class_="text").text.strip()
-                    news_dict["title"] = news_title
-                    news_dict["date"] = news_date
-                    news_dict["link"] = news_link
-                    news_dict["plot"] = news_plot
-                    news_list.append(news_dict)
-                logging.info(f"{datetime.utcnow().replace(microsecond=0)} - Successfully parsed the news!")
-                return news_list
+                async with aiohttp.ClientSession() as session:
+                    for div in news_line:
+                        news_dict = {}
+                        div_title = div.find(class_="news-title")
+                        if div_title and div_title.find("a"):
+                            news_title = div_title.find("a").text
+                            news_link = url + div_title.find("a").get("href").lstrip("/")
+                        else:
+                            raise ValueError(
+                                "No divs found with class 'news-title'! None type is returned! Please check the class name.")
+                        async with session.get(news_link) as response:
+                            res_soup=await response.text()
+                            plot_soup = BeautifulSoup(res_soup, "lxml")
+                            news_plot = plot_soup.find(class_="text").text.strip()
+                        div_date = div.find(class_="news-date")
+                        if div_date is not None:
+                            news_date = div_date.text.split(", ")[0]
+                        else:
+                            raise ValueError(
+                                "No divs found with class 'news-date'! None type is returned! Please check the class name.")
+                        news_dict["title"] = news_title
+                        news_dict["date"] = news_date
+                        news_dict["link"] = news_link
+                        news_dict["plot"] = news_plot
+                        news_list.append(news_dict)
+                    logging.info(f"{datetime.utcnow().replace(microsecond=0)} - Successfully parsed the news!")
+                    return news_list
             else:
                 raise ValueError(
                     "No divs found with class 'news-item'! None type is returned! Please check the class name.")
