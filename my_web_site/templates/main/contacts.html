@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block custom_body %}
+    <p></p>
+    <div class="container" style="text-align: left">
+        <div class="row align-items-md-stretch">
+            <div class="h-100 p-5 text-bg-dark rounded-3">
+                <h4>Phone numbers:</h4>
+                {% if phone_list %}
+                    <ul>
+                        {% for number in phone_list %}
+                            <li>{{ number }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h4>We don`t have phone numbers yet!</h4>
+                {% endif %}
+                <h4>Address: {{ address|default:"We don`t have address yet!" }}</h4>
+                <h4>Email Address: {{ email|default:"We don`t have email yet!"|upper }}</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

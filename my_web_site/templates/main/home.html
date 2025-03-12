@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block custom_body %}
+    <p></p>
+    <div class="container" style="text-align: center">
+        <div class="row align-items-md-stretch">
+            <div class="h-100 p-5 text-bg-dark rounded-3">
+                <h2>{{ greeting }}</h2>
+                <p></p>
+                <h4>{{ mission }}</h4>
+            </div>
+        </div>
+        <p></p>
+        <div class="row align-items-md-stretch" style="text-align: left">
+            <div class="h-100 p-5 text-bg-secondary rounded-3">
+                <h3>Our Expertise:</h3>
+                <ul>
+                    {% for service in services %}
+                        <li>{{ service }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

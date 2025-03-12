@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% block custom_body %}
+    {% for res in search_res %}
+        <p></p>
+        <div class="container">
+            <div class="h-100 p-5 text-bg-secondary rounded-3 ">
+                <h2>{{ res.0 }}</h2>
+                <p>{{ res.1 }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

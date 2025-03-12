@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% block custom_body %}
+    <p></p>
+    <div class="container" style="text-align: center">
+        <div class="row align-items-md-stretch">
+            <div class="h-100 p-5 text-bg-dark rounded-3">
+                <h3>About Us</h3>
+                <h4>{{ about_us }}</h4>
+            </div>
+        </div>
+        <p></p>
+        <div class="row align-items-md-stretch">
+            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                <h3>Our Mission</h3>
+                <h4>{{ mission }}</h4>
+            </div>
+        </div>
+        <p></p>
+        <div class="row align-items-md-stretch">
+            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                <h3>Our History</h3>
+                <h4>{{ history }}</h4>
+            </div>
+        </div>
+    <span>Information is valid on {{ about_date|date }}</span>
+    </div>
+{% endblock %}
