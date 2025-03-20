@@ -1,0 +1,23 @@
+{% extends 'userprofile/base.html' %}
+{% block page_title %}Change Password{% endblock %}
+{% block custom_body %}
+
+<main class="form-signin w-25 m-auto container">
+    <form method="post">
+        <h1 class="h3 mb-3 fw-normal">Please change password</h1>
+        <div class="form-floating">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert" style="text-align: center">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <button class="btn btn-dark w-100 py-2" type="submit">Submit</button>
+    </form>
+</main>
+
+{% endblock %}
