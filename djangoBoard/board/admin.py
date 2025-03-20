@@ -2,6 +2,7 @@
 from typing import List
 from django.contrib import admin
 from .models import User, Category, Ad, Comment
+from userprofile.models import UserProfile
 
 
 class AdAdmin(admin.ModelAdmin):
@@ -34,10 +35,11 @@ class UserAdmin(admin.ModelAdmin):
     This class specifies the fields to display in the list view for users,
     such as the username and a list of their ads.
     """
-    list_display: List[str] = ["username", "ads_list"]
+    list_display: List[str] = ["username", "ads_list", "id"]
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Ad, AdAdmin)
 admin.site.register(Comment)
+admin.site.register(UserProfile)

@@ -25,8 +25,8 @@ class User(AbstractUser):
         ads_list(): Returns a list of titles for the user's ads.
         __str__(): Returns the username of the user.
     """
-    phone_number = models.CharField(max_length=15, unique=True, validators=[validate_phone_number])
-    address = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15, unique=True, validators=[validate_phone_number], blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
     groups = models.ManyToManyField("auth.Group", related_name="customuser_set", blank=True)
     user_permissions = models.ManyToManyField("auth.Permission", related_name="custompermission_set", blank=True)
 
@@ -62,6 +62,9 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=50)
     description = models.TextField(default="No description yet!", blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural="Categories"
 
     def active_ads(self):
         """
