@@ -1,0 +1,18 @@
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import EmailValidator
+from django.db import models
+
+
+class CustomUser(AbstractUser):
+    """
+    Custom user model extending the base Django AbstractUser.
+
+    Adds a unique email field with email validation to ensure each user has a unique and valid email address.
+
+    Attributes:
+        email (EmailField): The email address of the user, which must be unique and validated.
+    """
+
+    email: str = models.EmailField(unique=True, validators=[EmailValidator])
+
+

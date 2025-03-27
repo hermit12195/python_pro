@@ -1,0 +1,22 @@
+{% extends "secured_app/base.html" %}
+
+{% block page_title %}Sign In{% endblock %}
+
+{% csrf_token %}
+{% block custom_list %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}" class="nav-link px-2 text-secondary">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'signup' %}" class="nav-link px-2 text-secondary">Sign Up</a></li>
+        <li><a href="{% url 'signin' %}" class="nav-link px-2 text-secondary">Log In</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block custom_body %}
+    {% if user.is_anonymous %}
+        <h1 style="text-align: center;">You don’t have access to this resource! Please log in or sign up first.</h1>
+    {% else %}
+        <h1 style="text-align: center;">Welcome Home, {{ user.username }}!</h1>
+        <h1 style="text-align: center;">Your email is {{ email.0 }}!</h1>
+    {% endif %}
+{% endblock %}

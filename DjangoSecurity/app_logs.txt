@@ -1,0 +1,1198 @@
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\DjangoSecurity\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+WARNING:django.request:Not Found: /favicon.ico
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\DjangoSecurity\secured_app\middlewares.py", line 22, in __call__
+    if request.user.is_anomymous:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'is_anomymous'. Did you mean: 'is_anonymous'?
+INFO:root:2025-03-27 19:51:31 - Request processed with code 500
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\DjangoSecurity\secured_app\middlewares.py", line 22, in __call__
+    if request.user.is_anonymous:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'is_anomymous'. Did you mean: 'is_anonymous'?
+INFO:root:2025-03-27 19:51:39 - Request processed with code 500
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\DjangoSecurity\secured_app\middlewares.py", line 22, in __call__
+    if request.user.is_anonymous:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'is_anomymous'. Did you mean: 'is_anonymous'?
+INFO:root:2025-03-27 19:51:39 - Request processed with code 500
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:root:2025-03-27 19:51:41 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 19:51:42 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 19:51:42 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 19:51:42 - Unauthorized attempt to access protected resource.
+INFO:django.utils.autoreload:D:\DjangoSecurity\DjangoSecurity\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\DjangoSecurity\settings.py changed, reloading.
+INFO:root:2025-03-27 20:04:26 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:04:26 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:04:29 - Unauthorized attempt to access protected resource.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:17:26 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:17:37 - Unauthorized attempt to access protected resource.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:root:2025-03-27 20:23:21 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:23:26 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SELECT * FROM users")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+INFO:root:2025-03-27 20:23:27 - Request processed with code 500
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SELECT * FROM users")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+INFO:root:2025-03-27 20:24:23 - Request processed with code 500
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SELECT * FROM users")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+INFO:root:2025-03-27 20:24:25 - Request processed with code 500
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SHOW tables;")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+INFO:root:2025-03-27 20:24:56 - Request processed with code 500
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SHOW tables;")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: near "SHOW": syntax error
+INFO:root:2025-03-27 20:24:59 - Request processed with code 500
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 54, in home_view
+    curs.execute("SELECT email FROM secured_app_customuser WHERE username=?", (user.username,))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 5 supplied.
+INFO:root:2025-03-27 20:28:57 - Request processed with code 500
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:53:03 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:03 - Request processed with code 500
+INFO:root:2025-03-27 20:53:03 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:53:15 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:15 - Request processed with code 500
+INFO:root:2025-03-27 20:53:28 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:28 - Request processed with code 500
+INFO:root:2025-03-27 20:53:29 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:29 - Request processed with code 500
+INFO:root:2025-03-27 20:53:30 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:30 - Request processed with code 500
+INFO:root:2025-03-27 20:53:49 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:49 - Request processed with code 500
+INFO:root:2025-03-27 20:53:49 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:53:56 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:56 - Request processed with code 500
+INFO:root:2025-03-27 20:53:56 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:53:57 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:57 - Request processed with code 500
+INFO:root:2025-03-27 20:53:58 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()[0]
+          ~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:53:58 - Request processed with code 500
+INFO:root:2025-03-27 20:54:42 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home/
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\DjangoSecurity\.venv\Lib\site-packages\django_ratelimit\decorators.py", line 27, in _wrapped
+    return fn(request, *args, **kw)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "D:\DjangoSecurity\secured_app\views.py", line 55, in home_view
+    email=curs.fetchone()
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:2025-03-27 20:54:42 - Request processed with code 500
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:root:2025-03-27 20:54:43 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:45 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:46 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:46 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:47 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:49 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:54:57 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:55:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:55:38 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:55:38 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 20:55:56 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:56:12 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /robots.txt
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sitemap.xml
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:19 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /home/
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /signin/
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /signup/
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/home/4399922047909768537
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/web.xml
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/applicationContext.xml
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/web/xml.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/0/5em.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/pre/exception_value.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/1/5em.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/127/0/0/1.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/DjangoSecurity/urls.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/applicationContext/xml.class
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'aws.zaproxy.org'. You may need to add 'aws.zaproxy.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'aws.zaproxy.org'. You may need to add 'aws.zaproxy.org' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /computeMetadata/v1/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'metadata.google.internal'. You may need to add 'metadata.google.internal' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'metadata.google.internal'. You may need to add 'metadata.google.internal' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /computeMetadata/v1/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /opc/v1/instance/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'metadata.oraclecloud.com'. You may need to add 'metadata.oraclecloud.com' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'metadata.oraclecloud.com'. You may need to add 'metadata.oraclecloud.com' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /opc/v1/instance/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '100.100.100.200'. You may need to add '100.100.100.200' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '100.100.100.200'. You may need to add '100.100.100.200' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'alibaba.zaproxy.org'. You may need to add 'alibaba.zaproxy.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'alibaba.zaproxy.org'. You may need to add 'alibaba.zaproxy.org' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /metadata/instance
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /elmah.axd
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/trace.axd
+WARNING:django.request:Not Found: /vlad4/home/trace.axd
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/.htaccess
+WARNING:django.request:Not Found: /vlad4/home/.htaccess
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/home/.env
+WARNING:django.request:Not Found: /vlad4/.env
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /lfm.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.idea/WebServers.xml
+WARNING:django.request:Not Found: /vlad4/actuator/health
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /config/databases.yml
+WARNING:django.request:Not Found: /vlad4/actuator/health
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /config/database.yml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.git/config
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.svn/entries
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.svn/wc.db
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /CVS/root
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server-status
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /core
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sftp-config.json
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WS_FTP.ini
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /ws_ftp.ini
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WS_FTP.INI
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /filezilla.xml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sitemanager.xml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /FileZilla.xml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /winscp.ini
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WinSCP.ini
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.DS_Store
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.php_cs.cache
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /DEADJOE
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sites/default/private/files/backup_migrate/scheduled/test.txt
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /app/etc/local.xml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server.key
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /privatekey.key
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /myserver.key
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /key.pem
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /id_rsa
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /id_dsa
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.ssh/id_rsa
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.ssh/id_dsa
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /adminer.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vb_test.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /CHANGELOG.txt
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sites/default/files/.ht.sqlite
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /composer.json
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /composer.lock
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vim_settings.xml
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server-info
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /phpinfo.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /info.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /i.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /test.php
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /_wpeprivate/config.json
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /_framework/blazor.boot.json
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.hg
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.bzr
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /._darcs
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /BitKeeper
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 20:59:25 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sitemap.xml
+WARNING:django.request:Not Found: /robots.txt
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /home/
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:18 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /signin/
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /signup/
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/home/1569298009518574792
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/web.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/applicationContext.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/web/xml.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/0/5em.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/pre/exception_value.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/1/5em.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/127/0/0/1.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/DjangoSecurity/urls.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WEB-INF/classes/applicationContext/xml.class
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.security.csrf:Forbidden (CSRF cookie not set.): /vlad4/home/
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+ERROR:django.request:Internal Server Error: /vlad4/home
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+    ...<9 lines>...
+    )
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/vlad4/home/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'aws.zaproxy.org'. You may need to add 'aws.zaproxy.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'aws.zaproxy.org'. You may need to add 'aws.zaproxy.org' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /computeMetadata/v1/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'metadata.google.internal'. You may need to add 'metadata.google.internal' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'metadata.google.internal'. You may need to add 'metadata.google.internal' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /computeMetadata/v1/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /opc/v1/instance/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'metadata.oraclecloud.com'. You may need to add 'metadata.oraclecloud.com' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'metadata.oraclecloud.com'. You may need to add 'metadata.oraclecloud.com' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /opc/v1/instance/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '100.100.100.200'. You may need to add '100.100.100.200' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '100.100.100.200'. You may need to add '100.100.100.200' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: 'alibaba.zaproxy.org'. You may need to add 'alibaba.zaproxy.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'alibaba.zaproxy.org'. You may need to add 'alibaba.zaproxy.org' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /latest/meta-data/
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\vlady\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '169.254.169.254'. You may need to add '169.254.169.254' to ALLOWED_HOSTS.
+WARNING:django.request:Bad Request: /metadata/instance
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /elmah.axd
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/trace.axd
+WARNING:django.request:Not Found: /vlad4/home/trace.axd
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/.htaccess
+WARNING:django.request:Not Found: /vlad4/home/.htaccess
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/.env
+WARNING:django.request:Not Found: /vlad4/home/.env
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /lfm.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.idea/WebServers.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vlad4/actuator/health
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /config/databases.yml
+WARNING:django.request:Not Found: /vlad4/actuator/health
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /config/database.yml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.git/config
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.svn/entries
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.svn/wc.db
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /CVS/root
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server-status
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /core
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sftp-config.json
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WS_FTP.ini
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /ws_ftp.ini
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WS_FTP.INI
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /filezilla.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sitemanager.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /FileZilla.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /winscp.ini
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /WinSCP.ini
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.DS_Store
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.php_cs.cache
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /DEADJOE
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sites/default/private/files/backup_migrate/scheduled/test.txt
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /app/etc/local.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server.key
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /privatekey.key
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /myserver.key
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /key.pem
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /id_rsa
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /id_dsa
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.ssh/id_rsa
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.ssh/id_dsa
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /adminer.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vb_test.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /CHANGELOG.txt
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /sites/default/files/.ht.sqlite
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /composer.json
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /composer.lock
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /vim_settings.xml
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /server-info
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /phpinfo.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /info.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /i.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /test.php
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /_wpeprivate/config.json
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /_framework/blazor.boot.json
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.hg
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /.bzr
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /._darcs
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /BitKeeper
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:23 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:01:24 - Unauthorized attempt to access protected resource.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\forms.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\forms.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\middlewares.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\models.py changed, reloading.
+INFO:django.utils.autoreload:D:\DjangoSecurity\secured_app\views.py changed, reloading.
+INFO:root:2025-03-27 21:08:30 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:08:30 - Unauthorized attempt to access protected resource.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:root:2025-03-27 21:08:39 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:08:42 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:08:44 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:08:47 - Unauthorized attempt to access protected resource.
+INFO:root:2025-03-27 21:09:00 - Unauthorized attempt to access protected resource.
