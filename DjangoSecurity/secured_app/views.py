@@ -60,7 +60,7 @@ def signin_view(request: HttpRequest) -> HttpResponse:
     return render(request, "secured_app/signin.html", {"form": form})
 
 
-@ratelimit(key='ip', rate='10/m', method='POST', block=True)
+@ratelimit(key='ip', rate='10/m', method='GET', block=True)
 def logout_view(request: HttpRequest) -> HttpResponse:
     """
     Handle user logout.
@@ -78,7 +78,7 @@ def logout_view(request: HttpRequest) -> HttpResponse:
     return redirect("signin")
 
 
-@ratelimit(key='ip', rate='10/m', method='POST', block=True)
+@ratelimit(key='ip', rate='10/m', method='GET', block=True)
 @csrf_protect
 def home_view(request: HttpRequest, username: str) -> HttpResponse:
     """
