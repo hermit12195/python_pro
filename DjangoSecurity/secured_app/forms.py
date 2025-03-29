@@ -1,9 +1,9 @@
-from http.cookiejar import UTC_ZONES
-
+"""Module for Django Forms"""
 from django import forms
 from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser, Task
 from django.utils import timezone
+
 
 class SignupForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
