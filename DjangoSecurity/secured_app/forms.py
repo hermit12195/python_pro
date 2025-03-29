@@ -1,7 +1,9 @@
+from http.cookiejar import UTC_ZONES
+
 from django import forms
 from django.contrib.auth.password_validation import validate_password
-from .models import CustomUser
-
+from .models import CustomUser, Task
+from django.utils import timezone
 
 class SignupForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
@@ -94,3 +96,35 @@ class SigninForm(forms.Form):
         if not CustomUser.objects.filter(username=username).exists():
             raise forms.ValidationError("Username does not exist. Please check and try again.")
         return username
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model=Task
+        fields="__all__"
+        exclude = ["user"]
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "form-control"}),
+            "description": forms.Textarea(attrs={"class": "form-control"}),
+            "due_date": forms.DateInput(attrs={"type": "date", "class": "form-control"})
+        }
+
+    def clean_title(self):
+        title=self.cleaned_data["title"]
+        if len(title)>50:
+            self.add_error("title", "The title may not be longer than 50 characters.")
+        return  title
+
+    def clean_description(self):
+        description=self.cleaned_data["description"]
+        if description is None:
+            self.add_error("description", "The description may not be empty.")
+        return description
+
+    def clean_due_date(self):
+        due_date=self.cleaned_data["due_date"]
+        if due_date < timezone.localdate():
+            self.add_error("due_date", "The Due Date may not be less than the current date.")
+        return due_date
+
+

@@ -16,3 +16,11 @@ class CustomUser(AbstractUser):
     email: str = models.EmailField(unique=True, validators=[EmailValidator])
 
 
+class Task(models.Model):
+    title=models.CharField(max_length=100, unique=True)
+    description=models.TextField(null=False, blank=False)
+    due_date=models.DateField()
+    user=models.ForeignKey(CustomUser, related_name="tasks", on_delete=models.DO_NOTHING)
+
+
+

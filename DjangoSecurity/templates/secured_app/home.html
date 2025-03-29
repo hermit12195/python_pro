@@ -19,4 +19,40 @@
         <h1 style="text-align: center;">Welcome Home, {{ user.username }}!</h1>
         <h1 style="text-align: center;">Your email is {{ email.0 }}!</h1>
     {% endif %}
+
+    <main class="form-signin w-25 m-auto container">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }} </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 fw-normal">Create a task</h1>
+
+            <div class="form-floating">
+                {{ form.title }}
+                <label for="{{ form.title.id_for_label }}">Title</label>
+            </div>
+
+            <div class="form-floating">
+                {{ form.description }}
+                <label for="{{ form.description.id_for_label }}">Description</label>
+            </div>
+
+            <div class="form-floating">
+                {{ form.due_date }}
+                <label for="{{ form.due_date.id_for_label }}">Due Date</label>
+            </div>
+            <button class="btn btn-dark w-100 py-2" type="submit">Submit</button>
+        </form>
+    </main>
+
 {% endblock %}

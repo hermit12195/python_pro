@@ -3,9 +3,14 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_protect
 from django_ratelimit.decorators import ratelimit
-from .forms import SignupForm, SigninForm
 from django.http import HttpRequest, HttpResponse
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
+from .forms import SignupForm, SigninForm, TaskForm
+from .models import Task, CustomUser
+from .serializers import TaskSerializer, UserSerializer
 
 
 @ratelimit(key='ip', rate='10/m', method='POST', block=True)
@@ -93,9 +98,41 @@ def home_view(request: HttpRequest, username: str) -> HttpResponse:
     Returns:
         HttpResponse: The rendered home page template with user data.
     """
-    user = request.user
+    form=TaskForm(request.POST or None)
+    user=CustomUser.objects.get(username=request.user)
+    if request.method == "POST":
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = user
+            title = form.cleaned_data["title"]
+            task.save()
+            return redirect("task_detail", user, title)
     conn = sqlite3.connect('db.sqlite3')
     curs = conn.cursor()
     curs.execute("SELECT email FROM secured_app_customuser WHERE username=?", (user.username,))
     email = curs.fetchone()
-    return render(request, "secured_app/home.html", {"user": user, "email": email})
+    return render(request, "secured_app/home.html", {"user": user, "email": email, "form": form})
+
+
+def task_detail_view(request, username, title):
+    record = Task.objects.get(user__username=username, title=title)
+    return render(request, "secured_app/task_details.html", {"record": record})
+
+
+class TaskView(ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class UserView(ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+
+
+

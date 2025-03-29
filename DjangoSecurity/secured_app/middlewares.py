@@ -61,3 +61,5 @@ class UnauthorizedRequestMiddleware:
             logging.info(f"{datetime.utcnow().replace(microsecond=0)} - Unauthorized attempt to access protected resource.")
         response = self.get_response(request)
         return response
+
+
