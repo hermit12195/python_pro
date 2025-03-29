@@ -1,12 +1,22 @@
 """Module for Django Forms"""
+from typing import Dict, Any
 from django import forms
 from django.contrib.auth.password_validation import validate_password
-from .models import CustomUser, Task
+from django.core.exceptions import ValidationError
 from django.utils import timezone
+from .models import CustomUser, Task
 
 
 class SignupForm(forms.ModelForm):
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    """
+    A form for user registration.
+
+    Handles user sign-up, ensuring unique usernames and emails, 
+    along with password validation.
+    """
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"class": "form-control"})
+    )
 
     class Meta:
         model = CustomUser
@@ -17,74 +27,75 @@ class SignupForm(forms.ModelForm):
             "password": forms.PasswordInput(attrs={"class": "form-control"})
         }
 
-    def clean(self) -> dict:
+    def clean(self) -> Dict[str, Any]:
         """
-        Validates the password and confirms the password match.
-
-        Ensures that the password meets the requirements and that the
-        confirm_password field matches the password.
+        Validates the password and confirms it matches.
 
         Returns:
-            dict: The cleaned data for the form.
+            Dict[str, Any]: The cleaned form data.
+
+        Raises:
+            ValidationError: If the password does not meet security requirements 
+            or the confirmation password does not match.
         """
-        password = self.cleaned_data["password"]
-        password_conf = self.cleaned_data["confirm_password"]
-        try:
-            validate_password(password)
-        except Exception as e:
-            self.add_error("password", e)
-        if password_conf != password:
-            self.add_error("confirm_password", "Password mismatch! Please check the password in both fields.")
-        return self.cleaned_data
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_conf = cleaned_data.get("confirm_password")
+
+        if password:
+            try:
+                validate_password(password)
+            except ValidationError as e:
+                self.add_error("password", e)
+
+        if password_conf and password_conf != password:
+            self.add_error("confirm_password", "Passwords do not match!")
+
+        return cleaned_data
 
     def clean_email(self) -> str:
         """
-        Validates that the email is unique.
-
-        Checks if the email is already used by another user.
+        Ensures that the email is unique.
 
         Returns:
-            str: The cleaned email address.
+            str: The cleaned email.
 
         Raises:
             ValidationError: If the email is already in use.
         """
         email = self.cleaned_data["email"]
-        if email in CustomUser.objects.values_list("email", flat=True):
-            self.add_error("email", "The email inserted is already used! "
-                                    "Please sign in or use a different email for sign up.")
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use. Please sign in or use a different email.")
         return email
 
     def clean_username(self) -> str:
         """
-        Validates that the username is unique in the database.
-
-        Checks if the username is already taken by another user.
+        Ensures that the username is unique.
 
         Returns:
             str: The cleaned username.
 
         Raises:
-            ValidationError: If the username is already in use.
+            ValidationError: If the username is already taken.
         """
         username = self.cleaned_data["username"]
-        usernames = CustomUser.objects.values_list("username", flat=True)
-        if username in usernames:
-            self.add_error("username", "The username inserted is already used! "
-                                      "Please sign in or use another one.")
+        if CustomUser.objects.filter(username=username).exists():
+            raise forms.ValidationError("This username is already in use. Please choose another one.")
         return username
 
 
 class SigninForm(forms.Form):
+    """
+    A form for user login.
+
+    Ensures the provided username exists before authentication.
+    """
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
 
     def clean_username(self) -> str:
         """
-        Validates the username provided in the sign-in form.
-
-        Checks if the username exists in the system, and raises an error
-        if not found.
+        Validates the username.
 
         Returns:
             str: The cleaned username.
@@ -94,14 +105,20 @@ class SigninForm(forms.Form):
         """
         username = self.cleaned_data["username"]
         if not CustomUser.objects.filter(username=username).exists():
-            raise forms.ValidationError("Username does not exist. Please check and try again.")
+            raise forms.ValidationError("This username does not exist. Please check and try again.")
         return username
 
 
 class TaskForm(forms.ModelForm):
+    """
+    A form for creating and updating tasks.
+
+    Ensures title length, non-empty description, and valid due dates.
+    """
+
     class Meta:
-        model=Task
-        fields="__all__"
+        model = Task
+        fields = "__all__"
         exclude = ["user"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
@@ -109,22 +126,47 @@ class TaskForm(forms.ModelForm):
             "due_date": forms.DateInput(attrs={"type": "date", "class": "form-control"})
         }
 
-    def clean_title(self):
-        title=self.cleaned_data["title"]
-        if len(title)>50:
-            self.add_error("title", "The title may not be longer than 50 characters.")
-        return  title
+    def clean_title(self) -> str:
+        """
+        Ensures the task title does not exceed 50 characters.
 
-    def clean_description(self):
-        description=self.cleaned_data["description"]
-        if description is None:
-            self.add_error("description", "The description may not be empty.")
+        Returns:
+            str: The cleaned title.
+
+        Raises:
+            ValidationError: If the title exceeds 50 characters.
+        """
+        title = self.cleaned_data["title"]
+        if len(title) > 50:
+            raise forms.ValidationError("The title may not be longer than 50 characters.")
+        return title
+
+    def clean_description(self) -> str:
+        """
+        Ensures the task description is not empty.
+
+        Returns:
+            str: The cleaned description.
+
+        Raises:
+            ValidationError: If the description is empty.
+        """
+        description = self.cleaned_data["description"]
+        if not description:
+            raise forms.ValidationError("The description may not be empty.")
         return description
 
-    def clean_due_date(self):
-        due_date=self.cleaned_data["due_date"]
+    def clean_due_date(self) -> Any:
+        """
+        Ensures the due date is not in the past.
+
+        Returns:
+            Any: The cleaned due date.
+
+        Raises:
+            ValidationError: If the due date is before today.
+        """
+        due_date = self.cleaned_data["due_date"]
         if due_date < timezone.localdate():
-            self.add_error("due_date", "The Due Date may not be less than the current date.")
+            raise forms.ValidationError("The due date cannot be in the past.")
         return due_date
-
-

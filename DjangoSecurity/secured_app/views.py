@@ -83,6 +83,7 @@ def logout_view(request: HttpRequest) -> HttpResponse:
     return redirect("signin")
 
 
+
 @ratelimit(key='ip', rate='10/m', method='GET', block=True)
 @csrf_protect
 def home_view(request: HttpRequest, username: str) -> HttpResponse:
@@ -90,49 +91,93 @@ def home_view(request: HttpRequest, username: str) -> HttpResponse:
     Display the home page for an authenticated user.
 
     Fetches and displays the email associated with the logged-in user's username.
+    The user can also create a task through a form.
 
     Args:
-        request: The HTTP request object.
-        username: The username of the logged-in user.
+        request (HttpRequest): The HTTP request object.
+        username (str): The username of the logged-in user.
 
     Returns:
-        HttpResponse: The rendered home page template with user data.
+        HttpResponse: The rendered home page template with user data and task form.
     """
-    form=TaskForm(request.POST or None)
-    user=CustomUser.objects.get(username=request.user)
+
+    form = TaskForm(request.POST or None)
+    user = CustomUser.objects.get(username=request.user)
+
     if request.method == "POST":
         if form.is_valid():
             task = form.save(commit=False)
             task.user = user
             title = form.cleaned_data["title"]
             task.save()
-            return redirect("task_detail", user, title)
+            return redirect("task_detail", username=user.username, title=title)
+
+    # Fetch email using raw SQL (not recommended in Django, prefer ORM)
     conn = sqlite3.connect('db.sqlite3')
     curs = conn.cursor()
     curs.execute("SELECT email FROM secured_app_customuser WHERE username=?", (user.username,))
     email = curs.fetchone()
+
     return render(request, "secured_app/home.html", {"user": user, "email": email, "form": form})
 
 
-def task_detail_view(request, username, title):
+def task_detail_view(request: HttpRequest, username: str, title: str) -> HttpResponse:
+    """
+    Display the details of a specific task for a given user.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        username (str): The username of the user whose task is being viewed.
+        title (str): The title of the task to display.
+
+    Returns:
+        HttpResponse: The rendered task detail page.
+    """
+
     record = Task.objects.get(user__username=username, title=title)
     return render(request, "secured_app/task_details.html", {"record": record})
 
 
 class TaskView(ModelViewSet):
+    """
+    Viewset for viewing and editing tasks.
+
+    Allows for listing, creating, updating, and deleting tasks via the TaskSerializer.
+    Only authenticated users can interact with tasks.
+
+    Attributes:
+        queryset (QuerySet): The collection of tasks to be used by the view.
+        serializer_class (TaskSerializer): The serializer class to serialize and deserialize task data.
+        permission_classes (list): The list of permissions required to interact with this viewset.
+    """
+
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer) -> None:
+        """
+        Save the task with the current user as the owner.
+
+        Args:
+            serializer (TaskSerializer): The task serializer to save the task.
+        """
         serializer.save(user=self.request.user)
 
 
 class UserView(ModelViewSet):
+    """
+    Viewset for viewing and editing users.
+
+    Allows for listing, creating, updating, and deleting users via the UserSerializer.
+    Only authenticated users can interact with user data.
+
+    Attributes:
+        queryset (QuerySet): The collection of users to be used by the view.
+        serializer_class (UserSerializer): The serializer class to serialize and deserialize user data.
+        permission_classes (list): The list of permissions required to interact with this viewset.
+    """
+
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
-
-
-
-
