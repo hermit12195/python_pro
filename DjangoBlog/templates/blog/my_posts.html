@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+
+{% block page_title %}Task Details{% endblock %}
+
+{% csrf_token %}
+{% block custom_list %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'feed' username=user.username %}" class="nav-link px-2 text-secondary">Feed</a></li>
+        <li><a href="{% url 'create_post' username=user.username %}" class="nav-link px-2 text-secondary">Create
+            Post</a>
+        <li><a href="{% url 'my_posts' username=user.username %}" class="nav-link px-2 text-secondary">My Posts</a></li>
+        <div class="d-flex ms-auto">
+            <li class="nav-item"><a href="{% url 'profile' username=user.username %}" class="nav-link px-2 text-secondary">My
+                Profile</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link px-2 text-secondary">Logout</a></li>
+        </div>
+    {% else %}
+        <li><a href="{% url 'signup' %}" class="nav-link px-2 text-secondary">Sign Up</a></li>
+        <li><a href="{% url 'signin' %}" class="nav-link px-2 text-secondary">Log In</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block custom_body %}
+    {% if user.is_anonymous %}
+        <h1 style="text-align: center;">You don’t have access to this resource! Please log in or sign up first.</h1>
+    {% else %}
+        <p></p>
+
+        {% for post in posts %}
+            <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary container">
+                <div class="">
+                    <h1 class="display-4 fst-italic"><a
+                            href="{% url 'post_details' username=user.username id=post.id %}">{{ post.title }}</a></h1>
+                    <p class="lead my-3">{{ post.plot }}</p>
+                    {% for comment in post.comments.all %}
+                        <div class="p-2 p-md-2 mb-1 rounded text-body-emphasis bg-light">
+                            {{ comment.plot }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="lead my-3" style="text-align: center">No Posts yet!</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
