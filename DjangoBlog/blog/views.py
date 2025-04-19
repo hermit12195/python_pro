@@ -162,7 +162,7 @@ def post_detail(request: Any, username: str, id: int) -> HttpResponse:
         HttpResponse: Renders the post detail template.
     """
     post = Post.objects.get(id=id)
-    return render(request, "blog/post_details.html", {"post": post})
+    return render(request, "blog/post_details.html", {"post": post, "username": username})
 
 
 @ratelimit(key='ip', rate='10/m', method='GET', block=True)
@@ -180,7 +180,7 @@ def my_posts(request: Any, username: str) -> HttpResponse:
     """
     user = BlogUser.objects.get(username=username)
     posts = Post.objects.filter(user=user).order_by('-created_datetime')
-    return render(request, "blog/my_posts.html", {"posts": posts})
+    return render(request, "blog/my_posts.html", {"posts": posts, "username": username})
 
 
 @ratelimit(key='ip', rate='10/m', method='GET', block=True)
@@ -198,7 +198,11 @@ def edit_post(request: Any, username: str, id: int) -> HttpResponse:
         HttpResponse: Redirects to the post detail page after updating the post.
     """
     post = Post.objects.get(id=id)
-    form = PostEditForm(request.POST or None)
+    form = PostEditForm(request.POST or None, initial={
+        "title": post.title,
+        "plot": post.plot,
+        "tag": str([tag.name for tag in post.tag.all()]).strip("[]").replace("'", "")
+    })
     if request.method == "POST" and form.is_valid():
         post.title = form.cleaned_data["title"]
         post.plot = form.cleaned_data["plot"]
@@ -206,7 +210,7 @@ def edit_post(request: Any, username: str, id: int) -> HttpResponse:
         post.tag.set(form.cleaned_data["tag"])
         post.save()
         return redirect("post_details", username=username, id=post.id)
-    return render(request, "blog/edit_post.html", {"username": username, "form": form})
+    return render(request, "blog/edit_post.html", {"username": username, "form": form, "post": post})
 
 
 @ratelimit(key='ip', rate='10/m', method='GET', block=True)
