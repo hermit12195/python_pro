@@ -4,32 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 
-from blog.models import BlogUser, Post, Comment
-
-
-@receiver(post_save, sender=BlogUser)
-def signup_email(sender: Any, instance: BlogUser, created: bool, **kwargs: Any) -> None:
-    """
-    Sends a welcome email to the user after a new BlogUser instance is created.
-
-    Args:
-        sender (Any): The sender of the signal (BlogUser model).
-        instance (BlogUser): The BlogUser instance that was saved.
-        created (bool): A boolean indicating if the instance is newly created.
-        **kwargs (Any): Additional keyword arguments passed by the signal.
-    """
-    if created:
-        subject = 'Welcome to the Blog!'
-        message = f'{instance.username}! Thanks for the signup!'
-        recipient_list = [instance.email]
-
-        send_mail(
-            subject,
-            message,
-            'admin@blog.com',
-            recipient_list,
-            fail_silently=False,
-        )
+from blog.models import Post, Comment
 
 
 @receiver(post_save, sender=Post)

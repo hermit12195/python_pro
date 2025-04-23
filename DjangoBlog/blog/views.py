@@ -8,6 +8,7 @@ from typing import Any
 
 from blog.forms import SignUpForm, LogInForm, PostCreateForm, PostEditForm, ProfileForm, EditProfileForm
 from blog.models import BlogUser, Post, Comment, Profile
+from celery_tasks.tasks import signup_email, adv_email
 
 
 @ratelimit(key='ip', rate='10/m', method='GET', block=True)
@@ -27,6 +28,8 @@ def signup(request: Any) -> HttpResponse:
         user.set_password(form.cleaned_data["password"])
         user.save()
         login(request, user)
+        signup_email.delay(user.id)
+        adv_email.apply_async(kwargs={"user_id": user.id}, countdown=600)
         return redirect("feed", user.username)
     return render(request, "blog/signup.html", {"form": form})
 

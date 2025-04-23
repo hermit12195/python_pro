@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog',
     'taggit',
     "widget_tweaks",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,9 @@ CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+CELERY_ACCEPT_CONTENT=["json"]
+CELERY_TASK_SERIALIZER="json"
+CELERY_BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
+CELERY_RESULT_BACKEND=None
+CELERY_IGNORE_RESULT = True
