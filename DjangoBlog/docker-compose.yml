@@ -1,0 +1,61 @@
+services:
+  blog-db:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+      - ./media:/app/media
+
+  web:
+    build: .
+    command: uvicorn DjangoBlog.asgi:application --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - blog-db
+      - redis
+    ports:
+      - "8000:8000"
+
+  redis:
+    image: redis:7.4.2
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:4.1.0
+    ports:
+      - "5672:5672"
+
+  celery:
+    build: .
+    command: ./celery_tasks/start_celery.sh
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/app
+
+  celery_beat:
+    build: .
+    command: celery -A celery_tasks beat -l INFO
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/app
+
+  flower:
+    image: mher/flower:2.0.1
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbitmq
+
+volumes:
+  db-volume:
