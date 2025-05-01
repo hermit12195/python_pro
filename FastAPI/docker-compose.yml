@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+volumes:
+  db-volume:
