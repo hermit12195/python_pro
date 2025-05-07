@@ -1,0 +1,2 @@
+ADMIN_GROUP_NAME="admins"
+STAFF_GROUP_NAME="staff"
