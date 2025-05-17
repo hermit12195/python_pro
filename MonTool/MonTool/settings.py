@@ -32,8 +32,6 @@ ALLOWED_HOSTS = []
 if DEBUG:
     ALLOWED_HOSTS += ["127.0.0.1"]
 
-print(os.getenv("DJANGO_DEBUG"))
-
 ALLOWED_HOSTS = []
 
 
@@ -46,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "app"
+    "app",
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -86,8 +86,12 @@ WSGI_APPLICATION = 'MonTool.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "montool",
+        "USER": "postgres",
+        "PASSWORD": "password",
+        "HOST": "montool-db",
+        "PORT": "5432"
     }
 }
 
@@ -111,6 +115,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -126,7 +136,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / "static"
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -134,3 +150,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'app.MonUser'
+
+CELERY_ACCEPT_CONTENT=["json"]
+CELERY_TASK_SERIALIZER="json"
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_HEARTBEAT = 0
+CELERY_RESULT_BACKEND=None
+CELERY_IGNORE_RESULT = True

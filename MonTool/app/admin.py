@@ -6,3 +6,4 @@ admin.site.register(models.MonUser)
 admin.site.register(models.Server)
 admin.site.register(models.Profile)
 
+

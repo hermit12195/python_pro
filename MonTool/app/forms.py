@@ -50,32 +50,34 @@ class LogInForm(forms.Form):
 class ServerCreateForm(forms.ModelForm):
     class Meta:
         model = Server
-        fields = ["server_name", "user_name", "password"]
+        fields = ["server_name", "user_name","server_ip", "password"]
         widgets = {
             "server_name": forms.TextInput(attrs={"class": "form-control"}),
             "user_name": forms.TextInput(attrs={"class": "form-control"}),
+            "server_ip": forms.TextInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"})
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["os_name"] = forms.ChoiceField(choices=["Windows", "Linux"],
+        self.fields["os_name"] = forms.ChoiceField(choices=[("Windows", "Windows"), ("Linux", "Linux")],
                                                     widget=forms.Select(attrs={"class": "form-control"}))
 
 
 class ServerEditForm(forms.ModelForm):
     class Meta:
         model = Server
-        fields = ["server_name", "user_name", "password"]
+        fields = ["server_name", "user_name", "server_ip", "password"]
         widgets = {
             "server_name": forms.TextInput(attrs={"class": "form-control"}),
             "user_name": forms.TextInput(attrs={"class": "form-control"}),
+            "server_ip": forms.TextInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"})
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["os_name"] = forms.ChoiceField(choices=["Windows", "Linux"],
+        self.fields["os_name"] = forms.ChoiceField(choices=[("Windows", "Windows"), ("Linux", "Linux")],
                                                    widget=forms.Select(attrs={"class": "form-control"}))
 
 
