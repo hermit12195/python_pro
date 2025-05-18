@@ -8,6 +8,7 @@
         <li><a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a></li>
         <li><a href="{% url 'add_server' %}" class="nav-link px-2 text-secondary">Add Server</a>
         <li><a href="{% url 'my_servers' %}" class="nav-link px-2 text-secondary">My Servers</a></li>
+        <li><a href="{% url 'tg_integration' %}" class="nav-link px-2 text-secondary">Telegram</a></li>
         <div class="d-flex ms-auto">
             <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link px-2 text-secondary">My
                 Profile</a></li>
@@ -24,7 +25,15 @@
         <h1 style="text-align: center;">You don’t have access to this resource! Please log in or sign up first.</h1>
     {% else %}
         <p></p>
-        <div class="p-4 rounded text-body-emphasis bg-body-secondary container" style="max-width: 1295px;">
+        <div class="p-4 rounded text-body-emphasis bg-body-secondary container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <h1 class="display-4 fst-italic">{{ server.server_name }}</h1>
             <p class="lead my-3">{{ server.server_ip }}</p>
 
@@ -34,7 +43,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Memory</h5>
                             <p class="card-text">
-                                Free: <span id="free-memory">{{ free_memory.0|default:"Loading..." }}</span> {{ free_memory.1 }}
+                                Free: <span
+                                    id="free-memory">{{ free_memory.0|default:"Loading..." }}</span> {{ free_memory.1 }}
                             </p>
                         </div>
                     </div>
@@ -44,7 +54,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Disk</h5>
                             <p class="card-text">
-                                Free: <span id="free-disk">{{ free_disk.0|default:"Loading..." }}</span> {{ free_disk.1 }}
+                                Free: <span
+                                    id="free-disk">{{ free_disk.0|default:"Loading..." }}</span> {{ free_disk.1 }}
                             </p>
                         </div>
                     </div>

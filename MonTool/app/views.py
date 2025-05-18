@@ -1,3 +1,5 @@
+from django.contrib import messages
+
 import redis
 from celery.result import AsyncResult
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -24,6 +26,7 @@ def signup(request: Any) -> HttpResponse:
         user.set_password(form.cleaned_data["password"])
         user.save()
         login(request, user)
+        messages.success(request, "Account created.")
         return redirect("home")
     return render(request, "app/signup.html", {"form": form})
 
@@ -37,6 +40,7 @@ def signin(request: Any) -> HttpResponse:
         user = authenticate(request, email=email, password=password)
         if user:
             login(request, user)
+            messages.success(request, "Login successful.")
             return redirect("home")
         form.add_error("password", "Incorrect credentials! Please check email or password!")
     return render(request, "app/login.html", {"form": form})
@@ -64,6 +68,7 @@ def create_profile(request: Any) -> HttpResponse:
         profile = form.save(commit=False)
         profile.user = user
         profile.save()
+        messages.success(request, "Profile created.")
         return redirect('profile')
     return render(request, "app/profile.html", {"form": form})
 
@@ -83,6 +88,7 @@ def edit_profile(request: Any) -> HttpResponse:
             if 'photo' in request.FILES:
                 profile.photo = request.FILES['photo']
             profile.save()
+            messages.success(request, "Profile updated.")
             return redirect("profile")
     form = EditProfileForm(initial={
         "first_name": profile.first_name,
@@ -103,6 +109,7 @@ def add_server(request: Any) -> HttpResponse:
         server.owner = user
         server.password = fernet.encrypt(form.cleaned_data["password"].encode()).decode()
         server.save()
+        messages.success(request, "Server created.")
         return redirect("server_details", server_id=server.id)
     return render(request, "app/add_server.html", {"form": form})
 
@@ -153,6 +160,7 @@ def edit_server(request: Any, server_id: int) -> HttpResponse:
         server.server_ip = (form.cleaned_data["server_ip"])
         server.password = fernet.encrypt(form.cleaned_data["password"].encode()).decode()
         server.save()
+        messages.success(request, "Server updated.")
         return redirect("server_details", server_id=server.id)
     return render(request, "app/edit_sever.html", {"form": form, "server": server})
 
@@ -162,4 +170,11 @@ def edit_server(request: Any, server_id: int) -> HttpResponse:
 def delete_server(request: Any, server_id: int) -> HttpResponseRedirect:
     if request.method == "GET":
         Server.objects.filter(id=server_id).delete()
+        messages.success(request, "Server deleted.")
         return redirect("my_servers")
+
+@ratelimit(key='ip', rate='10/m', method='GET', block=True)
+@login_required
+def tg_integration(request: Any) -> HttpResponse:
+    if request.method == "GET":
+        return render(request, "app/tg_integration.html")

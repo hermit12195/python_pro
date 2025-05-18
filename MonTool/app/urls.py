@@ -16,6 +16,7 @@ urlpatterns = [
     path("<int:server_id>/edit_server/", views.edit_server, name="edit_server"),
     path("<int:server_id>/delete_server/", views.delete_server, name="delete_server"),
     path('stop_monitoring/<int:server_id>/', views.stop_monitoring, name='stop_monitoring'),
+    path('tg_integation/', views.tg_integration, name='tg_integration'),
 ]
 
 
